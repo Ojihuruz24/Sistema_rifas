@@ -1,0 +1,28 @@
+﻿@page "/"
+@using MudBlazor
+@using SIMRIFA.Componentes;
+@inject IJSRuntime JSRuntime;
+
+
+
+
+<PageTitle>Index</PageTitle>
+<BannerSuperior></BannerSuperior>
+<br />
+<Encabezado></Encabezado>
+
+<Contenido></Contenido>
+
+<BannerSuperior></BannerSuperior>
+
+
+@code {
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JSRuntime.InvokeVoidAsync("disableContextMenu");
+		}
+	}
+}

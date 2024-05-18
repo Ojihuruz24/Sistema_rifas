@@ -1,0 +1,36 @@
+﻿@using MudBlazor
+@inherits LayoutComponentBase
+
+<PageTitle>SIMRIFA</PageTitle>
+
+<MudThemeProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
+
+
+<div class="page">
+    <main>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+
+@*@inherits LayoutComponentBase
+
+<PageTitle>Blazor App</PageTitle>
+
+<AuthorizeView>
+    <Authorized>
+        <div class="main">
+            <div class="content px-4">
+                @Body
+            </div>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <p>You are not authorized to view this page.</p>
+    </NotAuthorized>
+</AuthorizeView>
+*@

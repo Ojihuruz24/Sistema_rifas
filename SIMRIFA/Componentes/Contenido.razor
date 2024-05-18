@@ -1,0 +1,246 @@
+﻿@using MudBlazor
+@using SIMRIFA.Componentes.Wompi;
+@using SIMRIFA.Model.Models.Wompi;
+@using SIMRIFA.Service.Compra;
+@using SIMRIFA.Service.Series;
+@using SIMRIFA.Service.Tools;
+@using System.Text;
+@using SIMRIFA.Service.Wompi;
+@inject IDialogService Dialog;
+@inject NavigationManager Navigation;
+
+<br />
+<br />
+
+<MudGrid Style="background-color:ghostwhite">
+	<MudItem xs="12">
+		<MudText Align="Align.Center">
+			<MudText Color="Color.Error" Typo="Typo.h3">GRAN RIFA</MudText>
+
+		</MudText>
+	</MudItem>
+	<MudItem xs="12" sm="12" md="6" lg="6" xl="6" xxl="6">
+		<div class="d-flex justify-center">
+			<MudImage ObjectFit="ObjectFit.Fill" Height="500" Width="450" Src="/img/SOAT.png" Alt="SOAT" Elevation="25" Class="rounded-lg" />
+		</div>
+	</MudItem>
+	<MudItem xs="12" sm="12" md="6" lg="6" xl="6" xxl="6">
+		<div class="d-flex justify-center">
+			<MudImage ObjectFit="ObjectFit.Fill" Height="500" Width="450" Src="/img/TECNO.png" Alt="TECNO" Elevation="25" Class="rounded-lg" />
+		</div>
+	</MudItem>
+	<MudItem xs="12">
+		<MudText Align="Align.Center">
+			<MudText Color="Color.Error" Typo="Typo.h3">INCREIBLE!!!</MudText>
+			<MudProgressLinear Color="Color.Info" Striped="true" Size="Size.Large" Value="@vendidas" Class="d-flex align-center justify-center mud-width-full py-8" Min="1" Max="@ValorMaximo">
+				<MudText Typo="Typo.subtitle1" Color="Color.Dark">
+					<b>@Porcentaje %</b>
+				</MudText>
+			</MudProgressLinear>
+
+			<MudText Color="Color.Error" Typo="Typo.h1">VALOR</MudText>
+			<MudText Color="Color.Error" Typo="Typo.h3">5.000</MudText>
+
+		</MudText>
+	</MudItem>
+</MudGrid>
+<MudGrid Justify="Justify.Center" Style="background-color:black">
+	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
+		<MudCard Style="border:groove;border-color:red">
+			@*<MudCardMedia Image="Img/comboOne.png" Height="500" />*@
+			<div class="d-flex justify-center">
+				<MudImage Fluid="true" Src="Img/comboOne.png" Alt="Rifa finalizada" Class="rounded-lg" />
+			</div>
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CompraOne" FullWidth="true" Disabled="@EstadoButton">COMPRAR</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</MudItem>
+	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
+		<MudCard Style="border:groove;border-color:red">
+			<div class="d-flex justify-center">
+				<MudImage Fluid="true" Src="Img/comboTwo.png" Alt="Rifa finalizada" Class="rounded-lg" />
+			</div>
+			@*<MudCardMedia Image="Img/comboTwo.png" Height="500" Class="rounded-lg" Title="Compra" />*@
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CompraTwo" FullWidth="true" Disabled="@EstadoButton">COMPRAR</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</MudItem>
+	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
+		@*<MudItem xs="12" sm="12" md="6" lg="6" xl="3" xxl="6">*@
+		<MudCard Style="border:groove;border-color:red">
+
+			<div class="d-flex justify-center">
+				<MudImage Fluid="true" Src="Img/comboThre.png" Alt="Rifa finalizada" Class="rounded-lg" />
+			</div>
+			@*<MudCardMedia Image="Img/comboThre.png" Height="500" />*@
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CompraThre" FullWidth="true" Disabled="@EstadoButton">COMPRAR</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</MudItem>
+
+	<MudGrid Justify="Justify.Center" Style="background-color:aliceblue">
+		<MudItem xs="12" sm="12" md="12" lg="12" xl="12" xxl="12">
+			<MudNumericField @bind-Value="@cantidadVenta" HideSpinButtons="false" Label="CANTIDAD" Variant="Variant.Filled" Min="1" Max="20" />
+		</MudItem>
+		<MudItem xs="12" sm="12" md="12" lg="12" xl="12" xxl="12">
+			<MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" OnClick="CompraCantidad">COMPRAR</MudButton>
+		</MudItem>
+	</MudGrid>
+</MudGrid>
+
+@code {
+
+	private int xs = 12;
+	private int sm = 12;
+	private int md = 12;
+	private int lg = 6;
+	private int xl = 4;
+	private int xxl = 4;
+
+	private bool EstadoButton = false;
+	private int ValorMaximo = 1;
+
+	private decimal Porcentaje { get; set; } = 0;
+	private int vendidas { get; set; }
+
+	private int cantidadVenta { get; set; } = 1;
+
+	[Inject]
+	private IWompiService wompiService { get; set; }
+
+	[Inject]
+	private ISerieService serieService { get; set; }
+
+	[Inject]
+	private ICompradorService compradorService { get; set; }
+
+	[Inject]
+	IUtils _utils { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		var result = serieService.ObtenerSerieActiva().FirstOrDefault();
+		ValorMaximo = result.NumeroMaximo - result.Margen;
+		vendidas = result.Contador;
+		Porcentaje = _utils.Calcular(vendidas, ValorMaximo);
+	}
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		OpenDialog();
+
+		Porcentaje = _utils.Calcular(vendidas, ValorMaximo);
+
+		base.OnAfterRender(firstRender);
+	}
+
+	public async void CompraOne()
+	{
+		OpenDialog();
+
+		vendidas += 3;
+
+		OpenPagosDialog(3, 1400000);
+
+
+		await compradorService.AddComprador(3, "14.000");
+
+		#region PRUEBAS
+
+
+		//var ses = _utils.has(15000000);
+
+		//var funtion = new PaymentLinkRequest
+		//	{
+		//		amount_in_cents = 190000,
+		//		customer_email = "pruyeba@gmail.com",
+		//		currency = "COP",
+		//		reference = "1518181810000000000",
+		//		redirect_url = "https://www.instagram.com/vehitramsvial/"
+		//	};
+
+		//var hla = await wompiService.CreatePaymentLinkAsync(funtion);
+
+		//var transaccion = await wompiService.GetTransactionAsync("1102042-1715737441-66263");
+		#endregion
+	}
+
+	public async void CompraTwo()
+	{
+		OpenDialog();
+		vendidas += 5;
+
+		OpenPagosDialog(5, 2300000);
+
+		//await compradorService.AddComprador(5, "28.000");
+	}
+
+	public async void CompraThre()
+	{
+		OpenDialog();
+		vendidas += 10;
+
+		OpenPagosDialog(5, 4700000);
+
+		await compradorService.AddComprador(10, "47.000");
+	}
+
+	public async void CompraCantidad()
+	{
+		OpenDialog();
+		vendidas += cantidadVenta;
+
+		var valorWompi = cantidadVenta * 500000;
+		var valor = cantidadVenta * 500000;
+
+		OpenPagosDialog(cantidadVenta, valorWompi);
+
+		await compradorService.AddComprador(cantidadVenta, $"{valor.ToString("N")}");
+	}
+
+	private async void OpenPagosDialog(int boletas, int valor)
+	{
+		DialogOptions disableBackdropClick = new DialogOptions()
+			{
+				MaxWidth = MaxWidth.Medium,
+				Position = DialogPosition.Center,
+				FullWidth = false,
+			};
+
+
+		var parameters = new DialogParameters<PaymentForm>();
+		parameters.Add(x => x.Boletas, boletas);
+		parameters.Add(x => x.ValorBoletas, valor);
+
+		var dialog = await Dialog.ShowAsync<PaymentForm>(string.Empty, parameters, disableBackdropClick);
+
+		var result = await dialog.Result;
+
+		if (!result.Canceled)
+		{
+			//In a real world scenario we would reload the data from the source here since we "removed" it in the dialog already.
+			Guid.TryParse(result.Data.ToString(), out Guid deletedServer);
+			// se ltransacion ha sido cancelada
+		}
+	}
+
+	private void OpenDialog()
+	{
+		if (vendidas >= ValorMaximo)
+		{
+			DialogOptions disableBackdropClick = new DialogOptions()
+				{
+					DisableBackdropClick = true,
+					MaxWidth = MaxWidth.Medium,
+					Position = DialogPosition.Center,
+					FullWidth = true
+				};
+
+			Dialog.Show<CierreVentas>(string.Empty, disableBackdropClick);
+		}
+	}
+
+}

@@ -1,0 +1,26 @@
+﻿@using MudBlazor;
+
+
+<MudCarousel Class="mud-width-full" Style="height:400px;" ShowArrows=true ShowBullets=true EnableSwipeGesture=true AutoCycle=true TData="object">
+    <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
+        <div class="d-flex" style="height:100%">
+
+            <MudImage Src="Img/1.png" Width="500" Height="400" Alt="Swedish Farm House" Elevation="25" Class="mx-auto my-auto rounded-lg ma-4" />
+            @*<MudIcon Class="mx-auto my-auto" Icon="@Icons.Custom.Brands.MudBlazor" Size="@Size.Large" />*@
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
+        <div class="d-flex" style="height:100%">
+            <MudImage Src="Img/2.png" Width="500" Height="400" Alt="Swedish Farm House" Elevation="25" Class="mx-auto my-auto rounded-lg ma-4" />
+        </div>
+    </MudCarouselItem>
+    <MudCarouselItem Transition="Transition.Slide">
+        <div class="d-flex" style="height:100%">
+            <MudImage Src="Img/3.png" Width="500" Height="400" Alt="Swedish Farm House" Elevation="25" Class="mx-auto my-auto rounded-lg ma-4" />
+        </div>
+    </MudCarouselItem>
+</MudCarousel>
+
+@code {
+    
+}

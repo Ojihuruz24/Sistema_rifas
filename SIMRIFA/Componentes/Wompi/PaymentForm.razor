@@ -1,0 +1,154 @@
+﻿@page "/checkout"
+@using MudBlazor
+@using SIMRIFA.Service.Tools;
+@inject NavigationManager Navigation
+@inject IJSRuntime JS
+
+
+<MudDialog>
+	<DialogContent>
+		<MudText Align="Align.Center"><h2><b>CONFIRMAR</b></h2></MudText>
+		<MudText Align="Align.Center"><h4>Compra de <b>@Boletas</b> boletas.</h4></MudText>
+		<MudText Align="Align.Center"><h4>por valor de <b> $ @MontoFormateado</b></h4></MudText>
+
+		@*Compra de @Boletas boletas por valor de $ @ValorBoletas*@
+	</DialogContent>
+	<DialogActions>
+		<form action="https://checkout.wompi.co/p/" method="get">
+			<!-- OBLIGATORIOS -->
+			<input type="hidden" name="public-key" @bind="PublicKey" />
+			<input type="hidden" name="currency" @bind="Currency" />
+			<input type="hidden" name="amount-in-cents" @bind="AmountInCents" />
+			<input type="hidden" name="reference" @bind="Reference" />
+			<input type="hidden" name="signature:integrity" @bind="SignatureIntegrity" />
+			<input type="hidden" name="redirect-url" @bind="RedirectUrl" />
+			<input type="hidden" name="expiration-time" @bind="ExpirationTime" />
+			<!-- OPCIONALES -->
+			@*<button type="submit">Pagar con Wompi SALIENDO DE LA PAGINA</button>*@
+			<MudButton Size="Size.Large" OnClick="Cancel" Color="Color.Error" StartIcon="@Icons.Material.Filled.Cancel" DisableElevation="true">CANCELAR</MudButton>
+			<MudButton Size="Size.Large" ButtonType="ButtonType.Submit" Color="Color.Tertiary" StartIcon="@Icons.Material.Filled.ShoppingCart" DisableElevation="true">CONFIRMAR</MudButton>
+			@*<button onclick="@SubmitForm" type="submit">Pagar con Wompi SALIENDO DE LA PAGINA</button>*@
+		</form>
+	</DialogActions>
+</MudDialog>
+
+
+@*
+<h3>Checkout con Wompi</h3>
+
+<button @onclick="InitiatePayment">Pagar con Wompi SIN SALIR DE LA PAGINA</button>*@
+
+
+@code {
+
+	#region
+	[Inject]
+	IUtils _utils { get; set; }
+
+	[Inject] IJSRuntime Js { get; set; }
+
+	[Parameter]
+	public int Boletas { get; set; }
+	[Parameter]
+	public int ValorBoletas { get; set; }
+
+	public class WompiCheckoutConfig
+	{
+		public string currency { get; set; }
+		public int amountInCents { get; set; }
+		public string reference { get; set; }
+		public string publicKey { get; set; }
+		public string SignatureIntegrity { get; set; }
+		public string redirectUrl { get; set; }
+		public signature signature { get; set; }
+	}
+
+	public class signature
+	{
+		public string integrity { get; set; }
+	}
+
+
+	private string PublicKey { get; set; }
+	private string Currency { get; set; }
+	private int AmountInCents { get; set; }
+	private string Reference { get; set; }
+	private string SignatureIntegrity { get; set; }
+	private string RedirectUrl { get; set; }
+	private string ExpirationTime { get; set; }
+	private int TaxInCentsVat { get; set; }
+
+	private string MontoFormateado { get; set; }
+
+	#endregion
+
+	[CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+	void Cancel() => MudDialog.Cancel();
+
+	protected override void OnInitialized()
+	{
+		MontoFormateado = ValorBoletas.ToString();
+
+		if (MontoFormateado.Length > 2)
+		{
+			MontoFormateado = MontoFormateado.Substring(0, MontoFormateado.Length - 2);
+		}
+
+		ExpirationTime = DateTime.UtcNow.AddMinutes(5).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
+
+		(string, string) prueba = _utils.has(ValorBoletas, ExpirationTime);
+		PublicKey = "pub_test_EKiDBdydoVychiwazPqDsm52168IjGmQ";
+		Currency = "COP";
+		AmountInCents = ValorBoletas;
+		Reference = prueba.Item1;
+		SignatureIntegrity = prueba.Item2;
+		RedirectUrl = "https://localhost:7297/";
+	}
+
+	private void SubmitForm()
+	{
+		//	int amounPrueba = 22222222;
+		//	(string, string) prueba = has(amounPrueba);
+		//	PublicKey = "pub_test_EKiDBdydoVychiwazPqDsm52168IjGmQ";
+		//	Currency = "COP";
+		//	AmountInCents = amounPrueba;
+		//	Reference = prueba.Item1;
+		//	SignatureIntegrity = prueba.Item2;
+		//	RedirectUrl = "https://localhost:7297/";
+		//	//ExpirationTime = DateTime.UtcNow.AddHours(1); // Ejemplo de fecha de expiración en 1 hora
+	}
+
+	private async Task InitiatePayment()
+	{
+		//// Configuración del widget de Wompi
+		//int amounPrueba = 6000000;
+
+		//(string, string) prueba = has(amounPrueba);
+
+		//try
+		//{
+		//	var checkoutConfig = new WompiCheckoutConfig
+		//		{
+		//			publicKey = "pub_test_EKiDBdydoVychiwazPqDsm52168IjGmQ", // Reemplaza con tu llave pública,
+		//			currency = "COP",
+		//			amountInCents = amounPrueba, // Monto en centavos
+		//			reference = prueba.Item1,
+		//			SignatureIntegrity = prueba.Item2,
+		//			redirectUrl = "https://localhost:7297/", // URL de redirección
+		//													 //signature = new signature
+		//													 //{
+		//													 //	integrity = prueba.Item2
+		//													 //}
+		//		};
+
+		//	// Llama a la función JavaScript para abrir el widget de Wompi
+		//	await JS.InvokeVoidAsync("openWompiCheckout", checkoutConfig);
+		//}
+		//catch (Exception ex)
+		//{
+		//	throw;
+		//}
+	}
+
+}
