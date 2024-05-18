@@ -1,29 +1,40 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using SIMRIFA.Model.Models.Wompi;
 using SIMRIFA.Service.Wompi;
 
 namespace SIMRIFA.Api.Controllers
 {
-	public class EventApiWompiController : Controller
+	[Route("api/[controller]")]
+	[ApiController]
+	public class EventApiWompiController : ControllerBase
 	{
 		public EventApiWompiController()
 		{
-			
 		}
 
 
-		public IActionResult Index(string dynamic)
+		[HttpGet]
+		public IActionResult Get()
 		{
-			//actualizar el contador de la barra progresiva (toca guardar la compra en la BD y que la vista jale la info de la BD)
+			return Ok("Hello, world!");
+		}
 
-			//guardar informacion del comprador 
-
-
-			//envio del correo
-
-
+		[HttpPost]
+		public IActionResult Post(EventoWompiResponse eventoWompiResponse)
+		{
 
 
-			return Ok(dynamic);
+
+			// Lógica para manejar la solicitud POST
+			return Ok();
+		}
+
+		[HttpPost("{key}")]
+		public async Task<ActionResult> PostTest(string key)
+		{
+			// Lógica para manejar la solicitud POST
+			return Ok("OK");
 		}
 	}
 }
