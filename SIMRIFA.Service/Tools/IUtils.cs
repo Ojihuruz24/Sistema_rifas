@@ -1,4 +1,6 @@
-﻿namespace SIMRIFA.Service.Tools
+﻿using SIMRIFA.Model.Models.Wompi;
+
+namespace SIMRIFA.Service.Tools
 {
 	public interface IUtils
 	{
@@ -8,6 +10,7 @@
 
 		decimal MargenError(decimal valor);
 
-		(string referencia, string has) has(int amount, string fechaExpiracion);
+		(string referencia, string has) has(int amount,int cantidad, string fechaExpiracion);
+		Task<bool> ValidacionInfo(EventoWompiResponse response);
 	}
 }

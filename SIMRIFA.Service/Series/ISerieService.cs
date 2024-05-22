@@ -1,11 +1,11 @@
-﻿using SIMRIFA.Model.Models;
+﻿using SIMRIFA.Model.core;
 
 namespace SIMRIFA.Service.Series
 {
 	public interface ISerieService
 	{
-		void AddSerie(Serie serie);
-		void ActualizarSerie(Serie serie);
-		IEnumerable<Serie> ObtenerSerieActiva();
+		Task<Serie> AddSerie(Serie serie);
+		Task<Serie> ActualizarSerie(Serie serie);
+		Task<IEnumerable<Serie>> ObtenerSerieActiva();
 	}
 }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using SIMRIFA.Model.Models;
+using SIMRIFA.Model.core;
+using SIMRIFA.Model.Models.Wompi;
+using SIMRIFA.Model.ventas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +28,17 @@ namespace SIMRIFA.DataAccess.Db_Context
 
 		#region DbSet
 
-		//public virtual DbSet<Boleta> Boleta { get; set; }
-		public virtual DbSet<Comprador> Comprador { get; set; }
+		public virtual DbSet<Cliente> Cliente { get; set; }
+		public virtual DbSet<TransaccionDto> Transaccion { get; set; }
 		public virtual DbSet<Serie> Serie { get; set; }
+		public virtual DbSet<NumeroAleatorio> NumeroAleatorio { get; set; }
+		public virtual DbSet<Correo> Correo { get; set; }
+		public virtual DbSet<InfoTransaccionDto>  InfoTransaccionDtos { get; set; }
+
+
+		//public virtual DbSet<Boleta> Boleta { get; set; }
+		//public virtual DbSet<Comprador> Comprador { get; set; }
+		//public virtual DbSet<Serie> Serie { get; set; }
 		//public virtual DbSet<CompradorBoleta> CompradorBoleta { get; set; }
 
 		#endregion

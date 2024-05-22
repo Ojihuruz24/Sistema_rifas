@@ -1,7 +1,7 @@
 ﻿using SIMRIFA.DataAccess.Db_Context;
 using SIMRIFA.DataAccess.Repository;
 using SIMRIFA.DataAccess.UnitOfWork;
-using SIMRIFA.Model.Models;
+using SIMRIFA.Model.core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,55 +12,30 @@ namespace SIMRIFA.Service.Series
 {
 	public class SerieService : ISerieService
 	{
-		private readonly SIMRIFAdbContext _context;
-		private readonly IUnitOfWork _IUnitOfWork;
+		private readonly IRepository<SIMRIFA.Model.core.Serie> _repository;
 
-		public SerieService(SIMRIFAdbContext dbContext, IUnitOfWork unitOfWork)
+		public SerieService(IRepository<SIMRIFA.Model.core.Serie> repository)
 		{
-			_context = dbContext;
-			_IUnitOfWork = unitOfWork;
+			_repository = repository;
 		}
 
-
-		public void AddSerie(Serie serie)
+		public async Task<Serie> AddSerie(Serie serie)
 		{
-			try
-			{
-				_IUnitOfWork._context.Add(serie);
-				_IUnitOfWork.Commit();
-			}
-			catch (Exception ex)
-			{
-				_IUnitOfWork.Rollback();
-				throw;
-			}
-			finally
-			{
-				_context.Dispose();
-			}
+			var result = await _repository.Add(serie);
+			return result;
 		}
 
-		public IEnumerable<Serie> ObtenerSerieActiva()
+		public async Task<IEnumerable<Serie>> ObtenerSerieActiva()
 		{
-			//return await _IUnitOfWork._context.Find()  .GetOneOrAll(x => x.Estado == true);
-			return  _IUnitOfWork._context.Set<Serie>().Where(x => x.Estado == true).ToList();
+			var data = await _repository.GetOneOrAll(x => x.Estado == true);
+			return data;
 		}
 
-		public void ActualizarSerie(Serie serie)
+		public async Task<Serie> ActualizarSerie(Serie serie)
 		{
-			try
-			{
-				_IUnitOfWork._context.Update(serie);
-				_IUnitOfWork.Commit();
-			}
-			catch (Exception ex)
-			{
-				_IUnitOfWork.Rollback();
-			}
-			finally
-			{
-				_context.Dispose();
-			}
+			var data = await _repository.Update(serie);
+			return data;
+
 		}
 
 	}

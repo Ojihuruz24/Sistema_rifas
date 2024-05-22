@@ -10,38 +10,62 @@ using System.Threading.Tasks;
 
 namespace SIMRIFA.DataAccess.Repository
 {
-	public class Repository<T> : IRepository<T> where T : class
+	public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 	{
-		//private readonly SIMRIFAdbContext _dbcontext;
+		private readonly SIMRIFAdbContext _dbcontext;
 		private readonly IUnitOfWork _unitOfWork;
+		internal DbSet<TEntity> _dbSet;
 
-		public Repository(IUnitOfWork unitOfWork)
+		public Repository(IUnitOfWork unitOfWork, SIMRIFAdbContext dbcontext)
 		{
 			_unitOfWork = unitOfWork;
+			_dbcontext = dbcontext;
+			_dbSet = _dbcontext.Set<TEntity>();
 		}
 
-		public void Add(T entity) => _unitOfWork._context.Add(entity);
-
-		public void Update(T entity)
+		public async Task<TEntity> Add(TEntity entity)
 		{
-			_unitOfWork._context.Attach(entity).State = EntityState.Modified;
-		}
-
-		public void Delete(T entity)
-		{
-			_unitOfWork._context.Remove(entity);
-		}
-
-		public async Task<IEnumerable<T>> GetOneOrAll(Expression<Func<T, bool>> Funcion = default)
-		{
-			IQueryable<T> Resultado = _unitOfWork._context.Set<T>();
 			try
 			{
+				//var result = await _dbSet.AddAsync(entity);
+				var result = await _dbSet.AddAsync(entity);
+				result.State = EntityState.Added;
+				return result.Entity;
+			}
+			catch (Exception ex)
+			{
+                await Console.Out.WriteLineAsync(ex.Message);
+				throw;
+			}
+		}
+
+		public async Task<TEntity> Update(TEntity entity)
+		{
+			var result = await Task.Run(() => _dbcontext.Update(entity));
+			result.State = EntityState.Modified;
+			return result.Entity;
+		}
+
+		public async Task<TEntity> Delete(TEntity entity)
+		{
+			var result = await Task.Run(() => _dbSet.Remove(entity));
+
+			result.State = EntityState.Deleted;
+			return result.Entity;
+		}
+
+		public async Task<IEnumerable<TEntity>> GetOneOrAll(Expression<Func<TEntity, bool>> Funcion = default)
+		{
+			IQueryable<TEntity> Resultado = default;
+			try
+			{
+				var Qry = _dbSet.AsQueryable();
+
 				if (Funcion != default)
 				{
-					Resultado = Resultado.Where(Funcion);
+					Qry = Qry.Where(Funcion);
 
-					return await Resultado.ToListAsync<T>();
+					Resultado = Qry;
 				}
 			}
 			catch (Exception ex)

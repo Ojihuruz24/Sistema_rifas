@@ -1,16 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SIMRIFA.DataAccess.Db_Context;
-using SIMRIFA.DataAccess.Repository;
+﻿using SIMRIFA.DataAccess.Db_Context;
 using SIMRIFA.DataAccess.UnitOfWork;
-using SIMRIFA.Model.Models;
+using SIMRIFA.Model.core;
 using SIMRIFA.Service.Correo;
 using SIMRIFA.Service.Series;
 using SIMRIFA.Service.Tools;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMRIFA.Service.Compra
 {
@@ -29,7 +22,7 @@ namespace SIMRIFA.Service.Compra
 			_context = dbContext;
 			_IUnitOfWork = unitOfWork;
 			_serieService = serieService;
-			_numeroMaximo = _serieService.ObtenerSerieActiva().FirstOrDefault().NumeroMaximo;
+			_numeroMaximo = _serieService.ObtenerSerieActiva().Result.FirstOrDefault().NumeroMaximo;
 			_correoServicio = correoServicio;
 		}
 
@@ -39,7 +32,7 @@ namespace SIMRIFA.Service.Compra
 			{
 				numeros = GenerarNumeroAletorio(cantidad);
 
-				var actualSerie = ValidarSerie(numeros.Count);
+				var actualSerie = await ValidarSerie(numeros.Count);
 
 				string number = AjustesNumeros();
 
@@ -60,7 +53,7 @@ namespace SIMRIFA.Service.Compra
 				};
 
 				_IUnitOfWork._context.Add(comprador);
-				_IUnitOfWork.Commit();
+				//await _IUnitOfWork.Commit();
 
 				if (true) // aca va ir la validaicon del PSE
 				{
@@ -73,18 +66,28 @@ namespace SIMRIFA.Service.Compra
 			}
 			catch (Exception ex)
 			{
-				_IUnitOfWork.Rollback();
+			await	_IUnitOfWork.Rollback();
 				return numeros;
 			}
 			finally
 			{
-				_context.Dispose();
+				_IUnitOfWork._context.Dispose();
 			}
 		}
 
-		private Serie ValidarSerie(int numeros)
+		public async Task<Serie> SerieTest(Serie serie)
 		{
-			var actualSerie = _serieService.ObtenerSerieActiva().FirstOrDefault();
+			var result = await _IUnitOfWork._context.Serie.AddAsync(serie);
+
+			//await _IUnitOfWork.Commit();
+
+			var entiedad = result.Entity;
+			return entiedad;
+		}
+
+		private async Task<Serie> ValidarSerie(int numeros)
+		{
+			var actualSerie = (await _serieService.ObtenerSerieActiva()).FirstOrDefault();
 
 			if (actualSerie != null)
 			{
@@ -92,8 +95,6 @@ namespace SIMRIFA.Service.Compra
 				{
 					actualSerie.Estado = false;
 					_IUnitOfWork._context.Serie.Update(actualSerie);
-					_IUnitOfWork.Commit();
-
 
 					actualSerie.NumeroSerie = actualSerie.NumeroSerie + 1;
 					actualSerie.Estado = true;
@@ -101,7 +102,7 @@ namespace SIMRIFA.Service.Compra
 					actualSerie.Contador = 0;
 					actualSerie.FechaCreacion = DateTime.Now;
 					_IUnitOfWork._context.Serie.Add(actualSerie);
-					_IUnitOfWork.Commit();
+					//await _IUnitOfWork.Commit();
 				}
 
 				actualSerie.Contador = actualSerie.Contador + numeros;
@@ -147,7 +148,6 @@ namespace SIMRIFA.Service.Compra
 				} while (litnumTemp.Contains(numero));
 
 				litnumTemp.Add(numero);
-
 				nuevoNumeros.Add(numero);
 			}
 
@@ -167,20 +167,9 @@ namespace SIMRIFA.Service.Compra
 
 		private List<string> NumerosExistentes()
 		{
-			var list = _IUnitOfWork._context.Comprador.Select(x => x.Numeros).ToList();
-			var listnum = new List<string>();
+			var list = _IUnitOfWork._context.NumeroAleatorio.Select(x => x.Numero).ToList();
 
-			foreach (var item in list)
-			{
-				var conver = item.Split('-');
-
-				foreach (var numero in conver)
-				{
-					listnum.Add(numero);
-				}
-			}
-
-			return listnum;
+			return list;
 		}
 
 	}

@@ -5,6 +5,8 @@ using SIMRIFA.DataAccess.Db_Context;
 using SIMRIFA.DataAccess.ConfiguracionRepositorio;
 using SIMRIFA.Service.ConfiguracionServicio;
 using Microsoft.Extensions.DependencyInjection;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
@@ -16,24 +18,32 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpClient();
 builder.Services.AddSwaggerGen();
 
+
+#region DbContext SQL Server
+builder.Services.AddDbContext<SIMRIFAdbContext>(options =>
+{
+	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), sqlOptions =>
+	{
+	});
+});
+
+#endregion
+
+#region "Patron Repositorio" 
+builder.Services.AddRepositorios(configuration);
+#endregion
+
+#region "Servicios" 
+builder.Services.AddLogica();
+#endregion
+
+
 builder.Services.AddSignalR(e =>
 {
 	e.MaximumReceiveMessageSize = 102400000;
 	e.EnableDetailedErrors = true;
 });
 
-//builder.Services.AddSwaggerGen(options =>
-//{
-//	options.SwaggerDoc("v1", new OpenApiInfo
-//	{
-//		Version = "v1",
-//		Title = "Sistema rifas TechsMinds",
-//		Description = "Servicios para uso exclusivo de TechsMinds",
-
-//	});
-//	options.CustomSchemaIds(type => type.ToString());
-
-//});
 
 builder.Services.AddCors(options =>
 {
@@ -47,23 +57,6 @@ builder.Services.AddCors(options =>
 
 
 
-#region DbContext SQL Server
-builder.Services.AddDbContext<SIMRIFAdbContext>(options =>
-{
-	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), sqlOptions =>
-	{
-	});
-}, ServiceLifetime.Transient);
-
-#endregion
-
-#region "Patron Repositorio" 
-builder.Services.AddRepositorios(configuration);
-#endregion
-
-#region "Servicios" 
-builder.Services.AddLogica();
-#endregion
 
 
 var app = builder.Build();

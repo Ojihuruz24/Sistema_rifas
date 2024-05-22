@@ -121,9 +121,9 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		var result = serieService.ObtenerSerieActiva().FirstOrDefault();
-		ValorMaximo = result.NumeroMaximo - result.Margen;
-		vendidas = result.Contador;
+		//var result = serieService.ObtenerSerieActiva().FirstOrDefault();
+		//ValorMaximo = result.NumeroMaximo - 50;
+		//vendidas = result.Contador;
 		Porcentaje = _utils.Calcular(vendidas, ValorMaximo);
 	}
 
@@ -138,14 +138,14 @@
 
 	public async void CompraOne()
 	{
-		OpenDialog();
+		//OpenDialog();
 
 		vendidas += 3;
 
 		OpenPagosDialog(3, 1400000);
 
 
-		await compradorService.AddComprador(3, "14.000");
+		//await compradorService.AddComprador(3, "14.000");
 
 		#region PRUEBAS
 
@@ -169,22 +169,22 @@
 
 	public async void CompraTwo()
 	{
-		OpenDialog();
+		//OpenDialog();
 		vendidas += 5;
 
-		OpenPagosDialog(5, 2300000);
+		//OpenPagosDialog(5, 2300000);
 
 		//await compradorService.AddComprador(5, "28.000");
 	}
 
 	public async void CompraThre()
 	{
-		OpenDialog();
+		//OpenDialog();
 		vendidas += 10;
 
 		OpenPagosDialog(5, 4700000);
 
-		await compradorService.AddComprador(10, "47.000");
+		//await compradorService.AddComprador(10, "47.000");
 	}
 
 	public async void CompraCantidad()
@@ -228,18 +228,18 @@
 
 	private void OpenDialog()
 	{
-		if (vendidas >= ValorMaximo)
-		{
-			DialogOptions disableBackdropClick = new DialogOptions()
-				{
-					DisableBackdropClick = true,
-					MaxWidth = MaxWidth.Medium,
-					Position = DialogPosition.Center,
-					FullWidth = true
-				};
+		//if (vendidas >= ValorMaximo)
+		//{
+		//	DialogOptions disableBackdropClick = new DialogOptions()
+		//		{
+		//			DisableBackdropClick = true,
+		//			MaxWidth = MaxWidth.Medium,
+		//			Position = DialogPosition.Center,
+		//			FullWidth = true
+		//		};
 
-			Dialog.Show<CierreVentas>(string.Empty, disableBackdropClick);
-		}
+		//	Dialog.Show<CierreVentas>(string.Empty, disableBackdropClick);
+		//}
 	}
 
 }

@@ -9,5 +9,7 @@ namespace SIMRIFA.Service.Wompi
 
 		Task<PaymentLinkResponse> CreatePaymentLinkAsync(PaymentLinkRequest request);
 
+		Task<EventoWompiResponse> GuardarEvento(EventoWompiResponse eventoWompiResponse);
+
 	}
 }

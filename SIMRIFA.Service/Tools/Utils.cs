@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json.Linq;
 using SIMRIFA.DataAccess.UnitOfWork;
+using SIMRIFA.Model.Models.Wompi;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -40,7 +42,7 @@ namespace SIMRIFA.Service.Tools
 				{
 					numero = GenerarNumeroAleatorio();
 
-				} while (NumerosExistentes().Contains(numero));
+				} while (NumerosExistentes().Contains(numero.ToString()));
 
 				numeros.Add(numero);
 			}
@@ -57,14 +59,14 @@ namespace SIMRIFA.Service.Tools
 			return porcentajeAdiccional;
 		}
 
-		public (string referencia, string has) has(int amount, string fechaExpiracion)
+		public (string referencia, string has) has(int amount, int cantidad, string fechaExpiracion)
 		{
 			Random random = new Random();
 
 			var valorrandom = random.Next(900000000);
 			var valorrandom1 = random.Next(900000000);
 			var valorrandom2 = random.Next(900000000);
-			var valorrandom3 = random.Next(900000000);
+			var valorrandom3 = $"{random.Next(900000000)}_{cantidad}";
 
 			var publicKey = "test_integrity_YcpIHCiQvGKc01VK9kpTNo3wvb4vFV8g";
 			var currency = "COP";
@@ -91,7 +93,7 @@ namespace SIMRIFA.Service.Tools
 			using (Aes aesAlg = Aes.Create())
 			{
 				aesAlg.Key = Encoding.UTF8.GetBytes(key);
-				aesAlg.IV = new byte[16]; 
+				aesAlg.IV = new byte[16];
 
 				var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
 
@@ -137,22 +139,166 @@ namespace SIMRIFA.Service.Tools
 			return rnd.Next(0, 999); // Puedes ajustar el rango según tus necesidades
 		}
 
-		private List<int> NumerosExistentes()
+		private List<string> NumerosExistentes()
 		{
-			var list = _unitOfWork._context.Comprador.Select(x => x.Numeros).ToList();
-			var listnum = new List<int>();
+			var list = _unitOfWork._context.NumeroAleatorio.Select(x => x.Numero).ToList();
 
-			foreach (var item in list)
+			return list;
+		}
+
+		public async Task<bool> ValidacionInfo(EventoWompiResponse response)
+		{
+			var TransaccionID = response?.Data?.Transaction?.Id;
+			var TransaccionStatus = response?.Data?.Transaction?.Status;
+			var TransaccionAmount = response?.Data?.Transaction?.AmountInCents.ToString();
+			var timestamp = response?.Timestamp;
+
+			string concat = $"{TransaccionID}{TransaccionStatus}{TransaccionAmount}";
+
+			if (string.IsNullOrEmpty(timestamp))
 			{
-				var conver = item.Split('-');
+				concat = $"{TransaccionID}{TransaccionStatus}{TransaccionAmount}{timestamp}test_events_QeLdcWGI7qBSTtMoSSLt5hB8PmEERLTY";
+			}
 
-				foreach (var numero in conver)
+			StringBuilder builder = new StringBuilder();
+
+			using (SHA256 sha256Hash = SHA256.Create())
+			{
+				byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(concat));
+
+				for (int i = 0; i < bytes.Length; i++)
 				{
-					listnum.Add(int.Parse(numero));
+					builder.Append(bytes[i].ToString("x2"));
 				}
 			}
 
-			return listnum;
+			var encryp = builder.ToString();
+
+			if (encryp == response?.Signature?.Checksum)
+			{
+				return true;
+			}
+
+			return false;
 		}
+
+		#region Buscador de un json
+
+		private Dictionary<string, object> ToDictionary(JObject jObject)
+		{
+			var result = new Dictionary<string, object>();
+			foreach (var property in jObject.Properties())
+			{
+				var value = property.Value;
+				if (value is JObject)
+				{
+					result[property.Name] = ToDictionary((JObject)value);
+				}
+				else if (value is JArray)
+				{
+					result[property.Name] = ToList((JArray)value);
+				}
+				else
+				{
+					result[property.Name] = ((JValue)value).Value;
+				}
+			}
+			return result;
+		}
+
+		private List<object> ToList(JArray jArray)
+		{
+			var result = new List<object>();
+			foreach (var value in jArray)
+			{
+				if (value is JObject)
+				{
+					result.Add(ToDictionary((JObject)value));
+				}
+				else if (value is JArray)
+				{
+					result.Add(ToList((JArray)value));
+				}
+				else
+				{
+					result.Add(((JValue)value).Value);
+				}
+			}
+			return result;
+		}
+
+		private void PrintDictionary(Dictionary<string, object> dictionary, int indent = 0)
+		{
+			string indentString = new string(' ', indent);
+			foreach (var kvp in dictionary)
+			{
+				Console.WriteLine($"{indentString}{kvp.Key}: {kvp.Value}");
+				if (kvp.Value is Dictionary<string, object>)
+				{
+					PrintDictionary((Dictionary<string, object>)kvp.Value, indent + 2);
+				}
+				else if (kvp.Value is List<object>)
+				{
+					PrintList((List<object>)kvp.Value, indent + 2);
+				}
+			}
+		}
+
+		private void PrintList(List<object> list, int indent = 0)
+		{
+			string indentString = new string(' ', indent);
+			foreach (var item in list)
+			{
+				if (item is Dictionary<string, object>)
+				{
+					PrintDictionary((Dictionary<string, object>)item, indent + 2);
+				}
+				else
+				{
+					Console.WriteLine($"{indentString}{item}");
+				}
+			}
+		}
+
+
+		private object FindValueByKey(Dictionary<string, object> dictionary, string key)
+		{
+			foreach (var kvp in dictionary)
+			{
+				if (kvp.Key.Equals(key, StringComparison.OrdinalIgnoreCase))
+				{
+					return kvp.Value;
+				}
+
+				if (kvp.Value is Dictionary<string, object> nestedDict)
+				{
+					var result = FindValueByKey(nestedDict, key);
+					if (result != null)
+					{
+						return result;
+					}
+				}
+
+				if (kvp.Value is List<object> list)
+				{
+					foreach (var item in list)
+					{
+						if (item is Dictionary<string, object> nestedListDict)
+						{
+							var result = FindValueByKey(nestedListDict, key);
+							if (result != null)
+							{
+								return result;
+							}
+						}
+					}
+				}
+			}
+
+			return null;
+		}
+
+
+		#endregion
 	}
 }

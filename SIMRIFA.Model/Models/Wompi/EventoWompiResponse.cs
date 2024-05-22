@@ -1,147 +1,174 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace SIMRIFA.Model.Models.Wompi
 {
 	public class EventoWompiResponse
 	{
-		[JsonProperty("event")]
-		public string Event { get; set; }
+		[JsonPropertyName("event")]
+		public string? Event { get; set; }
 
-		[JsonProperty("data")]
-		public DataEvent Data { get; set; }
+		[JsonPropertyName("data")]
+		public Data Data { get; set; }
 
-		[JsonProperty("sent_at")]
-		public DateTime SentAt { get; set; }
+		[JsonPropertyName("sent_at")]
+		public string? SentAt { get; set; }
 
-		[JsonProperty("timestamp")]
-		public string Timestamp { get; set; }
+		[JsonPropertyName("timestamp")]
+		[Column("alias_Timestamp")]
+		public string? Timestamp { get; set; }
 
-		[JsonProperty("signature")]
-		public SignatureEvent Signature { get; set; }
+		[JsonPropertyName("signature")]
+		public SignatureEvent? Signature { get; set; }
 
-		[JsonProperty("environment")]
-		public string Environment { get; set; }
+		[JsonPropertyName("environment")]
+		public string? Environment { get; set; }
+	}
+
+	public class Data
+	{
+		[JsonPropertyName("transaction")]
+		public Transaction Transaction { get; set; }
 	}
 
 	public class CustomerDataEvent
 	{
-		[JsonProperty("full_name")]
-		public string FullName { get; set; }
+		[JsonPropertyName("full_name")]
+		public string? FullName { get; set; }
 
-		[JsonProperty("phone_number")]
-		public string PhoneNumber { get; set; }
+		[JsonPropertyName("phone_number")]
+		public string? PhoneNumber { get; set; }
 	}
 
-	public class DataEvent
+	public class Transaction
 	{
-		[JsonProperty("transaction")]
-		public TransactionEvent Transaction { get; set; }
+		[JsonPropertyName("id")]
+		public string? Id { get; set; }
+
+		[JsonPropertyName("created_at")]
+		public string? CreatedAt { get; set; }
+
+		[JsonPropertyName("finalized_at")]
+		public string? FinalizedAt { get; set; }
+
+		[JsonPropertyName("amount_in_cents")]
+		public decimal? AmountInCents { get; set; }
+
+		[JsonPropertyName("reference")]
+		public string? Reference { get; set; }
+
+		[JsonPropertyName("customer_email")]
+		public string? CustomerEmail { get; set; }
+
+		[JsonPropertyName("currency")]
+		public string? Currency { get; set; }
+
+		[JsonPropertyName("payment_method_type")]
+		public string? PaymentMethodType { get; set; }
+
+		[JsonPropertyName("payment_method")]
+		public PaymentMethodEvent? PaymentMethod { get; set; }
+
+		[JsonPropertyName("status")]
+		[Column("Alias_Status")]
+		public string? Status { get; set; }
+
+		[JsonPropertyName("status_message")]
+		public string? StatusMessage { get; set; }
+
+		[JsonPropertyName("shipping_address")]
+		public object? ShippingAddress { get; set; }
+
+		[JsonPropertyName("redirect_url")]
+		public string? RedirectUrl { get; set; }
+
+		[JsonPropertyName("payment_source_id")]
+		public string? PaymentSourceId { get; set; }
+
+		[JsonPropertyName("payment_link_id")]
+		public string? PaymentLinkId { get; set; }
+
+		[JsonPropertyName("customer_data")]
+		public CustomerDataEvent? CustomerData { get; set; }
+
+		[JsonPropertyName("billing_data")]
+		public billingData? BillingData { get; set; }
 	}
 
 	public class Extra
 	{
-		[JsonProperty("external_identifier")]
-		public string ExternalIdentifier { get; set; }
+		[JsonPropertyName("external_identifier")]
+		public string? ExternalIdentifier { get; set; }
 
-		[JsonProperty("business_agreement_code")]
-		public string BusinessAgreementCode { get; set; }
+		[JsonPropertyName("business_agreement_code")]
+		public string? BusinessAgreementCode { get; set; }
 
-		[JsonProperty("payment_intention_identifier")]
-		public string PaymentIntentionIdentifier { get; set; }
+		[JsonPropertyName("payment_intention_identifier")]
+		public string? PaymentIntentionIdentifier { get; set; }
 	}
 
 	public class PaymentMethodEvent
 	{
-		[JsonProperty("type")]
-		public string Type { get; set; }
+		[JsonPropertyName("type")]
+		[Column("alias_type")]
+		public string? Type { get; set; }
 
-		[JsonProperty("sandbox_status")]
-		public string SandboxStatus { get; set; }
+		[JsonPropertyName("sandbox_status")]
+		public string? SandboxStatus { get; set; }
 
-		[JsonProperty("payment_description")]
-		public string PaymentDescription { get; set; }
+		[JsonPropertyName("payment_description")]
+		public string? PaymentDescription { get; set; }
 
-		[JsonProperty("extra")]
-		public Extra Extra { get; set; }
+		[JsonPropertyName("extra")]
+		public Extra? Extra { get; set; }
+	}
+
+
+	public class SignatureEvent
+	{
+		[JsonPropertyName("checksum")]
+		[Column("alias_Timestamp")]
+		public string? Checksum { get; set; }
+
+		[JsonPropertyName("properties")]
+		public PropertiesEvent? Properties { get; set; }
 	}
 
 	public class PropertiesEvent
 	{
-		[JsonProperty("transaction.id")]
-		public string TransactionId { get; set; }
+		[JsonPropertyName("transaction.id")]
+		public string? TransactionId { get; set; }
 
-		[JsonProperty("transaction.status")]
-		public string TransactionStatus { get; set; }
+		[JsonPropertyName("transaction.status")]
+		public string? TransactionStatus { get; set; }
 
-		[JsonProperty("transaction.amount_in_cents")]
-		public string TransactionAmountInCents { get; set; }
+		[JsonPropertyName("transaction.amount_in_cents")]
+		public string? TransactionAmountInCents { get; set; }
 	}
 
-	public class SignatureEvent
+	public class billingData
 	{
-		[JsonProperty("checksum")]
-		public string Checksum { get; set; }
+		[MaxLength(255)]
+		[JsonPropertyName("address_line_1")]
+		public string? AddressLine1 { get; set; }
 
-		[JsonProperty("properties")]
-		public PropertiesEvent Properties { get; set; }
-	}
+		[JsonPropertyName("address_line_2")]
+		public string? AddressLine2 { get; set; }
 
-	public class TransactionEvent
-	{
-		[JsonProperty("id")]
-		public string Id { get; set; }
+		[JsonPropertyName("city")]
+		public string? City { get; set; }
 
-		[JsonProperty("created_at")]
-		public DateTime CreatedAt { get; set; }
+		[JsonPropertyName("state")]
+		public string? State { get; set; }
 
-		[JsonProperty("finalized_at")]
-		public DateTime FinalizedAt { get; set; }
+		[JsonPropertyName("country")]
+		public string? Country { get; set; }
 
-		[JsonProperty("amount_in_cents")]
-		public int AmountInCents { get; set; }
+		[JsonPropertyName("postal_code")]
+		public string? PostalCode { get; set; }
 
-		[JsonProperty("reference")]
-		public string Reference { get; set; }
-
-		[JsonProperty("customer_email")]
-		public string CustomerEmail { get; set; }
-
-		[JsonProperty("currency")]
-		public string Currency { get; set; }
-
-		[JsonProperty("payment_method_type")]
-		public string PaymentMethodType { get; set; }
-
-		[JsonProperty("payment_method")]
-		public PaymentMethodEvent PaymentMethod { get; set; }
-
-		[JsonProperty("status")]
-		public string Status { get; set; }
-
-		[JsonProperty("status_message")]
-		public object StatusMessage { get; set; }
-
-		[JsonProperty("shipping_address")]
-		public object ShippingAddress { get; set; }
-
-		[JsonProperty("redirect_url")]
-		public string RedirectUrl { get; set; }
-
-		[JsonProperty("payment_source_id")]
-		public object PaymentSourceId { get; set; }
-
-		[JsonProperty("payment_link_id")]
-		public object PaymentLinkId { get; set; }
-
-		[JsonProperty("customer_data")]
-		public CustomerDataEvent CustomerData { get; set; }
-
-		[JsonProperty("billing_data")]
-		public object BillingData { get; set; }
+		[JsonPropertyName("full_name")]
+		public string? FullName { get; set; }
 	}
 }

@@ -3,11 +3,11 @@ using System.Linq.Expressions;
 
 namespace SIMRIFA.DataAccess.Repository
 {
-	public interface IRepository<T> where T : class
+	public interface IRepository<TEntity> where TEntity : class
     {
-		void Add(T entity);
-		void Delete(T entity);
-		Task<IEnumerable<T>> GetOneOrAll(Expression<Func<T, bool>> Funcion = default);
-		void Update(T entity);
+		Task<TEntity> Add(TEntity entity);
+		Task<TEntity> Delete(TEntity entity);
+		Task<IEnumerable<TEntity>> GetOneOrAll(Expression<Func<TEntity, bool>> Funcion = default);
+		Task<TEntity> Update(TEntity entity);
 	}
 }

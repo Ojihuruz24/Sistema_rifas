@@ -10,11 +10,11 @@ namespace SIMRIFA.Model.Models.Wompi
 	public class TransactionResponse
 	{
 		[JsonProperty("data")]
-		public Data Data { get; set; }
+		public DataEvent Data { get; set; }
 	}
+		
 
-
-	public class Data
+	public class DataEvent
 	{
 		[JsonProperty("id")]
 		public string Id { get; set; }

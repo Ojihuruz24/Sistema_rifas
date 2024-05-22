@@ -22,14 +22,16 @@ namespace SIMRIFA.DataAccess.UnitOfWork
 			//_repositories = new Dictionary<Type, object>();
 		}
 
-		public void Commit()
+		public async Task<int> Commit()
 		{
-			_context.SaveChanges();
+			var result = await _context.SaveChangesAsync();
+
+			return result;
 		}
 
-		public void Rollback()
+		public async Task Rollback()
 		{
-			_context.Dispose();
+			await _context.Database.BeginTransactionAsync();
 		}
 
 		//public IRepository<TEntity> GetRepository<TEntity>() where TEntity : class

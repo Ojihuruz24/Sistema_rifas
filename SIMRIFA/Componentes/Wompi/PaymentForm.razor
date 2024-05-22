@@ -97,7 +97,7 @@
 
 		ExpirationTime = DateTime.UtcNow.AddMinutes(5).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
 
-		(string, string) prueba = _utils.has(ValorBoletas, ExpirationTime);
+		(string, string) prueba = _utils.has(ValorBoletas, Boletas ,ExpirationTime);
 		PublicKey = "pub_test_EKiDBdydoVychiwazPqDsm52168IjGmQ";
 		Currency = "COP";
 		AmountInCents = ValorBoletas;
