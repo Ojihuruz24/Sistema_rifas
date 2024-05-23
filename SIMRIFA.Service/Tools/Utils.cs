@@ -2,6 +2,8 @@
 using Newtonsoft.Json.Linq;
 using SIMRIFA.DataAccess.UnitOfWork;
 using SIMRIFA.Model.Models.Wompi;
+using SIMRIFA.Service.NumeroAleatorio;
+using SIMRIFA.Service.Transaccion;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -16,12 +18,16 @@ namespace SIMRIFA.Service.Tools
 	{
 		private List<int> numeros;
 		private IUnitOfWork _unitOfWork;
+		private INumeroAleatorioService _numeroAleatorioService;
+		private ITransaccionService _transaccionService;
 
 
-		public Utils(IUnitOfWork unitOfWork)
+		public Utils(IUnitOfWork unitOfWork, INumeroAleatorioService numeroAleatorioService, ITransaccionService transaccionService)
 		{
 			numeros = new List<int>();
 			_unitOfWork = unitOfWork;
+			_numeroAleatorioService = numeroAleatorioService;
+			_transaccionService = transaccionService;
 		}
 
 		public decimal Calcular(decimal valor, decimal cantidad)
@@ -33,21 +39,28 @@ namespace SIMRIFA.Service.Tools
 			return info;
 		}
 
-		public List<int> GenerarNumeroAletorio(int valor)
+		public async Task<List<string>> GenerarNumeroAletorio(int valor)
 		{
-			for (int i = 1; i <= 3; i++)
+			var litnumTemp = new List<string>();
+
+			litnumTemp.AddRange(await NumerosExistentes());
+
+			var nuevoNumeros = new List<string>();
+
+			for (int i = 0; i < valor; i++)
 			{
-				int numero;
+				string numero;
 				do
 				{
-					numero = GenerarNumeroAleatorio();
+					numero = await GenerarNumeroAleatorio();
 
-				} while (NumerosExistentes().Contains(numero.ToString()));
+				} while (litnumTemp.Contains(numero));
 
-				numeros.Add(numero);
+				litnumTemp.Add(numero);
+				nuevoNumeros.Add(numero);
 			}
 
-			return numeros;
+			return nuevoNumeros;
 		}
 
 		public decimal MargenError(decimal valor)
@@ -59,18 +72,15 @@ namespace SIMRIFA.Service.Tools
 			return porcentajeAdiccional;
 		}
 
-		public (string referencia, string has) has(int amount, int cantidad, string fechaExpiracion)
+		public async Task<(string referencia, string has)> has(int amount, int cantidad, string fechaExpiracion)
 		{
 			Random random = new Random();
 
-			var valorrandom = random.Next(900000000);
-			var valorrandom1 = random.Next(900000000);
-			var valorrandom2 = random.Next(900000000);
-			var valorrandom3 = $"{random.Next(900000000)}_{cantidad}";
+			var valorrandom = await GenerarReferenciaUnica(cantidad);
 
 			var publicKey = "test_integrity_YcpIHCiQvGKc01VK9kpTNo3wvb4vFV8g";
 			var currency = "COP";
-			var reference = $"{valorrandom}-{valorrandom1}-{valorrandom2}-{valorrandom3}";
+			var reference = $"{valorrandom}";
 
 			var conca = $"{reference}{amount}{currency}{fechaExpiracion}{publicKey}";
 			//var conca = $"{reference}{amount}{currency}{publicKey}";
@@ -88,76 +98,37 @@ namespace SIMRIFA.Service.Tools
 			}
 		}
 
-		public string EncryptString(string plainText, string key)
-		{
-			using (Aes aesAlg = Aes.Create())
-			{
-				aesAlg.Key = Encoding.UTF8.GetBytes(key);
-				aesAlg.IV = new byte[16];
-
-				var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
-
-				using (var msEncrypt = new MemoryStream())
-				{
-					using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-					{
-						using (var swEncrypt = new StreamWriter(csEncrypt))
-						{
-							swEncrypt.Write(plainText);
-						}
-						return Convert.ToBase64String(msEncrypt.ToArray());
-					}
-				}
-			}
-		}
-
-		public string DecryptString(string cipherText, string key)
-		{
-			using (Aes aesAlg = Aes.Create())
-			{
-				aesAlg.Key = Encoding.UTF8.GetBytes(key);
-				aesAlg.IV = new byte[16]; // Inicializa el vector de inicialización a ceros.
-
-				var decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-
-				using (var msDecrypt = new MemoryStream(Convert.FromBase64String(cipherText)))
-				{
-					using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-					{
-						using (var srDecrypt = new StreamReader(csDecrypt))
-						{
-							return srDecrypt.ReadToEnd();
-						}
-					}
-				}
-			}
-		}
-
-		private int GenerarNumeroAleatorio()
+		private async Task<string> GenerarNumeroAleatorio()
 		{
 			Random rnd = new Random();
-			return rnd.Next(0, 999); // Puedes ajustar el rango según tus necesidades
+
+			var temp = await Task.Run(() => rnd.Next(0, 999));
+
+			var numeroFormateado = temp.ToString("000");
+
+			return numeroFormateado;
 		}
 
-		private List<string> NumerosExistentes()
+		private async Task<List<string>> NumerosExistentes()
 		{
-			var list = _unitOfWork._context.NumeroAleatorio.Select(x => x.Numero).ToList();
-
-			return list;
+			return await _numeroAleatorioService.ObtenerNumerosAsync();
 		}
 
-		public async Task<bool> ValidacionInfo(EventoWompiResponse response)
+		//public async Task<bool> ValidacionInfo(EventoWompiResponse response)
+		public async Task<bool> ValidacionInfo(string TransaccionID, string TransaccionStatus, string TransaccionAmount,string TransaccionChecksum, string timestamp = default)
 		{
-			var TransaccionID = response?.Data?.Transaction?.Id;
-			var TransaccionStatus = response?.Data?.Transaction?.Status;
-			var TransaccionAmount = response?.Data?.Transaction?.AmountInCents.ToString();
-			var timestamp = response?.Timestamp;
+			//var TransaccionID = response?.Data?.Transaction?.Id;
+			//var TransaccionStatus = response?.Data?.Transaction?.Status;
+			//var TransaccionAmount = response?.Data?.Transaction?.AmountInCents.ToString();
+			//var timestamp = response?.Timestamp.ToString();
 
-			string concat = $"{TransaccionID}{TransaccionStatus}{TransaccionAmount}";
+			var clave = "test_events_QeLdcWGI7qBSTtMoSSLt5hB8PmEERLTY";
 
-			if (string.IsNullOrEmpty(timestamp))
+			string concat = $"{TransaccionID}{TransaccionStatus}{TransaccionAmount}{clave}";
+
+			if (!string.IsNullOrEmpty(timestamp))
 			{
-				concat = $"{TransaccionID}{TransaccionStatus}{TransaccionAmount}{timestamp}test_events_QeLdcWGI7qBSTtMoSSLt5hB8PmEERLTY";
+				concat = $"{TransaccionID}{TransaccionStatus}{TransaccionAmount}{timestamp}{clave}";
 			}
 
 			StringBuilder builder = new StringBuilder();
@@ -174,7 +145,7 @@ namespace SIMRIFA.Service.Tools
 
 			var encryp = builder.ToString();
 
-			if (encryp == response?.Signature?.Checksum)
+			if (encryp == TransaccionChecksum)
 			{
 				return true;
 			}
@@ -300,5 +271,64 @@ namespace SIMRIFA.Service.Tools
 
 
 		#endregion
+
+		public string EncryptString(string plainText, string key)
+		{
+			using (Aes aesAlg = Aes.Create())
+			{
+				aesAlg.Key = Encoding.UTF8.GetBytes(key);
+				aesAlg.IV = new byte[16];
+
+				var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+				using (var msEncrypt = new MemoryStream())
+				{
+					using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+					{
+						using (var swEncrypt = new StreamWriter(csEncrypt))
+						{
+							swEncrypt.Write(plainText);
+						}
+						return Convert.ToBase64String(msEncrypt.ToArray());
+					}
+				}
+			}
+		}
+
+		public string DecryptString(string cipherText, string key)
+		{
+			using (Aes aesAlg = Aes.Create())
+			{
+				aesAlg.Key = Encoding.UTF8.GetBytes(key);
+				aesAlg.IV = new byte[16]; // Inicializa el vector de inicialización a ceros.
+
+				var decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+				using (var msDecrypt = new MemoryStream(Convert.FromBase64String(cipherText)))
+				{
+					using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+					{
+						using (var srDecrypt = new StreamReader(csDecrypt))
+						{
+							return srDecrypt.ReadToEnd();
+						}
+					}
+				}
+			}
+		}
+
+		private async Task<string> GenerarReferenciaUnica(int cantidad)
+		{
+			var referenciaUnique = await _transaccionService.ObtenerReferencias();
+			var valorrandom = string.Empty;
+			do
+			{
+				Random random = new Random();
+				valorrandom = $"{random.Next(100000000)}_{cantidad}";
+			} while (referenciaUnique.Contains(valorrandom));
+
+			return valorrandom;
+
+		}
 	}
 }

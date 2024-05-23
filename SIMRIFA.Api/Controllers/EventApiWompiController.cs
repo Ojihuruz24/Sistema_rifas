@@ -15,6 +15,12 @@ using System;
 using System.Text.Json;
 using SIMRIFA.Service.Tools;
 using SIMRIFA.Service.Series;
+using SIMRIFA.Service.NumeroAleatorio;
+using System.Text;
+//using Newtonsoft.Json;
+using System.Text.Json;
+using SendGrid;
+using System.Threading;
 
 namespace SIMRIFA.Api.Controllers
 {
@@ -28,9 +34,14 @@ namespace SIMRIFA.Api.Controllers
 		private readonly ITransaccionesService _transaccionesWompiService;
 		private readonly IUtils _utils;
 		private readonly ISerieService _serieService;
+		private readonly INumeroAleatorioService _numeroAleatorioService;
+		private readonly ICorreo _correo;
+
+		private readonly SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
 		public EventApiWompiController(IUnitOfWork iUnitOfWork, IClienteService clienteService, ITransaccionService transaccionService
-			, ITransaccionesService transaccionesWompiService, IUtils utils, ISerieService serieService)
+			, ITransaccionesService transaccionesWompiService, IUtils utils, ISerieService serieService,
+			INumeroAleatorioService numeroAleatorioService, ICorreo correo)
 		{
 			_clienteService = clienteService;
 			_transaccionService = transaccionService;
@@ -38,6 +49,8 @@ namespace SIMRIFA.Api.Controllers
 			_transaccionesWompiService = transaccionesWompiService;
 			_utils = utils;
 			_serieService = serieService;
+			_numeroAleatorioService = numeroAleatorioService;
+			_correo = correo;
 		}
 
 
@@ -47,14 +60,15 @@ namespace SIMRIFA.Api.Controllers
 			return Ok("Hello, world!");
 		}
 
-		[HttpPost]
+		#region ORIGINAL
+
+		[HttpPost("response")]
 		public async Task<IActionResult> Post([FromBody] EventoWompiResponse response)
 		{
-			bool dataCorrecta = await _utils.ValidacionInfo(response);
+			bool dataCorrecta = true; // await _utils.ValidacionInfo(response); se le cambiaron los parametros de entrada
 
-			if (dataCorrecta) 
+			if (dataCorrecta)
 			{
-
 				switch (response.Event)
 				{
 					case "transaction.updated":
@@ -114,30 +128,13 @@ namespace SIMRIFA.Api.Controllers
 								Currency = transation?.Currency,
 								PaymentMethodType = transation?.PaymentMethodType,
 								AliasType = transation?.PaymentMethod?.Type,
-								SandboxStatus = transation?.PaymentMethod?.SandboxStatus,
-								PaymentDescription = transation?.PaymentMethod?.PaymentDescription,
-								ExternalIdentifier = transation?.PaymentMethod?.Extra?.ExternalIdentifier,
-								BusinessAgreementCode = transation?.PaymentMethod?.Extra?.BusinessAgreementCode,
-								PaymentIntentionIdentifier = transation?.PaymentMethod?.Extra?.PaymentIntentionIdentifier,
 								AliasStatus = transation?.Status,
 								StatusMessage = transation?.StatusMessage,
-								RedirectUrl = transation?.RedirectUrl,
-								PaymentSourceId = transation?.PaymentSourceId,
-								PaymentLinkId = transation?.PaymentLinkId,
 								FullName = transation?.CustomerData?.FullName,
 								PhoneNumber = transation?.CustomerData?.PhoneNumber,
-								Billing_data_AddressLine1 = transation?.BillingData?.AddressLine1,
-								Billing_data_AddressLine2 = transation?.BillingData?.AddressLine2,
-								Billing_data_State = transation?.BillingData?.State,
-								Billing_data_City = transation?.BillingData?.City,
-								Billing_data_Country = transation?.BillingData?.Country,
-								Billing_data_PostalCode = transation?.BillingData?.PostalCode,
 								SentAt = response?.SentAt,
-								AliasTimestamp = response?.Timestamp,
+								AliasTimestamp = response?.Timestamp.ToString(),
 								AliasChecksum = response?.Signature?.Checksum,
-								Property_transaction_id = response?.Signature?.Properties?.TransactionId,
-								Property_transaction_status = response?.Signature?.Properties?.TransactionStatus,
-								Property_amount_in_cents = response?.Signature?.Properties?.TransactionAmountInCents,
 								Environment = response?.Environment,
 								idCliente = cliente.IdCliente,
 								ResponseJson = toJson
@@ -145,15 +142,56 @@ namespace SIMRIFA.Api.Controllers
 
 							var transationDto = await _transaccionesWompiService.AgregarAsync(infoTransaccionDto);
 
+							await _IUnitOfWork.Commit();
 
-							if (cliente != null && transaccion  != null && infoTransaccionDto != null)
+
+							if (cliente != null && transaccion != null && infoTransaccionDto != null)
 							{
 								// se le entregan los numeros
-								var serie = await _serieService.ObtenerSerieActiva();
+								var serie = (await _serieService.ObtenerSerieActiva()).FirstOrDefault();
+
+								int.TryParse(response.Data.Transaction.Reference.Substring(response.Data.Transaction.Reference.Length - 1), out int cantidad);
+
+								var cantNumeros = await _numeroAleatorioService.GenerarNumeroAletorio(cantidad);
+
+								var strinbulder = new StringBuilder();
+
+								foreach (var item in cantNumeros)
+								{
+									strinbulder.Append($" {item} ");
+
+									var result = await _numeroAleatorioService.AgregarAsync(new NumeroAleatorio
+									{
+										IdCliente = cliente.IdCliente,
+										IdSerie = serie.IdSerie,
+										Numero = item,
+										Vendido = true,
+										FechaCreacion = DateTime.Now
+									});
+								}
+
+
+								serie.Contador = cantNumeros.Count;
+
+								await _serieService.ActualizarSerie(serie);
+
+								await _IUnitOfWork.Commit();
+
+								var comprador = new CompradorDto()
+								{
+									Nombre = cliente.Nombre,
+									Correo = cliente.Correo,
+									Referencia = transaccionResult.Referencia,
+									Valor = transaccion.Monto,
+									Cantidad = cantNumeros.Count().ToString(),
+									Numeros = strinbulder.ToString(),
+									FechaCreacion = DateTime.Now
+								};
+
+								await _correo.EnvioCorreoNetMail(comprador);
 
 							}
 
-							await _IUnitOfWork.Commit();
 
 						}
 						catch (Exception ex)
@@ -169,31 +207,232 @@ namespace SIMRIFA.Api.Controllers
 
 						break;
 
-
 					case "nequi_token.updated":
 
 						break;
 
-
-
 					default:
 						break;
 				}
-
-
-
-
 			}
 
 			return Ok();
 		}
+		#endregion
 
-		[HttpPost("{key}")]
-		public async Task<ActionResult> PostTest(string key)
+
+		#region Prueba de que reicba un dato dinamico
+
+		[HttpPost()]
+		public async Task<ActionResult> PostTest([FromBody] JsonElement eventData)
 		{
+
+			// Ejemplo de cómo usar un semáforo para controlar la concurrencia
+			await semaphoreSlim.WaitAsync();
+
+			if (eventData.ValueKind == JsonValueKind.Undefined)
+			{
+				return BadRequest();
+			}
+
+			var TransaccionId = await GetValueFromJsonElement<string>(eventData, "data", "transaction", "id");
+			var TransaccionStatus = await GetValueFromJsonElement<string>(eventData, "data", "transaction", "status");
+			var TransaccionAmount = await GetValueFromJsonElement<int>(eventData, "data", "transaction", "amount_in_cents");
+			var Transacciontimestamp = await GetValueFromJsonElement<int>(eventData, "timestamp");
+			var TransaccionChecksum = await GetValueFromJsonElement<string>(eventData, "signature", "checksum");
+			string eventType = await GetValueFromJsonElement<string>(eventData, "event");
+
+			bool dataCorrecta = await _utils.ValidacionInfo(TransaccionId, TransaccionStatus, TransaccionAmount.ToString(), TransaccionChecksum, Transacciontimestamp.ToString());
+
+			if (dataCorrecta)
+			{
+				string jsonString = eventData.GetRawText();
+				var TransaccionCreatedAt = await GetValueFromJsonElement<string>(eventData, "data", "transaction", "created_at");
+				var TransaccionFechaFinalPago = await GetValueFromJsonElement<string>(eventData, "data", "transaction", "finalized_at");
+				var TransaccionCustomerEmail = await GetValueFromJsonElement<string>(eventData, "data", "transaction", "customer_email");
+				var TransaccionTipoPago = await GetValueFromJsonElement<string>(eventData, "data", "transaction", "payment_method", "type");
+				var TransaccionReference = await GetValueFromJsonElement<string>(eventData, "data", "transaction", "reference");
+				var TransaccionCurrency = await GetValueFromJsonElement<string>(eventData, "data", "transaction", "currency");
+				var TransaccionPaymentMethodType = await GetValueFromJsonElement<string>(eventData, "data", "transaction", "payment_method_type");
+				var TransaccionSentAt = await GetValueFromJsonElement<string>(eventData, "sent_at");
+
+				switch (eventType)
+				{
+					case "transaction.updated":
+
+
+						Cliente clienteResult = new Cliente();
+						TransaccionDto transaccion;
+						InfoTransaccionDto infoTransaccionDto;
+
+						try
+						{
+							var cliente = new Cliente
+							{
+								Nombre = await GetValueFromJsonElement<string>(eventData, "data", "transaction", "customer_data", "full_name"),
+								Correo = await GetValueFromJsonElement<string>(eventData, "data", "transaction", "customer_email"),
+								Direccion = "Sin direccion",
+								FechaCreacion = DateTime.Now,
+								Telefono = await GetValueFromJsonElement<string>(eventData, "data", "transaction", "customer_data", "phone_number"),
+							};
+
+							clienteResult = await _clienteService.AgregarAsync(cliente);
+
+							await _IUnitOfWork.Commit();
+
+							transaccion = new TransaccionDto
+							{
+								IdCliente = clienteResult.IdCliente,
+								Transaccion = TransaccionId,
+								Email = TransaccionCustomerEmail,
+								TipoPago = TransaccionTipoPago,// transation.PaymentMethodType,
+								Estado = TransaccionStatus,//transation.Status,
+								FechaInicioPago = TransaccionCreatedAt, //transation.CreatedAt,
+								FechaFinalPago = TransaccionFechaFinalPago, //transation.FinalizedAt,
+								FechaTransaccion = TransaccionSentAt, //response.SentAt,
+								MetodoPago = TransaccionPaymentMethodType,//transation.PaymentMethodType,
+								Moneda = TransaccionCurrency,//transation.Currency,
+								Monto = TransaccionAmount.ToString(),//transation.AmountInCents.ToString(),
+								Referencia = TransaccionReference//transation.Reference,
+							};
+
+							var transaccionResult = await _transaccionService.AgregarTransaccion(transaccion);
+
+							await _IUnitOfWork.Commit();
+
+							infoTransaccionDto = new InfoTransaccionDto
+							{
+								idCliente = clienteResult.IdCliente,
+								AliasEvent = eventType,
+								TransactionId = TransaccionId,
+								CreatedAt = TransaccionCreatedAt,
+								FinalizedAt = TransaccionFechaFinalPago,
+								AmountInCents = TransaccionAmount.ToString(),
+								Reference = TransaccionReference,
+								CustomerEmail = TransaccionCustomerEmail,
+								Currency = TransaccionCurrency,
+								PaymentMethodType = TransaccionPaymentMethodType,
+								AliasType = TransaccionTipoPago,
+								AliasStatus = TransaccionStatus,
+								StatusMessage = await GetValueFromJsonElement<string>(eventData, "data", "transaction", "status_message"),
+								FullName = await GetValueFromJsonElement<string>(eventData, "data", "transaction", "customer_data", "full_name"),
+								PhoneNumber = await GetValueFromJsonElement<string>(eventData, "data", "transaction", "customer_data", "phone_number"),
+								SentAt = TransaccionSentAt,
+								AliasTimestamp = Transacciontimestamp.ToString(),
+								AliasChecksum = TransaccionChecksum,
+								Environment = await GetValueFromJsonElement<string>(eventData, "environment"),
+								ResponseJson = jsonString
+							};
+
+							var transationDto = await _transaccionesWompiService.AgregarAsync(infoTransaccionDto);
+
+							await _IUnitOfWork.Commit();
+
+							if (cliente != null && transaccion != null && transationDto != null)
+							{
+								// se le entregan los numeros
+								var serie = (await _serieService.ObtenerSerieActiva()).FirstOrDefault();
+
+								int.TryParse(TransaccionReference.Substring(TransaccionReference.Length - 1), out int cantidad);
+
+								var cantNumeros = await _numeroAleatorioService.GenerarNumeroAletorio(cantidad);
+
+								var strinbulder = new StringBuilder();
+
+								foreach (var item in cantNumeros)
+								{
+									strinbulder.Append($" {item} ");
+
+									var result = await _numeroAleatorioService.AgregarAsync(new NumeroAleatorio
+									{
+										IdCliente = cliente.IdCliente,
+										IdSerie = serie.IdSerie,
+										Numero = item,
+										Vendido = true,
+										FechaCreacion = DateTime.Now
+									});
+								}
+
+								var contador = await _numeroAleatorioService.ObtenerNumerosAsync();
+
+								serie.Contador = contador.Count;
+
+								await _serieService.ActualizarSerie(serie);
+
+								await _IUnitOfWork.Commit();
+
+								var comprador = new CompradorDto()
+								{
+									Nombre = cliente.Nombre,
+									Correo = cliente.Correo,
+									Referencia = transaccionResult.Referencia,
+									Valor = transaccion.Monto,
+									Cantidad = cantNumeros.Count().ToString(),
+									Numeros = strinbulder.ToString(),
+									FechaCreacion = DateTime.Now
+								};
+
+								await _correo.EnvioCorreoNetMail(comprador);
+							}
+
+						}
+						catch (Exception ex)
+						{
+
+							throw;
+						}
+
+						break;
+					default:
+						break;
+				}
+			}
+
+			semaphoreSlim.Release();
 
 			return Ok("OK");
 		}
+		#endregion
+
+
+		private async Task<T> GetValueFromJsonElement<T>(JsonElement jsonElement, params string[] keys)
+		{
+			JsonElement currentElement = jsonElement;
+
+			foreach (var key in keys)
+			{
+				if (!currentElement.TryGetProperty(key, out currentElement))
+				{
+					throw new ArgumentException($"Key '{key}' not found in JSON.");
+				}
+			}
+
+			// Convertir el valor a tipo T
+			T value;
+			if (typeof(T) == typeof(string))
+			{
+				value = (T)(object)currentElement.GetString();
+			}
+			else if (typeof(T) == typeof(int))
+			{
+				value = (T)(object)currentElement.GetInt32();
+			}
+			else if (typeof(T) == typeof(bool))
+			{
+				value = (T)(object)currentElement.GetBoolean();
+			}
+			else
+			{
+				throw new ArgumentException($"Unsupported type '{typeof(T)}'.");
+			}
+
+
+			await Task.CompletedTask;
+
+			return value;
+		}
+
+
 
 
 	}

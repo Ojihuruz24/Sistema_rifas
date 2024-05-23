@@ -6,6 +6,6 @@ namespace SIMRIFA.Service.Correo
 	{
 		Task EnvioCorreoSendGrid(List<string> destinatarios, string asunto, string contenido);
 
-		Task<bool> EnvioCorreoMailNet(Comprador comprador);
+		Task<bool> EnvioCorreoMailNet(CompradorDto comprador);
 	}
 }

@@ -1,14 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
-using SendGrid.Helpers.Mail;
+﻿using SendGrid.Helpers.Mail;
 using SendGrid;
-using SIMRIFA.Model.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Net.Mail;
 using System.Net;
+using SIMRIFA.Model.Models;
 
 namespace SIMRIFA.Service.Tools
 {
@@ -71,18 +65,24 @@ namespace SIMRIFA.Service.Tools
 			return false;
 		}
 
-
-		public async Task<bool> EnvioCorreoNetMail(Comprador comprador)
+		public async Task<bool> EnvioCorreoNetMail(CompradorDto comprador)
 		{
 			var result = false;
 
 			try
 			{
-				var nombre = $"{comprador.Nombre} {comprador.Apellido}";
+
+			var	MontoFormateado = comprador.Valor.ToString();
+
+				if (MontoFormateado.Length > 2)
+				{
+					comprador.Valor = MontoFormateado.Substring(0, MontoFormateado.Length - 2);
+				}
+
 				var fromAddress = new MailAddress("techminds247@gmail.com", "Sorteo SIM");
-				var toAddress = new MailAddress(comprador.Correo, $"{comprador.Nombre} {comprador.Apellido}");
+				var toAddress = new MailAddress(comprador.Correo, $"{comprador.Nombre}");
 				const string fromPassword = "lnwr wrlj yamq ytwh";
-				string subject = $"Sorteo SIM - {nombre}";
+				string subject = $"Sorteo SIM - {comprador.Nombre}";
 				string body = ContruccionBody(comprador);
 
 				var smtp = new SmtpClient
@@ -116,7 +116,7 @@ namespace SIMRIFA.Service.Tools
 			return result;
 		}
 
-		private string ContruccionBody(Comprador comprador)
+		private string ContruccionBody(CompradorDto comprador)
 		{
 			var body = string.Empty;
 
@@ -191,11 +191,10 @@ namespace SIMRIFA.Service.Tools
                                                                                                         <h1 style='color: #e35367; font-size: 55px;'>TU COMPRA!</h1>
                                                                                                     </td>
                                                                                                 </tr>
-
                                                                                                 <tr>
                                                                                                     <td class='esd-block-text es-m-txt-c es-p20r es-p20l' align='center'>
-                                                                                                        <p style='color: #cccccc;'>Hola {comprador.Nombre} {comprador.Apellido},</p>
-                                                                                                        <p style='color: #cccccc;'>Hemos recibido correctamente tu pedido #108969 y lo estamos procesando:<span class='product-description'></span><br></p>
+                                                                                                        <p style='color: #cccccc;'>Hola {comprador.Nombre},</p>
+                                                                                                        <p style='color: #cccccc;'>Hemos recibido correctamente tu pedido #{comprador.Referencia} y lo estamos procesando:<span class='product-description'></span><br></p>
                                                                                                     </td>
                                                                                                 </tr>
 
@@ -218,7 +217,7 @@ namespace SIMRIFA.Service.Tools
                                                                                                 </tr>
                                                                                                 <tr>
                                                                                                     <td class='esd-block-text es-m-txt-c es-p20r es-p20l' align='center'>
-                                                                                                        <p style='color: #cf1b1b;'>[Pedido #108969] (abril 30, 2024)</p>
+                                                                                                        <p style='color: #cf1b1b;'>[Pedido # {comprador.Referencia}] (abril 30, 2024)</p>
                                                                                                     </td>
                                                                                                 </tr>
                                                                                                 <tr>
@@ -263,7 +262,7 @@ namespace SIMRIFA.Service.Tools
                                                                                                         <br>
                                                                                                         <table class='es-content-body' style='background-color: #ffffff00; color: white; width: 500px;' align='center'>
                                                                                                             <tr>
-                                                                                                                <td colspan='2'>{comprador.Nombre} {comprador.Apellido} </td>
+                                                                                                                <td colspan='2'>{comprador.Nombre}</td>
                                                                                                             </tr>
                                                                                                             <tr>
                                                                                                                 <td  colspan='2'>Calle 41 -la pola rionegro</td>

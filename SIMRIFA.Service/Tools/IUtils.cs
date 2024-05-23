@@ -6,11 +6,11 @@ namespace SIMRIFA.Service.Tools
 	{
 		decimal Calcular(decimal valor, decimal cantidad);
 
-		List<int> GenerarNumeroAletorio(int valor);
+		Task<List<string>> GenerarNumeroAletorio(int valor);
 
 		decimal MargenError(decimal valor);
 
-		(string referencia, string has) has(int amount,int cantidad, string fechaExpiracion);
-		Task<bool> ValidacionInfo(EventoWompiResponse response);
+		Task<(string referencia, string has)> has(int amount, int cantidad, string fechaExpiracion);
+		Task<bool> ValidacionInfo(string TransaccionID, string TransaccionStatus, string TransaccionAmount, string TransaccionChecksum, string timestamp = default);
 	}
 }

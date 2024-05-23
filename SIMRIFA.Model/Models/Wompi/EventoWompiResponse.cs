@@ -17,7 +17,7 @@ namespace SIMRIFA.Model.Models.Wompi
 
 		[JsonPropertyName("timestamp")]
 		[Column("alias_Timestamp")]
-		public string? Timestamp { get; set; }
+		public int Timestamp { get; set; }
 
 		[JsonPropertyName("signature")]
 		public SignatureEvent? Signature { get; set; }

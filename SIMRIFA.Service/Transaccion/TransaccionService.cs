@@ -6,6 +6,7 @@ using SIMRIFA.Model.ventas;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +17,7 @@ namespace SIMRIFA.Service.Transaccion
 		private readonly SIMRIFAdbContext _context;
 		private readonly IUnitOfWork _IUnitOfWork;
 		private readonly IRepository<TransaccionDto> _repository;
+
 		public TransaccionService(SIMRIFAdbContext context, IUnitOfWork iUnitOfWork, IRepository<TransaccionDto> repository)
 		{
 			_context = context;
@@ -27,19 +29,54 @@ namespace SIMRIFA.Service.Transaccion
 		{
 			try
 			{
-				//var result = _IUnitOfWork._context.Transaccion.Update(transaccion);
 				var result = await _repository.Add(transaccion);
-				//await _IUnitOfWork.Commit();
 				return result;
 			}
 			catch (Exception ex)
 			{
-				//_IUnitOfWork.Rollback();
 				throw;
 			}
-			finally
+		}
+
+		public async Task<IEnumerable<TransaccionDto>> ObtenerTransacciones(Expression<Func<TransaccionDto, bool>> Funcion = default)
+		{
+			try
 			{
-				//_IUnitOfWork._context.Dispose();
+				var newlist = new List<TransaccionDto>();
+
+				var result = await _repository.GetOneOrAll(Funcion);
+
+				if (result != null)
+				{
+					newlist.AddRange(result);
+				}
+
+				return newlist;
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
+		}
+
+		public async Task<IEnumerable<string>> ObtenerReferencias()
+		{
+			try
+			{
+				var newlist = new List<string>();
+
+				var result = await _repository.GetOneOrAll();
+
+				if (result != null)
+				{
+					newlist.AddRange(result.Select(x => x.Referencia).ToList());
+				}
+
+				return newlist;
+			}
+			catch (Exception ex)
+			{
+				throw;
 			}
 		}
 

@@ -13,10 +13,15 @@ ConfigurationManager configuration = builder.Configuration;
 
 builder.Services.AddTransient<EventApiWompiController>();
 
-builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddHttpClient();
 builder.Services.AddSwaggerGen();
+
+
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+	options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+});
 
 
 #region DbContext SQL Server
@@ -36,7 +41,6 @@ builder.Services.AddRepositorios(configuration);
 #region "Servicios" 
 builder.Services.AddLogica();
 #endregion
-
 
 builder.Services.AddSignalR(e =>
 {

@@ -41,34 +41,6 @@
 
 @code {
 
-	#region
-	[Inject]
-	IUtils _utils { get; set; }
-
-	[Inject] IJSRuntime Js { get; set; }
-
-	[Parameter]
-	public int Boletas { get; set; }
-	[Parameter]
-	public int ValorBoletas { get; set; }
-
-	public class WompiCheckoutConfig
-	{
-		public string currency { get; set; }
-		public int amountInCents { get; set; }
-		public string reference { get; set; }
-		public string publicKey { get; set; }
-		public string SignatureIntegrity { get; set; }
-		public string redirectUrl { get; set; }
-		public signature signature { get; set; }
-	}
-
-	public class signature
-	{
-		public string integrity { get; set; }
-	}
-
-
 	private string PublicKey { get; set; }
 	private string Currency { get; set; }
 	private int AmountInCents { get; set; }
@@ -80,13 +52,24 @@
 
 	private string MontoFormateado { get; set; }
 
+	#region
+	[Inject]
+	IUtils _utils { get; set; }
+
+	[Inject] IJSRuntime Js { get; set; }
+
+	[Parameter]
+	public int Boletas { get; set; }
+	[Parameter]
+	public int ValorBoletas { get; set; }
+
 	#endregion
 
 	[CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
 	void Cancel() => MudDialog.Cancel();
 
-	protected override void OnInitialized()
+	protected override async void OnInitialized()
 	{
 		MontoFormateado = ValorBoletas.ToString();
 
@@ -97,7 +80,7 @@
 
 		ExpirationTime = DateTime.UtcNow.AddMinutes(5).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
 
-		(string, string) prueba = _utils.has(ValorBoletas, Boletas ,ExpirationTime);
+		(string, string) prueba = await _utils.has(ValorBoletas, Boletas ,ExpirationTime);
 		PublicKey = "pub_test_EKiDBdydoVychiwazPqDsm52168IjGmQ";
 		Currency = "COP";
 		AmountInCents = ValorBoletas;

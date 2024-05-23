@@ -36,23 +36,23 @@ namespace SIMRIFA.Service.Compra
 
 				string number = AjustesNumeros();
 
-				var comprador = new Model.Models.Comprador
-				{
-					Nombre = "dayan",
-					Apellido = "agudelo",
-					Identificacion = "1036957989",
-					Correo = "dayan24agudelo@gmail.com",
-					Telefono = "3113633371",
-					//Serie = getserie?.FirstOrDefault()?.NumeroSerie.ToString(),
-					Serie = actualSerie.NumeroSerie.ToString(),
-					Cantidad = numeros.Count.ToString(),
-					Numeros = number,
-					Estado = "TEST",
-					Valor = precio,
-					FechaCreacion = DateTime.Now,
-				};
+				//var comprador = new Model.Models.Comprador
+				//{
+				//	Nombre = "dayan",
+				//	Apellido = "agudelo",
+				//	Identificacion = "1036957989",
+				//	Correo = "dayan24agudelo@gmail.com",
+				//	Telefono = "3113633371",
+				//	//Serie = getserie?.FirstOrDefault()?.NumeroSerie.ToString(),
+				//	Serie = actualSerie.NumeroSerie.ToString(),
+				//	Cantidad = numeros.Count.ToString(),
+				//	Numeros = number,
+				//	Estado = "TEST",
+				//	Valor = precio,
+				//	FechaCreacion = DateTime.Now,
+				//};
 
-				_IUnitOfWork._context.Add(comprador);
+				//_IUnitOfWork._context.Add(comprador);
 				//await _IUnitOfWork.Commit();
 
 				if (true) // aca va ir la validaicon del PSE
@@ -60,18 +60,18 @@ namespace SIMRIFA.Service.Compra
 
 				}
 
-				await _correoServicio.EnvioCorreoMailNet(comprador);
+				//await _correoServicio.EnvioCorreoMailNet(comprador);
 
 				return numeros;
 			}
 			catch (Exception ex)
 			{
-			await	_IUnitOfWork.Rollback();
+			//await	_IUnitOfWork.Rollback();
 				return numeros;
 			}
 			finally
 			{
-				_IUnitOfWork._context.Dispose();
+				//_IUnitOfWork._context.Dispose();
 			}
 		}
 

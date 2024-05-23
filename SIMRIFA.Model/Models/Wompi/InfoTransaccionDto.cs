@@ -17,12 +17,6 @@ namespace SIMRIFA.Model.Models.Wompi
 		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		public int Id { get; set; }
 
-		public string? ExternalIdentifier { get; set; }
-
-		public string? BusinessAgreementCode { get; set; }
-
-		public string? PaymentIntentionIdentifier { get; set; }
-
 		public string? TransactionId { get; set; }
 
 		public string? AliasChecksum { get; set; }
@@ -32,10 +26,6 @@ namespace SIMRIFA.Model.Models.Wompi
 		public string? PhoneNumber { get; set; }
 
 		public string? AliasType { get; set; }
-
-		public string? SandboxStatus { get; set; }
-
-		public string? PaymentDescription { get; set; }
 
 		public string? CreatedAt { get; set; }
 
@@ -57,24 +47,6 @@ namespace SIMRIFA.Model.Models.Wompi
 
 		public string? StatusMessage { get; set; }
 
-		public string? RedirectUrl { get; set; }
-
-		public string? PaymentSourceId { get; set; }
-
-		public string? PaymentLinkId { get; set; }
-
-		public string? Billing_data_AddressLine1 { get; set; }
-
-		public string? Billing_data_AddressLine2 { get; set; }
-
-		public string? Billing_data_City { get; set; }
-
-		public string? Billing_data_State { get; set; }
-
-		public string? Billing_data_Country { get; set; }
-
-		public string? Billing_data_PostalCode { get; set; }
-
 		public string? AliasEvent { get; set; }
 
 		public string? SentAt { get; set; }
@@ -82,12 +54,6 @@ namespace SIMRIFA.Model.Models.Wompi
 		public string? AliasTimestamp { get; set; }
 
 		public string? Environment { get; set; }
-
-		public string? Property_transaction_id { get; set; }
-
-		public string? Property_transaction_status { get; set; }
-
-		public string? Property_amount_in_cents { get; set; }
 
 		public int idCliente { get; set; }
 

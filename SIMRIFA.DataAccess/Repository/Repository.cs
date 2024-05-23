@@ -64,9 +64,10 @@ namespace SIMRIFA.DataAccess.Repository
 				if (Funcion != default)
 				{
 					Qry = Qry.Where(Funcion);
-
 					Resultado = Qry;
 				}
+
+				Resultado = Qry;
 			}
 			catch (Exception ex)
 			{

@@ -40,7 +40,7 @@ namespace SIMRIFA.Service.Correo
 
 		}
 
-		public async Task<bool> EnvioCorreoMailNet(Comprador comprador)
+		public async Task<bool> EnvioCorreoMailNet(CompradorDto comprador)
 		{
 			return await _correo.EnvioCorreoNetMail(comprador);
 		}

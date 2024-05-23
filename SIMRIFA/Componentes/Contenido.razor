@@ -121,15 +121,19 @@
 
 	protected override async Task OnInitializedAsync()
 	{
-		//var result = serieService.ObtenerSerieActiva().FirstOrDefault();
-		//ValorMaximo = result.NumeroMaximo - 50;
-		//vendidas = result.Contador;
+		var series = await serieService.ObtenerSerieActiva();
+		var result = series.FirstOrDefault();
+
+		int margen = result.Margen == null ? 0 : (int)result.Margen;
+
+		ValorMaximo = result.NumeroMaximo - margen;
+		vendidas = result.Contador;
 		Porcentaje = _utils.Calcular(vendidas, ValorMaximo);
 	}
 
-	protected override void OnAfterRender(bool firstRender)
+	protected override async void OnAfterRender(bool firstRender)
 	{
-		OpenDialog();
+		await OpenDialog();
 
 		Porcentaje = _utils.Calcular(vendidas, ValorMaximo);
 
@@ -138,14 +142,10 @@
 
 	public async void CompraOne()
 	{
-		//OpenDialog();
+		await OpenDialog();
+		//vendidas += 3;
 
-		vendidas += 3;
-
-		OpenPagosDialog(3, 1400000);
-
-
-		//await compradorService.AddComprador(3, "14.000");
+		await OpenPagosDialog(3, 1400000);
 
 		#region PRUEBAS
 
@@ -169,38 +169,30 @@
 
 	public async void CompraTwo()
 	{
-		//OpenDialog();
-		vendidas += 5;
-
-		//OpenPagosDialog(5, 2300000);
-
-		//await compradorService.AddComprador(5, "28.000");
+		await OpenDialog();
 	}
 
 	public async void CompraThre()
 	{
-		//OpenDialog();
-		vendidas += 10;
+		await OpenDialog();
 
-		OpenPagosDialog(5, 4700000);
-
-		//await compradorService.AddComprador(10, "47.000");
+		await OpenPagosDialog(5, 4700000);
 	}
 
 	public async void CompraCantidad()
 	{
-		OpenDialog();
+		await OpenDialog();
 		vendidas += cantidadVenta;
 
 		var valorWompi = cantidadVenta * 500000;
 		var valor = cantidadVenta * 500000;
 
-		OpenPagosDialog(cantidadVenta, valorWompi);
+		await OpenPagosDialog(cantidadVenta, valorWompi);
 
-		await compradorService.AddComprador(cantidadVenta, $"{valor.ToString("N")}");
+		//await compradorService.AddComprador(cantidadVenta, $"{valor.ToString("N")}");
 	}
 
-	private async void OpenPagosDialog(int boletas, int valor)
+	private async Task OpenPagosDialog(int boletas, int valor)
 	{
 		DialogOptions disableBackdropClick = new DialogOptions()
 			{
@@ -226,20 +218,20 @@
 		}
 	}
 
-	private void OpenDialog()
+	private async Task OpenDialog()
 	{
-		//if (vendidas >= ValorMaximo)
-		//{
-		//	DialogOptions disableBackdropClick = new DialogOptions()
-		//		{
-		//			DisableBackdropClick = true,
-		//			MaxWidth = MaxWidth.Medium,
-		//			Position = DialogPosition.Center,
-		//			FullWidth = true
-		//		};
+		if (vendidas >= ValorMaximo)
+		{
+			DialogOptions disableBackdropClick = new DialogOptions()
+				{
+					DisableBackdropClick = true,
+					MaxWidth = MaxWidth.Medium,
+					Position = DialogPosition.Center,
+					FullWidth = true
+				};
 
-		//	Dialog.Show<CierreVentas>(string.Empty, disableBackdropClick);
-		//}
+			Dialog.Show<CierreVentas>(string.Empty, disableBackdropClick);
+		}
 	}
 
 }
