@@ -11,6 +11,6 @@ namespace SIMRIFA.Service.NumeroAleatorio
 
 		Task<List<string>> ObtenerNumerosAsync(Expression<Func<Model.core.NumeroAleatorio, bool>> Function = default);
 
-		Task<List<string>> GenerarNumeroAletorio(int valor);
+		Task<List<string>> GenerarNumeroAletorio(int valor, int valorMaximo);
 	}
 }

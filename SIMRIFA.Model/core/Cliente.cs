@@ -33,5 +33,11 @@ namespace SIMRIFA.Model.core
 		[Column("FECHA_CREACION")]
 		[Required]
 		public DateTime? FechaCreacion { get; set; }
+
+		[Column("ENVIO_CORREO")]
+		[Required]
+		public bool EnvioCorreo { get; set; } = false;
+
+
 	}
 }

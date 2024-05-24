@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Newtonsoft.Json.Linq;
+using SIMRIFA.DataAccess.Repository;
 using SIMRIFA.DataAccess.UnitOfWork;
+using SIMRIFA.Model.Config;
 using SIMRIFA.Model.Models.Wompi;
 using SIMRIFA.Service.NumeroAleatorio;
 using SIMRIFA.Service.Transaccion;
@@ -10,6 +12,7 @@ using System.Drawing;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace SIMRIFA.Service.Tools
@@ -20,14 +23,16 @@ namespace SIMRIFA.Service.Tools
 		private IUnitOfWork _unitOfWork;
 		private INumeroAleatorioService _numeroAleatorioService;
 		private ITransaccionService _transaccionService;
+		private readonly IRepository<SIMRIFA.Model.Config.CorreoConfig> _correConfig;
 
-
-		public Utils(IUnitOfWork unitOfWork, INumeroAleatorioService numeroAleatorioService, ITransaccionService transaccionService)
+		public Utils(IUnitOfWork unitOfWork, INumeroAleatorioService numeroAleatorioService, ITransaccionService transaccionService,
+			IRepository<SIMRIFA.Model.Config.CorreoConfig> correoConfig)
 		{
 			numeros = new List<int>();
 			_unitOfWork = unitOfWork;
 			_numeroAleatorioService = numeroAleatorioService;
 			_transaccionService = transaccionService;
+			_correConfig = correoConfig;
 		}
 
 		public decimal Calcular(decimal valor, decimal cantidad)
@@ -37,39 +42,6 @@ namespace SIMRIFA.Service.Tools
 			decimal info = Decimal.Truncate((Convert.ToDecimal(valor) / Convert.ToDecimal(cantidad)) * Convert.ToDecimal(100));
 
 			return info;
-		}
-
-		public async Task<List<string>> GenerarNumeroAletorio(int valor)
-		{
-			var litnumTemp = new List<string>();
-
-			litnumTemp.AddRange(await NumerosExistentes());
-
-			var nuevoNumeros = new List<string>();
-
-			for (int i = 0; i < valor; i++)
-			{
-				string numero;
-				do
-				{
-					numero = await GenerarNumeroAleatorio();
-
-				} while (litnumTemp.Contains(numero));
-
-				litnumTemp.Add(numero);
-				nuevoNumeros.Add(numero);
-			}
-
-			return nuevoNumeros;
-		}
-
-		public decimal MargenError(decimal valor)
-		{
-			var margen = _unitOfWork._context.Serie.Where(x => x.Estado == true)?.FirstOrDefault()?.Margen;
-
-			var porcentajeAdiccional = Decimal.Truncate(Convert.ToDecimal(valor) * Convert.ToDecimal(margen)) / 100;
-
-			return porcentajeAdiccional;
 		}
 
 		public async Task<(string referencia, string has)> has(int amount, int cantidad, string fechaExpiracion)
@@ -98,24 +70,53 @@ namespace SIMRIFA.Service.Tools
 			}
 		}
 
-		private async Task<string> GenerarNumeroAleatorio()
+		public async Task<T> GetValueFromJsonElement<T>(JsonElement jsonElement, params string[] keys)
 		{
-			Random rnd = new Random();
+			JsonElement currentElement = jsonElement;
 
-			var temp = await Task.Run(() => rnd.Next(0, 999));
+			foreach (var key in keys)
+			{
+				if (!currentElement.TryGetProperty(key, out currentElement))
+				{
+					throw new ArgumentException($"Problemas con '{key}' no encontrado en el json JSON.");
+				}
+			}
 
-			var numeroFormateado = temp.ToString("000");
+			// Convertir el valor a tipo T
+			T value;
+			if (typeof(T) == typeof(string))
+			{
+				value = (T)(object)currentElement.GetString();
+			}
+			else if (typeof(T) == typeof(int))
+			{
+				value = (T)(object)currentElement.GetInt32();
+			}
+			else if (typeof(T) == typeof(bool))
+			{
+				value = (T)(object)currentElement.GetBoolean();
+			}
+			else
+			{
+				throw new ArgumentException($"No soporta el tipo '{typeof(T)}'.");
+			}
 
-			return numeroFormateado;
+
+			await Task.CompletedTask;
+
+			return value;
 		}
 
-		private async Task<List<string>> NumerosExistentes()
+		public async Task<CorreoConfig> GetConfiguracionCorreoAsync()
 		{
-			return await _numeroAleatorioService.ObtenerNumerosAsync();
+			var correoConfig = await _correConfig.GetOneOrAll(x => x.Estado == true);
+
+			var correo = correoConfig.FirstOrDefault();
+
+			return correo;
 		}
 
-		//public async Task<bool> ValidacionInfo(EventoWompiResponse response)
-		public async Task<bool> ValidacionInfo(string TransaccionID, string TransaccionStatus, string TransaccionAmount,string TransaccionChecksum, string timestamp = default)
+		public async Task<bool> ValidacionInfo(string TransaccionID, string TransaccionStatus, string TransaccionAmount, string TransaccionChecksum, string timestamp = default)
 		{
 			//var TransaccionID = response?.Data?.Transaction?.Id;
 			//var TransaccionStatus = response?.Data?.Transaction?.Status;
@@ -329,6 +330,22 @@ namespace SIMRIFA.Service.Tools
 
 			return valorrandom;
 
+		}
+
+		private async Task<string> GenerarNumeroAleatorio()
+		{
+			Random rnd = new Random();
+
+			var temp = await Task.Run(() => rnd.Next(0, 999));
+
+			var numeroFormateado = temp.ToString("000");
+
+			return numeroFormateado;
+		}
+
+		private async Task<List<string>> NumerosExistentes()
+		{
+			return await _numeroAleatorioService.ObtenerNumerosAsync();
 		}
 	}
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SIMRIFA.DataAccess.Repository;
 using SIMRIFA.Model.core;
+using SIMRIFA.Service.Series;
 using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 
@@ -56,7 +57,23 @@ namespace SIMRIFA.Service.NumeroAleatorio
 			return numeros.ToList();
 		}
 
-		public async Task<List<string>> GenerarNumeroAletorio(int valor)
+
+
+		public async Task<List<string>> ActualizarEstadoNumero(Expression<Func<Model.core.NumeroAleatorio, bool>> Function = default)
+		{
+			var Qry = await _repository.GetOneOrAll(Function);
+
+			IEnumerable<string> numeros = new List<string>();
+
+			if (Qry != null)
+			{
+				numeros = Qry.Select(x => x.Numero);
+			}
+
+			return numeros.ToList();
+		}
+
+		public async Task<List<string>> GenerarNumeroAletorio(int valor, int valorMaximo)
 		{
 			var litnumTemp = new List<string>();
 
@@ -69,7 +86,7 @@ namespace SIMRIFA.Service.NumeroAleatorio
 				string numero;
 				do
 				{
-					numero = await GenerarNumeroAleatorio();
+					numero = await GenerarNumeroAleatorio(valorMaximo);
 
 				} while (litnumTemp.Contains(numero));
 
@@ -90,13 +107,20 @@ namespace SIMRIFA.Service.NumeroAleatorio
 			return newlit;
 		}
 
-		private async Task<string> GenerarNumeroAleatorio()
+		private async Task<string> GenerarNumeroAleatorio(int valorMaximo)
 		{
 			Random rnd = new Random();
 
-			var temp = await Task.Run(() => rnd.Next(0, 999));
+			var temp = await Task.Run(() => rnd.Next(0, valorMaximo));
 
-			var numeroFormateado = temp.ToString("000");
+			string format = string.Empty;
+
+			for (int i = 1; i < valorMaximo.ToString().Length; i++)
+			{
+				format += "0";
+			}
+
+			var numeroFormateado = temp.ToString(format);
 
 			return numeroFormateado;
 		}

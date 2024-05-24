@@ -3,11 +3,8 @@ using Microsoft.Extensions.Configuration;
 using SIMRIFA.Model.core;
 using SIMRIFA.Model.Models.Wompi;
 using SIMRIFA.Model.ventas;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SIMRIFA.DataAccess.Db_Context.Builders;
+using SIMRIFA.Model.Config;
 
 namespace SIMRIFA.DataAccess.Db_Context
 {
@@ -22,7 +19,6 @@ namespace SIMRIFA.DataAccess.Db_Context
 		public SIMRIFAdbContext()
 		{
 			IConfiguration config = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
-
 			_connectionString = config.GetConnectionString("DefaultConnection");
 		}
 
@@ -34,6 +30,7 @@ namespace SIMRIFA.DataAccess.Db_Context
 		public virtual DbSet<NumeroAleatorio> NumeroAleatorio { get; set; }
 		public virtual DbSet<Correo> Correo { get; set; }
 		public virtual DbSet<InfoTransaccionDto>  InfoTransaccionDtos { get; set; }
+		public virtual DbSet<CorreoConfig>  CorreConfig { get; set; }
 
 
 		//public virtual DbSet<Boleta> Boleta { get; set; }
@@ -57,7 +54,9 @@ namespace SIMRIFA.DataAccess.Db_Context
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			HisBuilder.Builder(modelBuilder);
+			CoreBuilder.Builder(modelBuilder);
+			VentasBuilder.Builder(modelBuilder);
+			ConfigBuilder.Builder(modelBuilder);
 		}
 
 	}

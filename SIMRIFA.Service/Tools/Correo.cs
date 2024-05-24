@@ -3,11 +3,25 @@ using SendGrid;
 using System.Net.Mail;
 using System.Net;
 using SIMRIFA.Model.Models;
+using SIMRIFA.Model.Config;
 
 namespace SIMRIFA.Service.Tools
 {
-    public class Correo : ICorreo
+	public class Correo : ICorreo
 	{
+		private readonly IUtils _utils;
+		private string EmailRemitente;
+		private string NombrelRemitente;
+		private string Pass;
+		private string Asunto;
+		private string Cuerpo;
+		private bool Estado;
+
+		public Correo(IUtils utils)
+		{
+			_utils = utils;
+		}
+
 		public async Task<bool> EnviarCorreoSendGrid(List<EmailAddress> emailAddresses, string subject, List<SendGrid.Helpers.Mail.Attachment>? attachments, bool sandbox, string? template, EmailTemplateDto? TemplateData)
 		{
 			try
@@ -72,18 +86,25 @@ namespace SIMRIFA.Service.Tools
 			try
 			{
 
-			var	MontoFormateado = comprador.Valor.ToString();
+				var MontoFormateado = comprador.Valor.ToString();
 
 				if (MontoFormateado.Length > 2)
 				{
 					comprador.Valor = MontoFormateado.Substring(0, MontoFormateado.Length - 2);
 				}
 
-				var fromAddress = new MailAddress("techminds247@gmail.com", "Sorteo SIM");
+
+
+				var CorreConfig = await _utils.GetConfiguracionCorreoAsync();
+
+
+				var fromAddress = new MailAddress(CorreConfig.EmaiRemitente, CorreConfig.NombreRemitente);
 				var toAddress = new MailAddress(comprador.Correo, $"{comprador.Nombre}");
-				const string fromPassword = "lnwr wrlj yamq ytwh";
-				string subject = $"Sorteo SIM - {comprador.Nombre}";
-				string body = ContruccionBody(comprador);
+				string fromPassword = CorreConfig.Password;
+				string subject = $"{CorreConfig.Asunto} - {comprador.Nombre}";
+				string body = ContruccionBody(comprador, CorreConfig.Cuerpo);
+
+			
 
 				var smtp = new SmtpClient
 				{
@@ -106,21 +127,33 @@ namespace SIMRIFA.Service.Tools
 					await smtp.SendMailAsync(message);
 
 					result = true;
-				}
+				};
+			}
+			catch (SmtpException smtpEx)
+			{
+				Console.WriteLine($"SMTP Error: {smtpEx.StatusCode} - {smtpEx.Message}");
 			}
 			catch (Exception ex)
 			{
-				Console.WriteLine(ex);
+				Console.WriteLine($"Error al enviar correo: {ex.Message}");
 			}
 
 			return result;
 		}
 
-		private string ContruccionBody(CompradorDto comprador)
+		private string ContruccionBody(CompradorDto comprador, string cuerpo = default)
 		{
-			var body = string.Empty;
+			//cuerpo = cuerpo.Replace("{comprador.Nombre}", comprador.Nombre);
+			//cuerpo = cuerpo.Replace("{comprador.Referencia}", comprador.Referencia);
+			//cuerpo = cuerpo.Replace("{comprador.Numeros}", comprador.Numeros);
+			//cuerpo = cuerpo.Replace("{comprador.Cantidad}", comprador.Cantidad);
+			//cuerpo = cuerpo.Replace("{comprador.Valor}", comprador.Valor);
 
-			body = @$"<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+			//var body = cuerpo;
+
+            #region Prueba
+
+            var body = @$"<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
                 <html dir='ltr' xmlns='http://www.w3.org/1999/xhtml' xmlns:o='urn:schemas-microsoft-com:office:office'>
 
                 <head>
@@ -307,8 +340,17 @@ namespace SIMRIFA.Service.Tools
 
                 </html>";
 
-			return body;
+            #endregion
+            return body;
 
 		}
+
+		private async Task<CorreoConfig> correoConfig()
+		{
+			var result = await _utils.GetConfiguracionCorreoAsync();
+
+			return result;
+		}
+
 	}
 }
