@@ -409,9 +409,6 @@ namespace SIMRIFA.Api.Controllers
 		[HttpGet("Identificacion")]
 		public async Task<IActionResult> GetTransaccion(string identificacion)
 		{
-			//var 
-
-
 
 			return Ok();
 		}

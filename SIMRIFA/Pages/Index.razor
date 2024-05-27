@@ -4,16 +4,48 @@
 @inject IJSRuntime JSRuntime;
 
 
+<!DOCTYPE html>
+<html>
 
+<head>
+	<link href="css/Style.css" rel="stylesheet" />
+</head>
 
-<PageTitle>Index</PageTitle>
-<BannerSuperior></BannerSuperior>
-<br />
-<Encabezado></Encabezado>
+<body>
+	<MudLayout>
+		<MudAppBar Elevation="1" Dense="true">
+			<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+			<MudSpacer />
+			<MudImage ObjectFit="ObjectFit.Fill" Height="40" Width="100" Src="/img/LOGO.png" Alt="SOAT" Elevation="25" Class="rounded-lg" />
+		</MudAppBar>
+		<MudDrawer @bind-Open="@open" Elevation="1" Variant="@DrawerVariant.Temporary">
+			<MudDrawerHeader>
+				<MudText Typo="Typo.h6">SIM</MudText>
+			</MudDrawerHeader>
+			<MudNavMenu>
+				<MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.SupportAgent">Soporte</MudNavLink>
+				<MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Group">Ganadores</MudNavLink>
+				<MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.Instagram">Instagram</MudNavLink>
+				<MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.Facebook">Facebook</MudNavLink>
+				<MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.LinkedIn">Linked</MudNavLink>
+			</MudNavMenu>
+		</MudDrawer>
+		<MudMainContent>
 
-<Contenido></Contenido>
+			<br />
+			@*<Encabezado></Encabezado>*@
 
-<BannerSuperior></BannerSuperior>
+			<Contenido></Contenido>
+
+			<br />
+			<PiePag></PiePag>
+
+		</MudMainContent>
+	</MudLayout>
+
+</body>
+
+</html>
 
 
 @code {
@@ -24,5 +56,13 @@
 		{
 			await JSRuntime.InvokeVoidAsync("disableContextMenu");
 		}
+	}
+
+
+	bool open = false;
+
+	void ToggleDrawer()
+	{
+		open = !open;
 	}
 }

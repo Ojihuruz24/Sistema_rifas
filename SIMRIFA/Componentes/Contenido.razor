@@ -12,10 +12,10 @@
 <br />
 <br />
 
-<MudGrid Style="background-color:ghostwhite">
+<MudGrid>
 	<MudItem xs="12">
 		<MudText Align="Align.Center">
-			<MudText Color="Color.Error" Typo="Typo.h3">GRAN RIFA</MudText>
+			<MudText Color="Color.Error" Typo="Typo.h3">SOAT - tecnomecanica - moto 0km - licencia de conduccion</MudText>
 
 		</MudText>
 	</MudItem>
@@ -29,7 +29,7 @@
 			<MudImage ObjectFit="ObjectFit.Fill" Height="500" Width="450" Src="/img/TECNO.png" Alt="TECNO" Elevation="25" Class="rounded-lg" />
 		</div>
 	</MudItem>
-	<MudItem xs="12">
+	<MudItem xs="12" sm="12" md="12" lg="12" xl="12" xxl="12">
 		<MudText Align="Align.Center">
 			<MudText Color="Color.Error" Typo="Typo.h3">INCREIBLE!!!</MudText>
 			<MudProgressLinear Color="Color.Info" Striped="true" Size="Size.Large" Value="@vendidas" Class="d-flex align-center justify-center mud-width-full py-8" Min="1" Max="@ValorMaximo">
@@ -37,54 +37,102 @@
 					<b>@Porcentaje %</b>
 				</MudText>
 			</MudProgressLinear>
-
-			<MudText Color="Color.Error" Typo="Typo.h1">VALOR</MudText>
-			<MudText Color="Color.Error" Typo="Typo.h3">5.000</MudText>
+			
 		</MudText>
 	</MudItem>
 </MudGrid>
+<br />
 
-<MudGrid Justify="Justify.Center" Style="background-color:black">
-	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
-		<MudCard Style="border:groove;border-color:red">
-			@*<MudCardMedia Image="Img/comboOne.png" Height="500" />*@
-			<div class="d-flex justify-center">
-				<MudImage Fluid="true" Src="Img/comboOne.png" Alt="Rifa finalizada" Class="rounded-lg" />
-			</div>
-			<MudCardActions>
-				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CompraOne" FullWidth="true" Disabled="@EstadoButton">COMPRAR</MudButton>
-			</MudCardActions>
-		</MudCard>
-	</MudItem>
-	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
-		<MudCard Style="border:groove;border-color:red">
-			<div class="d-flex justify-center">
-				<MudImage Fluid="true" Src="Img/comboTwo.png" Alt="Rifa finalizada" Class="rounded-lg" />
-			</div>
-			@*<MudCardMedia Image="Img/comboTwo.png" Height="500" Class="rounded-lg" Title="Compra" />*@
-			<MudCardActions>
-				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CompraTwo" FullWidth="true" Disabled="@EstadoButton">COMPRAR</MudButton>
-			</MudCardActions>
-		</MudCard>
-	</MudItem>
-	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
-		@*<MudItem xs="12" sm="12" md="6" lg="6" xl="3" xxl="6">*@
-		<MudCard Style="border:groove;border-color:red">
+<MudGrid Justify="Justify.Center">
 
-			<div class="d-flex justify-center">
-				<MudImage Fluid="true" Src="Img/comboThre.png" Alt="Rifa finalizada" Class="rounded-lg" />
-			</div>
-			@*<MudCardMedia Image="Img/comboThre.png" Height="500" />*@
+	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
+		<MudCard Style="border:groove;border-color:red">
+			<MudImage Fluid="true" Src="@urlImageCupones1" Alt="Rifa finalizada" Class="rounded-lg" />
 			<MudCardActions>
-				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CompraThre" FullWidth="true" Disabled="@EstadoButton">COMPRAR</MudButton>
+				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CompraOne" FullWidth="true" Disabled="@EstadoButton">COMPRAR 2 CUPONES</MudButton>
 			</MudCardActions>
 		</MudCard>
 	</MudItem>
-	<MudGrid Justify="Justify.Center" Style="background-color:aliceblue">
-		<MudItem xs="12" sm="12" md="12" lg="12" xl="12" xxl="12">
+
+	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
+		<MudCard Style="border:groove;border-color:red">
+			<div class="d-flex justify-center">
+				<MudImage Fluid="true" Src="@urlImageCupones1" Alt="Rifa finalizada" Class="rounded-lg" />
+			</div>
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CompraTwo" FullWidth="true" Disabled="@EstadoButton">COMPRAR 2 CUPONES</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</MudItem>
+
+	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
+		<MudCard Style="border:groove;border-color:red">
+			<div class="d-flex justify-center">
+				<MudImage Fluid="true" Src="@urlImageCupones1" Alt="Rifa finalizada" Class="rounded-lg" />
+			</div>
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CompraThre" FullWidth="true" Disabled="@EstadoButton">COMPRAR 2 CUPONES</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</MudItem>
+
+	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
+		<MudCard Style="border:groove;border-color:red">
+			<MudImage Fluid="true" Src="@urlImageCupones1" Alt="Rifa finalizada" Class="rounded-lg" />
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CompraOne" FullWidth="true" Disabled="@EstadoButton">COMPRAR 2 CUPONES</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</MudItem>
+
+	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
+		<MudCard Style="border:groove;border-color:red">
+			<div class="d-flex justify-center">
+				<MudImage Fluid="true" Src="@urlImageCupones1" Alt="Rifa finalizada" Class="rounded-lg" />
+			</div>
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CompraTwo" FullWidth="true" Disabled="@EstadoButton">COMPRAR 2 CUPONES</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</MudItem>
+
+	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
+		<MudCard Style="border:groove;border-color:red">
+			<div class="d-flex justify-center">
+				<MudImage Fluid="true" Src="@urlImageCupones1" Alt="Rifa finalizada" Class="rounded-lg" />
+			</div>
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CompraThre" FullWidth="true" Disabled="@EstadoButton">COMPRAR 2 CUPONES</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</MudItem>
+
+	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
+		<MudCard Style="border:groove;border-color:red">
+			<div class="d-flex justify-center">
+				<MudImage Fluid="true" Src="@urlImageCupones1" Alt="Rifa finalizada" Class="rounded-lg" />
+			</div>
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CompraThre" FullWidth="true" Disabled="@EstadoButton">COMPRAR 2 CUPONES</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</MudItem>
+
+	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
+		<MudCard Style="border:groove;border-color:red">
+			<div class="d-flex justify-center">
+				<MudImage Fluid="true" Src="@urlImageCupones1" Alt="Rifa finalizada" Class="rounded-lg" />
+			</div>
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Color="Color.Primary" OnClick="CompraThre" FullWidth="true" Disabled="@EstadoButton">COMPRAR 2 CUPONES</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</MudItem>
+
+	<MudGrid Justify="Justify.Center">
+		<MudItem xs="@xl" sm="@xl" md="@xl" lg="@xl" xl="@xl" xxl="@xl">
 			<MudNumericField @bind-Value="@cantidadVenta" HideSpinButtons="false" Label="CANTIDAD" Variant="Variant.Filled" Min="1" Max="20" />
-		</MudItem>
-		<MudItem xs="12" sm="12" md="12" lg="12" xl="12" xxl="12">
+			<br />
 			<MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true" OnClick="CompraCantidad">COMPRAR</MudButton>
 		</MudItem>
 	</MudGrid>
@@ -93,11 +141,18 @@
 @code {
 
 	private int xs = 12;
-	private int sm = 12;
-	private int md = 12;
-	private int lg = 6;
-	private int xl = 4;
-	private int xxl = 4;
+	private int sm = 6;
+	private int md = 4;
+	private int lg = 3;
+	private int xl = 3;
+	private int xxl = 3;
+
+
+	private string urlImageOne = "Img/comboOne.png";
+	private string urlImageTwho = "Img/comboTwo.png";
+	private string urlImageTrhe = "Img/comboThre.png";
+	private string urlImageCupones1 = "Img/Cupon1.png";
+	private string urlImageCupones2 = "Img/Cupon2.png";
 
 	private bool EstadoButton = false;
 	private int ValorMaximo = 1;

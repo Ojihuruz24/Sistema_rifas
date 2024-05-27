@@ -1,58 +1,34 @@
 ﻿@using MudBlazor
 
-<MudGrid Justify="Justify.Center" Style="background-color:black">
+<footer>
+	<div Class="d-flex justify-space-around flex-wrap mt-4">
+		<MudImage ObjectFit="ObjectFit.Contain" Width="130" Height="130" Src="/img/nike.png" Alt="Örebro Slott" Elevation="25" Class="rounded-lg ma-4" />
+		<MudImage ObjectFit="ObjectFit.Contain" Width="130" Height="130" Src="/img/nike.png" Alt="Örebro Slott" Elevation="25" Class="rounded-lg ma-4" />
+		<MudImage ObjectFit="ObjectFit.Contain" Width="130" Height="130" Src="/img/nike.png" Alt="Örebro Slott" Elevation="25" Class="rounded-lg ma-4" />
+		<MudImage ObjectFit="ObjectFit.Contain" Width="130" Height="130" Src="/img/nike.png" Alt="Örebro Slott" Elevation="25" Class="rounded-lg ma-4" />
+	</div>
+
+	<div Class="d-flex justify-space-around flex-wrap mt-1">
+		<MudText>Copyright © 2024</MudText>
+
+	</div>
 
 
-    <MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
-        <MudCard Style="border:groove;border-color:red">
-            <MudCardMedia Image="Img/comboOne.png" Height="500"/>
-            <MudCardActions>
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true">COMPRAR</MudButton>
-            </MudCardActions>
-        </MudCard>
-	</MudItem>
-    <MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
-        <MudCard Style="border:groove;border-color:red">
-            <MudCardMedia Image="Img/comboTwo.png" Height="500" />
-            <MudCardActions>
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true">COMPRAR</MudButton>
-            </MudCardActions>
-        </MudCard>
-	</MudItem>
-    <MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
-    @*<MudItem xs="12" sm="12" md="6" lg="6" xl="3" xxl="6">*@
-        <MudCard Style="border:groove;border-color:red">
-            <MudCardMedia Image="Img/comboThre.png" Height="500" />
-            <MudCardActions>
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true">COMPRAR</MudButton>
-            </MudCardActions>
-        </MudCard>
-	</MudItem>
+</footer>
 
 
-    <MudGrid Justify="Justify.Center" Style="background-color:aliceblue">
-        <MudItem xs="12" sm="12" md="12" lg="12" xl="12" xxl="12">
-                <MudNumericField @bind-Value="IntValue" HideSpinButtons="false" Label="CANTIDAD" Variant="Variant.Filled" Min="1" Max="30" />
-        </MudItem>
-        <MudItem xs="12" sm="12" md="12" lg="12" xl="12" xxl="12">
-                <MudButton Variant="Variant.Filled" Color="Color.Primary" FullWidth="true">COMPRAR</MudButton>
-        </MudItem>
-    </MudGrid>
-
-
-</MudGrid>
 
 
 @code {
 
 
-    int xs = 12;
-    int sm = 12;
-    int md = 12;
-    int lg = 6;
-    int xl = 4;
-    int xxl = 4;
+	int xs = 12;
+	int sm = 12;
+	int md = 12;
+	int lg = 6;
+	int xl = 4;
+	int xxl = 4;
 
-    public int IntValue { get; set; }
+	public int IntValue { get; set; }
 
 }
