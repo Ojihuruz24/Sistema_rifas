@@ -1,0 +1,63 @@
+﻿@using MudBlazor
+@inherits LayoutComponentBase
+
+<MudLayout>
+	<MudAppBar Elevation="1" Style="@($"color:{Colors.BlueGrey.Darken4}; background:{Colors.BlueGrey.Lighten3};")">
+		<MudIconButton Icon="@Icons.Material.Filled.Menu" Style="@($"color:{Colors.Teal.Darken4};")" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+		<MudSpacer />
+		<MudIconButton Icon="@Icons.Material.Filled.Login" Style="@($"color:{Colors.Teal.Darken4};")" Href="/Login" Target="_blank" />
+	</MudAppBar>
+	<MudDrawer @bind-Open="@open" Elevation="1" Variant="@DrawerVariant.Temporary" Style="@($"color:{Colors.Teal.Darken4};background:{Colors.BlueGrey.Lighten3}")">
+		<MudDrawerHeader>
+			<MudText Typo="Typo.h6">
+				<MudImage Fluid="true" Src="img/LOGO.png" Alt="Mony the dog" Elevation="25" Class="rounded-lg" />
+			</MudText>
+		</MudDrawerHeader>
+		<MudNavMenu>
+			<MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard" IconColor="Color.Inherit">HOME</MudNavLink>
+			<div class="nav-item px-3">
+				<MudNavLink Href="#" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Whatsapp" IconColor="Color.Inherit">Soporte WhatsApp</MudNavLink>
+			</div>
+			<div class="nav-item px-3">
+				<MudNavLink Href="/Ganadores" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.People" IconColor="Color.Inherit">Ganadores</MudNavLink>
+			</div>
+			<div class="nav-item px-3">
+				<MudNavLink Href="#" Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.Instagram" IconColor="Color.Inherit">Intagram</MudNavLink>
+			</div>
+			<div class="nav-item px-3">
+				<MudNavLink Href="#" Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.Facebook" IconColor="Color.Inherit">Facebook</MudNavLink>
+			</div>
+			<div class="nav-item px-3">
+				<MudNavLink Href="#" Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.Telegram" IconColor="Color.Inherit">Telegram</MudNavLink>
+			</div>
+		@*	<div class="nav-item px-3">
+				<MudNavLink Href="/Reportes" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Login" IconColor="Color.Inherit">Registrarse</MudNavLink>
+			</div>*@
+		</MudNavMenu>
+	</MudDrawer>
+	<MudMainContent Class="pt-16 px-16">
+		<MudContainer Class="mt-6">
+			@Body
+		</MudContainer>
+	</MudMainContent>
+</MudLayout>
+@code {
+
+	private MudTheme _theme = new();
+
+	private bool collapseNavMenu = true;
+
+	private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+	private void ToggleNavMenu()
+	{
+		collapseNavMenu = !collapseNavMenu;
+	}
+
+	bool open = false;
+
+	void ToggleDrawer()
+	{
+		open = !open;
+	}
+}

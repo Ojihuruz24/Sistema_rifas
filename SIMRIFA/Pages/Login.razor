@@ -1,0 +1,95 @@
+﻿@page "/Login"
+@using System.ComponentModel.DataAnnotations
+@using MudBlazor
+@using SIMRIFA.Componentes.LOGIN;
+
+@inject IDialogService Dialog
+
+<MudGrid>
+	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
+		<EditForm Model="@user" OnValidSubmit="OnValidSubmit">
+			<DataAnnotationsValidator />
+			<MudCard>
+				<MudCardHeader>
+					<MudText Typo="Typo.h6">LOGIN</MudText>
+				</MudCardHeader>
+				<MudCardContent>
+					<MudTextField Label="Email" Class="mt-3"
+								  @bind-Value="user.Email" For="@(() => user.Email)" />
+					<MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+								  @bind-Value="user.Password" For="@(() => user.Password)" InputType="InputType.Password" />
+				</MudCardContent>
+				<MudCardActions Class="d-flex justify-center">
+					<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Entrar</MudButton>
+				</MudCardActions>
+			</MudCard>
+		</EditForm>
+	</MudItem>
+	<MudItem>
+
+	</MudItem>
+</MudGrid>
+
+@code {
+
+	private int xs = 12;
+	private int sm = 12;
+	private int md = 12;
+	private int lg = 12;
+	private int xl = 12;
+	private int xxl = 12;
+
+
+	private void OnValidSubmit(EditContext context)
+	{
+
+	}
+
+	private MudForm form;
+	private UserLogin user = new UserLogin();
+
+	private async Task OnValidSubmit()
+	{
+		// Aquí puedes agregar la lógica para la autenticación
+		// Por ejemplo, llamando a un servicio de autenticación.
+		// Si la autenticación es exitosa, redirigir a la página deseada.
+		if (IsValidUser(user))
+		{
+			OpenDialog();
+		}
+		else
+		{
+			// Mostrar mensaje de error
+		}
+		StateHasChanged();
+	}
+
+	private bool IsValidUser(UserLogin user)
+	{
+		// Lógica de validación de usuario (reemplazar por la real)
+		return user.Email == "admin@admin.com" && user.Password == "123";
+	}
+
+	public class UserLogin
+	{
+		[Required]
+		[EmailAddress]
+		public string Email { get; set; }
+
+		[Required]
+		public string Password { get; set; }
+	}
+
+	private void OpenDialog()
+	{
+		DialogOptions dialogOptions = new DialogOptions
+			{
+				CloseButton = true,
+				DisableBackdropClick = true,
+				FullScreen = true
+			};
+
+		Dialog.Show<OpenModalReportLogin>(string.Empty, dialogOptions);
+	}
+
+}

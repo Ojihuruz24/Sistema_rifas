@@ -1,68 +1,68 @@
 ﻿@page "/"
-@using MudBlazor
-@using SIMRIFA.Componentes;
-@inject IJSRuntime JSRuntime;
+@using MudBlazor;
 
+<PageTitle>Tipo de rifas</PageTitle>
 
-<!DOCTYPE html>
-<html>
+<MudStack Row="true" Wrap="Wrap.Wrap" Spacing="11">
+	<MudCard>
+		<MudCardMedia Image="img/SOAT.png" Height="200" />
+		<MudCardContent>
+			<MudText Typo="Typo.h5">Sorteo de cupones</MudText>
+			<MudText Typo="Typo.body2">Compra cupones con descuento</MudText>
+			<MudText Typo="Typo.body2">Por los numeros de cupones comprados</MudText>
+			<MudText Typo="Typo.body2">regalaremos un premio mayor</MudText>
+		</MudCardContent>
+		<MudCardActions>
+			<MudButton Variant="Variant.Text" Href="TipoRifas/Rifas02" Color="Color.Primary">Ver demo</MudButton>
+		</MudCardActions>
+	</MudCard>
 
-<head>
-	<link href="css/Style.css" rel="stylesheet" />
-</head>
+	<MudCard>
+		<MudCardMedia Image="img/TECNO.png" Height="200" />
+		<MudCardContent>
+			<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
+			<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
+			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
+		</MudCardContent>
+		<MudCardActions>
+			<MudButton Variant="Variant.Text" Href="TipoRifas/Rifas01" Color="Color.Primary">Ver demo</MudButton>
+		</MudCardActions>
+	</MudCard>
 
-<body>
-	<MudLayout>
-		<MudAppBar Elevation="1" Dense="true">
-			<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
-			<MudSpacer />
-			<MudImage ObjectFit="ObjectFit.Fill" Height="40" Width="100" Src="/img/LOGO.png" Alt="SOAT" Elevation="25" Class="rounded-lg" />
-		</MudAppBar>
-		<MudDrawer @bind-Open="@open" Elevation="1" Variant="@DrawerVariant.Temporary">
-			<MudDrawerHeader>
-				<MudText Typo="Typo.h6">SIM</MudText>
-			</MudDrawerHeader>
-			<MudNavMenu>
-				<MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.SupportAgent">Soporte</MudNavLink>
-				<MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Group">Ganadores</MudNavLink>
-				<MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.Instagram">Instagram</MudNavLink>
-				<MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.Facebook">Facebook</MudNavLink>
-				<MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.LinkedIn">Linked</MudNavLink>
-			</MudNavMenu>
-		</MudDrawer>
-		<MudMainContent>
+	<MudCard>
+		<MudCardMedia Image="img/TECNO.png" Height="200" />
+		<MudCardContent>
+			<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
+			<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
+			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
+		</MudCardContent>
+		<MudCardActions>
+			<MudButton Variant="Variant.Text" Href="Rifas02" Color="Color.Primary">Ver demo</MudButton>
+		</MudCardActions>
+	</MudCard>
 
-			<br />
-			@*<Encabezado></Encabezado>*@
+	<MudCard>
+		<MudCardMedia Image="img/TECNO.png" Height="200" />
+		<MudCardContent>
+			<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
+			<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
+			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
+		</MudCardContent>
+		<MudCardActions>
+			<MudButton Variant="Variant.Text" Href="Rifas02" Color="Color.Primary">Ver demo</MudButton>
+		</MudCardActions>
+	</MudCard>
 
-			<Contenido></Contenido>
+	<MudCard>
+		<MudCardMedia Image="img/TECNO.png" Height="200" />
+		<MudCardContent>
+			<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
+			<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
+			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
+		</MudCardContent>
+		<MudCardActions>
+			<MudButton Variant="Variant.Text" Href="Rifas02" Color="Color.Primary">Ver demo</MudButton>
+		</MudCardActions>
+	</MudCard>
 
-			<br />
-			<PiePag></PiePag>
-
-		</MudMainContent>
-	</MudLayout>
-
-</body>
-
-</html>
-
-
-@code {
-
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-		{
-			await JSRuntime.InvokeVoidAsync("disableContextMenu");
-		}
-	}
-
-
-	bool open = false;
-
-	void ToggleDrawer()
-	{
-		open = !open;
-	}
-}
+</MudStack>

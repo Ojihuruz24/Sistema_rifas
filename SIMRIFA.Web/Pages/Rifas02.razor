@@ -1,0 +1,24 @@
+﻿@page "/Rifas02"
+@using MudBlazor
+@using SIMRIFA.Web.Componentes;
+@inject IJSRuntime JSRuntime;
+
+
+@code {
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JSRuntime.InvokeVoidAsync("disableContextMenu");
+		}
+	}
+
+	bool open = false;
+
+	void ToggleDrawer()
+	{
+		open = !open;
+	}
+
+}

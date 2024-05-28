@@ -13,18 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\Img\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SIMRIFA.DataAccess\SIMRIFA.DataAccess.csproj" />
     <ProjectReference Include="..\SIMRIFA.Service\SIMRIFA.Service.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Update="Componentes\RifaOne\Contenido.razor">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-    </Content>
   </ItemGroup>
 
 </Project>

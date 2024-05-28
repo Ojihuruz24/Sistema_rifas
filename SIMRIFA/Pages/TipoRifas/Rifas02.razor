@@ -1,0 +1,22 @@
+﻿@page "/TipoRifas/Rifas02"
+@using MudBlazor;
+@using SIMRIFA.Componentes.RifaOne;
+@inject IJSRuntime JSRuntime;
+
+
+<Encabezado></Encabezado>
+<Contenido></Contenido>
+<br />
+<PiePag></PiePag>
+
+
+@code
+{
+
+	bool open = true;
+
+	void ToggleDrawer()
+	{
+		open = !open;
+	}
+}

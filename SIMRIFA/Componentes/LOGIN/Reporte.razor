@@ -1,0 +1,72 @@
+﻿@using System.ComponentModel.DataAnnotations
+@using MudBlazor
+
+<MudGrid>
+	<MudItem xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl">
+		<EditForm Model="@model" OnValidSubmit="OnValidSubmit">
+			<DataAnnotationsValidator />
+			<MudCard>
+				<MudCardHeader>
+					<MudText Typo="Typo.h6">LOGIN</MudText>
+				</MudCardHeader>
+				<MudCardContent>
+					<MudTextField Label="Email" Class="mt-3"
+								  @bind-Value="model.Email" For="@(() => model.Email)" />
+					<MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+								  @bind-Value="model.Password" For="@(() => model.Password)" InputType="InputType.Password" />
+				</MudCardContent>
+				<MudCardActions Class="d-flex justify-center">
+					<MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Entrar</MudButton>
+				</MudCardActions>
+			</MudCard>
+		</EditForm>
+	</MudItem>
+	<MudItem>
+	</MudItem>
+</MudGrid>
+@code {
+
+	private int xs = 12;
+	private int sm = 12;
+	private int md = 12;
+	private int lg = 12;
+	private int xl = 12;
+	private int xxl = 12;
+
+	RegisterAccountForm model = new RegisterAccountForm();
+	bool success;
+
+	public class RegisterAccountForm
+	{
+		[Required]
+		[EmailAddress]
+		public string Email { get; set; }
+
+		[Required]
+		public string Password { get; set; }
+
+	}
+
+	private void OnValidSubmit(EditContext context)
+	{
+		success = true;
+		StateHasChanged();
+	}
+
+	private MudForm form;
+	private UserLogin user = new UserLogin();
+
+
+	private bool IsValidUser(UserLogin user)
+	{
+		// Lógica de validación de usuario (reemplazar por la real)
+		return user.Email == "test@test.com" && user.Password == "password";
+	}
+
+	public class UserLogin
+	{
+		public string Email { get; set; }
+		public string Password { get; set; }
+	}
+
+}

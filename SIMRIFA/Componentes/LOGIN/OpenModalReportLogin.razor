@@ -1,0 +1,54 @@
+﻿@using MudBlazor
+
+
+<MudDialog>
+	<DialogContent>
+		<MudChart ChartType="ChartType.Donut" Width="300px" Height="300px" InputData="@data" InputLabels="@labels">
+			<CustomGraphics>
+				<text class="donut-inner-text" x="47%" y="35%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="2">Total</text>
+				<text class="donut-inner-text" x="47%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="black" font-family="Helvetica" font-size="5">@data.Sum().ToString()</text>
+			</CustomGraphics>
+		</MudChart>
+		<div>
+			<MudChart ChartType="ChartType.Line" ChartSeries="@Series" @bind-SelectedIndex="Index" XAxisLabels="@XAxisLabels" Width="100%" Height="350px" ChartOptions="@Options" />
+			<MudGrid>
+				<MudItem xs="12">
+					<MudSlider @bind-Value="Options.LineStrokeWidth" Min="1" Max="10" Color="Color.Info">Line Width: @Options.LineStrokeWidth.ToString()</MudSlider>
+				</MudItem>
+			</MudGrid>
+		</div>
+	</DialogContent>
+	<DialogActions>
+		<MudButton OnClick="Cancel">Cancel</MudButton>
+		<MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+	</DialogActions>
+</MudDialog>
+@code {
+
+	[CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+	void Submit() => MudDialog.Close(DialogResult.Ok(true));
+	void Cancel() => MudDialog.Cancel();
+
+	public double[] data = { 25, 77, 28, 5 };
+	public string[] labels = { "Oil", "Coal", "Gas", "Biomass" };
+
+	protected override async void OnInitialized()
+	{
+		
+	
+	}
+
+
+
+	private int Index = -1; //default value cannot be 0 -> first selectedindex is 0.
+	public ChartOptions Options = new ChartOptions();
+
+	public List<ChartSeries> Series = new List<ChartSeries>()
+	{
+		new ChartSeries() { Name = "Numeros", Data = new double[] { 90, 79, 72, 69, 62, 62, 55, 65, 70 } },
+		new ChartSeries() { Name = "Correos", Data = new double[] { 10, 41, 35, 51, 49, 62, 69, 91, 148 } },
+	};
+	public string[] XAxisLabels = { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep" };
+
+}
