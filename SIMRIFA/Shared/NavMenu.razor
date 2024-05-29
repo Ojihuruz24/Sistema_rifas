@@ -10,13 +10,18 @@
 	<MudDrawer @bind-Open="@open" Elevation="1" Variant="@DrawerVariant.Temporary" Style="@($"color:{Colors.Teal.Darken4};background:{Colors.BlueGrey.Lighten3}")">
 		<MudDrawerHeader>
 			<MudText Typo="Typo.h6">
-				<MudImage Fluid="true" Src="img/LOGO.png" Alt="Mony the dog" Elevation="25" Class="rounded-lg" />
+				<MudImage  Fluid="true" Src="img/LOGO.png" Alt="Mony the dog" Elevation="25" Class="rounded-lg" />
 			</MudText>
 		</MudDrawerHeader>
 		<MudNavMenu>
-			<MudNavLink Href="" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Dashboard" IconColor="Color.Inherit">HOME</MudNavLink>
 			<div class="nav-item px-3">
-				<MudNavLink Href="#" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Whatsapp" IconColor="Color.Inherit">Soporte WhatsApp</MudNavLink>
+				<MudNavLink Href="#!" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Home" IconColor="Color.Inherit">HOME</MudNavLink>
+			</div>
+			<div class="nav-item px-3">
+				<MudNavLink Href="/TipoRifas/IndexRifas" Match="NavLinkMatch.All" Icon="@Icons.Custom.Uncategorized.ColorPalette" IconColor="Color.Inherit">TIPO DE RIFAS</MudNavLink>
+			</div>
+			<div class="nav-item px-3">
+				<MudNavLink Href="https://wa.link/2vn0r8" Target="_blank" Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.WhatsApp" IconColor="Color.Inherit">Soporte WhatsApp</MudNavLink>
 			</div>
 			<div class="nav-item px-3">
 				<MudNavLink Href="/Ganadores" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.People" IconColor="Color.Inherit">Ganadores</MudNavLink>
@@ -30,8 +35,8 @@
 			<div class="nav-item px-3">
 				<MudNavLink Href="#" Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.Telegram" IconColor="Color.Inherit">Telegram</MudNavLink>
 			</div>
-		@*	<div class="nav-item px-3">
-				<MudNavLink Href="/Reportes" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Login" IconColor="Color.Inherit">Registrarse</MudNavLink>
+			@*	<div class="nav-item px-3">
+			<MudNavLink Href="/Reportes" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Login" IconColor="Color.Inherit">Registrarse</MudNavLink>
 			</div>*@
 		</MudNavMenu>
 	</MudDrawer>

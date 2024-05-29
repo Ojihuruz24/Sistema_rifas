@@ -8,8 +8,8 @@
 <MudDialog>
 	<DialogContent>
 		<MudText Align="Align.Center"><h2><b>CONFIRMAR</b></h2></MudText>
-		<MudText Align="Align.Center"><h4>Compra de <b>@Boletas</b> boletas.</h4></MudText>
-		<MudText Align="Align.Center"><h4>por valor de <b> $ @MontoFormateado</b></h4></MudText>
+		<MudText Align="Align.Center"><h4>Compra de <b>@Cupones</b> cupones.</h4></MudText>
+		<MudText Align="Align.Center"><h4>por valor de <b> $ @ValorCupones</b></h4></MudText>
 
 		@*Compra de @Boletas boletas por valor de $ @ValorBoletas*@
 	</DialogContent>
@@ -49,9 +49,6 @@
 	private string RedirectUrl { get; set; }
 	private string ExpirationTime { get; set; }
 	private int TaxInCentsVat { get; set; }
-
-	private string MontoFormateado { get; set; }
-
 	#region
 	[Inject]
 	IUtils _utils { get; set; }
@@ -59,9 +56,9 @@
 	[Inject] IJSRuntime Js { get; set; }
 
 	[Parameter]
-	public int Boletas { get; set; }
+	public int Cupones { get; set; }
 	[Parameter]
-	public int ValorBoletas { get; set; }
+	public int ValorCupones { get; set; }
 
 	#endregion
 
@@ -71,67 +68,23 @@
 
 	protected override async void OnInitialized()
 	{
-		MontoFormateado = ValorBoletas.ToString();
-
-		if (MontoFormateado.Length > 2)
-		{
-			MontoFormateado = MontoFormateado.Substring(0, MontoFormateado.Length - 2);
-		}
-
+		int casteo = AddTrailingZeros(ValorCupones, 2);
 		ExpirationTime = DateTime.UtcNow.AddMinutes(5).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
-
-		(string, string) prueba = await _utils.has(ValorBoletas, Boletas ,ExpirationTime);
+		(string, string) prueba = await _utils.has(AddTrailingZeros(ValorCupones, 2), Cupones, ExpirationTime);
 		PublicKey = "pub_test_EKiDBdydoVychiwazPqDsm52168IjGmQ";
 		Currency = "COP";
-		AmountInCents = ValorBoletas;
+		AmountInCents = casteo;
 		Reference = prueba.Item1;
 		SignatureIntegrity = prueba.Item2;
 		RedirectUrl = "https://localhost:7297/";
 	}
 
-	private void SubmitForm()
+	public int AddTrailingZeros(int number, int minZeros)
 	{
-		//	int amounPrueba = 22222222;
-		//	(string, string) prueba = has(amounPrueba);
-		//	PublicKey = "pub_test_EKiDBdydoVychiwazPqDsm52168IjGmQ";
-		//	Currency = "COP";
-		//	AmountInCents = amounPrueba;
-		//	Reference = prueba.Item1;
-		//	SignatureIntegrity = prueba.Item2;
-		//	RedirectUrl = "https://localhost:7297/";
-		//	//ExpirationTime = DateTime.UtcNow.AddHours(1); // Ejemplo de fecha de expiración en 1 hora
+		var result = Convert.ToInt32(number.ToString().PadRight(number.ToString().Length + minZeros, '0'));
+
+		return result;
+
+		//return number.ToString().PadRight(number.ToString().Length + minZeros, '0');
 	}
-
-	private async Task InitiatePayment()
-	{
-		//// Configuración del widget de Wompi
-		//int amounPrueba = 6000000;
-
-		//(string, string) prueba = has(amounPrueba);
-
-		//try
-		//{
-		//	var checkoutConfig = new WompiCheckoutConfig
-		//		{
-		//			publicKey = "pub_test_EKiDBdydoVychiwazPqDsm52168IjGmQ", // Reemplaza con tu llave pública,
-		//			currency = "COP",
-		//			amountInCents = amounPrueba, // Monto en centavos
-		//			reference = prueba.Item1,
-		//			SignatureIntegrity = prueba.Item2,
-		//			redirectUrl = "https://localhost:7297/", // URL de redirección
-		//													 //signature = new signature
-		//													 //{
-		//													 //	integrity = prueba.Item2
-		//													 //}
-		//		};
-
-		//	// Llama a la función JavaScript para abrir el widget de Wompi
-		//	await JS.InvokeVoidAsync("openWompiCheckout", checkoutConfig);
-		//}
-		//catch (Exception ex)
-		//{
-		//	throw;
-		//}
-	}
-
 }

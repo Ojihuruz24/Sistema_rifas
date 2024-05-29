@@ -3,66 +3,523 @@
 
 <PageTitle>Tipo de rifas</PageTitle>
 
-<MudStack Row="true" Wrap="Wrap.Wrap" Spacing="11">
-	<MudCard>
-		<MudCardMedia Image="img/SOAT.png" Height="200" />
-		<MudCardContent>
-			<MudText Typo="Typo.h5">Sorteo de cupones</MudText>
-			<MudText Typo="Typo.body2">Compra cupones con descuento</MudText>
-			<MudText Typo="Typo.body2">Por los numeros de cupones comprados</MudText>
-			<MudText Typo="Typo.body2">regalaremos un premio mayor</MudText>
-		</MudCardContent>
-		<MudCardActions>
-			<MudButton Variant="Variant.Text" Href="TipoRifas/Rifas02" Color="Color.Primary">Ver demo</MudButton>
-		</MudCardActions>
-	</MudCard>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- basic -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<!-- mobile metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
+	<!-- site metas -->
+	<!-- bootstrap css -->
+	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+	<!-- style css -->
+	<link rel="stylesheet" href="css/bootstrap/style.css">
+	<!-- Responsive-->
+	<link rel="stylesheet" href="css/bootstrap/responsive.css">
+	<!-- fevicon -->
+	<link rel="icon" href="img/index/fevicon.png" type="image/gif" />
+	<!-- Scrollbar Custom CSS -->
+	<link rel="stylesheet" href="css/bootstrap/jquery.mCustomScrollbar.min.css">
+	<!-- Tweaks for older IEs-->
+	<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+</head>
+<!-- body -->
+<body class="main-layout">
+	<section class="banner_main">
+		<div id="banner1" class="carousel slide banner_slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#banner1" data-slide-to="0" class="active"></li>
+				<li data-target="#banner1" data-slide-to="1"></li>
+				<li data-target="#banner1" data-slide-to="2"></li>
+			</ol>
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<div class="container-fluid">
+						<div class="carousel-caption">
+							<div class="row">
+								<div class="col-md-7 col-lg-5">
+									<div class="text-bg">
+										<h1>Empresa de tramites</h1>
+										<span>¿Estás cansado de lidiar con los trámites vehiculares? En VehiTrams, nos especializamos en hacer tu vida más fácil.</span>
+										<span>Contactanos</span>
+									</div>
+								</div>
+								<div class="col-md-12 col-lg-7">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="ban_track">
+												<figure><img src="img/LOGO.png" alt="#" /></figure>
+											</div>
+										</div>
+										<div class="col-md-6">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<div class="container-fluid">
+						<div class="carousel-caption">
+							<div class="row">
+								<div class="col-md-7 col-lg-5">
+									<div class="text-bg">
+										<h1>Best Logistic Company</h1>
+										<span>Contrary to popular belief, Lorem Ipsum is not simply random text. It has i</span>
+										<span>Contact Us</span>
+									</div>
+								</div>
+								<div class="col-md-12 col-lg-7">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="ban_track">
+												<figure><img src="img/index/track.png" alt="#" /></figure>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<form class="transfot">
+												<div class="col-md-12">
+													<span>Professional Services</span>
+													<h3>Get your transport quote</h3>
+												</div>
+												<div class="col-md-12">
+													<input class="transfot_form" placeholder="Location" type="text" name="Location">
+												</div>
+												<div class="col-md-12">
+													<input class="transfot_form" placeholder="To destination" type="text" name="To destination">
+												</div>
+												<div class="col-md-12">
+													<input class="transfot_form" placeholder="Email" type="text" name="Email">
+												</div>
+												<div class="col-md-12">
+													<input class="transfot_form" placeholder="Contact Number" type="text" name="Contact Number">
+												</div>
+												<div class="col-md-12">
+													<button class="get_now">Get Now quote</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<div class="container-fluid">
+						<div class="carousel-caption">
+							<div class="row">
+								<div class="col-md-7 col-lg-5">
+									<div class="text-bg">
+										<h1>Best Logistic Company</h1>
+										<span>Contrary to popular belief, Lorem Ipsum is not simply random text. It has i</span>
+										<span>Contact Us</span>
+									</div>
+								</div>
+								<div class="col-md-12 col-lg-7">
+									<div class="row">
+										<div class="col-md-6">
+											<div class="ban_track">
+												<figure><img src="img/index/track.png" alt="#" /></figure>
+											</div>
+										</div>
+										<div class="col-md-6">
+											<form class="transfot">
+												<div class="col-md-12">
+													<span>Professional Services</span>
+													<h3>Get your transport quote</h3>
+												</div>
+												<div class="col-md-12">
+													<input class="transfot_form" placeholder="Location" type="text" name="Location">
+												</div>
+												<div class="col-md-12">
+													<input class="transfot_form" placeholder="To destination" type="text" name="To destination">
+												</div>
+												<div class="col-md-12">
+													<input class="transfot_form" placeholder="Email" type="text" name="Email">
+												</div>
+												<div class="col-md-12">
+													<input class="transfot_form" placeholder="Contact Number" type="text" name="Contact Number">
+												</div>
+												<div class="col-md-12">
+													<button class="get_now">Get Now quote</button>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a class="carousel-control-prev" href="#banner1" role="button" data-slide="prev">
+				<i class="fa fa-angle-left" aria-hidden="true"></i>
+			</a>
+			<a class="carousel-control-next" href="#banner1" role="button" data-slide="next">
+				<i class="fa fa-angle-right" aria-hidden="true"></i>
+			</a>
+		</div>
+	</section>
+	<!-- end banner -->
+	<!-- about section -->
+	<div id="about" class="about ">
+		<div class="container">
+			<div class="row d_flex">
+				<div class="col-md-6">
+					<div class="about_right">
+						<figure><img src="img/index/about.png" alt="#" /></figure>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="titlepage">
+						<h2>Sobre nosotros...</h2>
+						<p>
+							¿Estás cansado de lidiar con los trámites vehiculares? En VehiTrams, nos especializamos en hacer tu vida más fácil. Imagina un mundo donde los tediosos trámites de compra de SOAT, revisión técnico-mecánica y otros servicios vehiculares se resuelvan de manera rápida y sin estrés. ¡Ese mundo es posible con nosotros!
+						</p>
+						<p>
+							Contactanos!!!
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- about section -->
+	<!-- service section -->
+	<div id="service" class="service">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-10 offset-md-1">
+					<div class="titlepage">
+						<h2>Nuestros Servicios</h2>
+						<p>
+							En VehiTrams, entendemos que la seguridad y el cumplimiento legal de tu vehículo no son
+							solo una obligación, sino una tranquilidad para ti y tu familia. Por eso, nos esforzamos cada
+							día en ofrecerte un servicio de excelencia, donde tú eres el centro de nuestra atención.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div class="service_main">
+						<div class="service_box blu_colo">
+							<i><img src="img/index/ser1_moto.png" alt="#" /></i>
+							<h4>Motocicletas</h4>
+						</div>
+						<div class="service_box yelldark_colo">
+							<i><img src="img/index/ser2_carro.png" alt="#" /></i>
+							<h4>Automoviles</h4>
+						</div>
+						<div class="service_box yell_colo">
+							<i><img src="img/index/ser3.png" alt="#" /></i>
+							<h4> vehiculos de carga</h4>
+						</div>
+						<div class="service_box yelldark_colo">
+							<i><img src="img/index/ser4_mula.png" alt="#" /></i>
+							<h4>Tractomulas</h4>
+						</div>
+						<div class="service_box yell_colo">
+							<i><img src="img/index/ser5.png" alt="#" /></i>
+							<h4>100% seguridad</h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<a class="read_more" href="#">Leer mas</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end service section -->
+	<!-- vehicles section -->
+	<section id="vehicles" class="vehicles">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="titlepage">
+						<h2>Nuestros Tramites</h2>
+						<p>En Vehitrams, nos especializamos en ofrecer una amplia gama de servicios para facilitar 
+							todos tus trámites vehiculares. Nuestro objetivo es brindarte una experiencia sin complicaciones,
+							eficiente y confiable. Aquí te presentamos los principales trámites que puedes realizar con nosotros:</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="veh" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators">
+				<li data-target="#veh" data-slide-to="0" class="active"></li>
+				<li data-target="#veh" data-slide-to="1"></li>
+				<li data-target="#veh" data-slide-to="2"></li>
+			</ol>
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<div class="container">
+						<div class="carousel-caption">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="vehicles_truck">
+										<figure><img src="img/index/truc1.png" alt="#" /></figure>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="vehicles_truck">
+										<figure><img src="img/index/truc2.png" alt="#" /></figure>
+									</div>
+									<h3 class="blac_co">Tramites de SOAT</h3>
+								</div>
+								<div class="col-md-4">
+									<div class="vehicles_truck">
+										<figure><img src="img/index/truc3.png" alt="#" /></figure>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<div class="container">
+						<div class="carousel-caption">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="vehicles_truck">
+										<figure><img src="img/index/truc1.png" alt="#" /></figure>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="vehicles_truck">
+										<figure><img src="img/index/truc2.png" alt="#" /></figure>
+									</div>
+									<h3 class="blac_co">Tramites de transito</h3>
+								</div>
+								<div class="col-md-4">
+									<div class="vehicles_truck">
+										<figure><img src="img/index/truc3.png" alt="#" /></figure>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="carousel-item">
+					<div class="container">
+						<div class="carousel-caption">
+							<div class="row">
+								<div class="col-md-4">
+									<div class="vehicles_truck">
+										<figure><img src="img/index/truc1.png" alt="#" /></figure>
+									</div>
+								</div>
+								<div class="col-md-4">
+									<div class="vehicles_truck">
+										<figure><img src="img/index/truc2.png" alt="#" /></figure>
+									</div>
+									<h3 class="blac_co">Tramites de compra venta</h3>
+								</div>
+								<div class="col-md-4">
+									<div class="vehicles_truck">
+										<figure><img src="img/index/truc3.png" alt="#" /></figure>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a class="carousel-control-prev" href="#veh" role="button" data-slide="prev">
+				<i class="fa fa-angle-left" aria-hidden="true"></i>
+			</a>
+			<a class="carousel-control-next" href="#veh" role="button" data-slide="next">
+				<i class="fa fa-angle-right" aria-hidden="true"></i>
+			</a>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<a class="read_more" href="#">Leer mas</a>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- end vehicles section -->
+	<!-- testimonial section -->
+	<div id="testimonial" class="testimonial bottom_cross bottom_cross2">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="titlepage">
+						<h2>Testimonios</h2>
+						<p>En Vehitrams, nos especializamos en ofrecer una amplia gama de servicios para 
+							facilitar todos tus trámites vehiculares. Nuestro objetivo es brindarte una 
+							experiencia sin complicaciones, eficiente y confiable. Aquí te presentamos 
+							los principales trámites que puedes realizar con nosotros:</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<div id="myCarousel" class="carousel slide testimonial_Carousel " data-ride="carousel">
+						<ol class="carousel-indicators">
+							<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+							<li data-target="#myCarousel" data-slide-to="1"></li>
+							<li data-target="#myCarousel" data-slide-to="2"></li>
+						</ol>
+						<div class="carousel-inner">
+							<div class="carousel-item active">
+								<div class="container">
+									<div class="carousel-caption ">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="testimonial_box">
+													<figure><img src="img/index/our.png" alt="#" /></figure>
+													<h3>Juan pablo garcia <br><span class="kisu"></span></h3>
+													<p>Gracias a VehiTrams, renovar mi SOAT fue una experiencia rápida y sin complicaciones. ¡La atención al cliente es excepcional y me sentí acompañada en todo momento! Definitivamente los recomiendo.</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="container">
+									<div class="carousel-caption">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="testimonial_box">
+													<figure><img src="img/index/our.png" alt="#" /></figure>
+													<h3>Cristan camilo <br><span class="kisu"></span></h3>
+													<p>Tenía que hacer la revisión técnico-mecánica de mi vehículo y VehiTrams se encargó de todo. El proceso fue eficiente y no tuve que preocuparme por nada. ¡Un servicio de primera!</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="carousel-item">
+								<div class="container">
+									<div class="carousel-caption">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="full cross_layout">
+													<div class="testimonial_box">
+														<figure><img src="img/index/our.png" alt="#" /></figure>
+														<h3>Laura Martínez <br><span class="kisu"></span></h3>
+														<p>VehiTrams me ahorró mucho tiempo y esfuerzo. Pude realizar todos mis trámites vehiculares desde la comodidad de mi casa. ¡Un servicio realmente conveniente y confiable!</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<a class="carousel-control-prev" href="#myCarousel" role="button" data-slide="prev">
+							<i class="fa fa-caret-left" aria-hidden="true"></i>
+						</a>
+						<a class="carousel-control-next" href="#myCarousel" role="button" data-slide="next">
+							<i class="fa fa-caret-right" aria-hidden="true"></i>
+						</a>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<a class="read_more" href="#">Leer mas</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end testimonial section -->
+	<!-- choose section -->
+	<div class="choose">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="titlepage">
+						<h2>Por qué elegirnos</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-5">
+					<div class="choose_box">
+						<i><img src="img/index/why1.png" alt="#" /></i>
+						<h3>Nuestra vision</h3>
+						<p>En Vehitrams, aspiramos a ser la plataforma líder en gestión de trámites vehiculares en Colombia y América Latina, reconocida por nuestra excelencia en el servicio al cliente, la innovación tecnológica y nuestro compromiso con la seguridad vial.</p>
+						<a class="read_more" href="#">Leer mas</a>
+					</div>
+				</div>
+				<div class="col-md-5 offset-md-2">
+					<div class="choose_box">
+						<i><img src="img/index/why2.png" alt="#" /></i>
+						<h3>Nuestra Meta</h3>
+						<p>Ser la solución integral más confiable y accesible para los trámites vehiculares, facilitando la movilidad y garantizando la seguridad de nuestros clientes en las vías. En Vehitrams, trabajamos cada día para transformar los desafíos en experiencias positivas, haciendo de cada trámite un proceso sencillo y libre de estrés.</p>
+						<a class="read_more" href="#">Leer mas</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end choose section -->
+	<!-- contact section -->
+	<div id="contact" class="contact">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="titlepage">
+						<h2>Solicite una llamada para usted</h2>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="con_bg">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-5">
+						<form id="request" class="main_form">
+							<div class="row">
+								<div class="col-md-12 ">
+									<input class="contactus" placeholder="Nombre" type="type" name="Name">
+								</div>
+								<div class="col-md-12">
+									<input class="contactus" placeholder="Correo" type="type" name="Email">
+								</div>
+								<div class="col-md-12">
+									<input class="contactus" placeholder="Numero telefonico" type="type" name="Phone Number">
+								</div>
+								<div class="col-md-12">
+									<input class="contactusmess" placeholder="Mensaje" type="type" Message="Name">
+								</div>
+								<div class="col-md-12">
+									<button class="send_btn">Enviar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col-md-7">
+						<div class="co_tru">
+							<figure><img src="img/index/truc4.png" alt="#" /></figure>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
-	<MudCard>
-		<MudCardMedia Image="img/TECNO.png" Height="200" />
-		<MudCardContent>
-			<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
-			<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
-			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
-		</MudCardContent>
-		<MudCardActions>
-			<MudButton Variant="Variant.Text" Href="TipoRifas/Rifas01" Color="Color.Primary">Ver demo</MudButton>
-		</MudCardActions>
-	</MudCard>
+	<SIMRIFA.Componentes.RifaOne.PiePag></SIMRIFA.Componentes.RifaOne.PiePag>
+	<!-- end contact section -->
+	<!--  footer -->
+	<!-- end footer -->
+	<!-- Javascript files-->
 
-	<MudCard>
-		<MudCardMedia Image="img/TECNO.png" Height="200" />
-		<MudCardContent>
-			<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
-			<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
-			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
-		</MudCardContent>
-		<MudCardActions>
-			<MudButton Variant="Variant.Text" Href="Rifas02" Color="Color.Primary">Ver demo</MudButton>
-		</MudCardActions>
-	</MudCard>
+</body>
+</html>
 
-	<MudCard>
-		<MudCardMedia Image="img/TECNO.png" Height="200" />
-		<MudCardContent>
-			<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
-			<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
-			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
-		</MudCardContent>
-		<MudCardActions>
-			<MudButton Variant="Variant.Text" Href="Rifas02" Color="Color.Primary">Ver demo</MudButton>
-		</MudCardActions>
-	</MudCard>
-
-	<MudCard>
-		<MudCardMedia Image="img/TECNO.png" Height="200" />
-		<MudCardContent>
-			<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
-			<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
-			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
-		</MudCardContent>
-		<MudCardActions>
-			<MudButton Variant="Variant.Text" Href="Rifas02" Color="Color.Primary">Ver demo</MudButton>
-		</MudCardActions>
-	</MudCard>
-
-</MudStack>
+@code {
+}

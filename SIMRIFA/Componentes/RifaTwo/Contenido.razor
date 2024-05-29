@@ -254,7 +254,7 @@
 		//await compradorService.AddComprador(cantidadVenta, $"{valor.ToString("N")}");
 	}
 
-	private async Task OpenPagosDialog(int boletas, int valor)
+	private async Task OpenPagosDialog(int cupones, int valor)
 	{
 		DialogOptions disableBackdropClick = new DialogOptions()
 			{
@@ -265,8 +265,8 @@
 
 
 		var parameters = new DialogParameters<PaymentForm>();
-		parameters.Add(x => x.Boletas, boletas);
-		parameters.Add(x => x.ValorBoletas, valor);
+		parameters.Add(x => x.Cupones, cupones);
+		parameters.Add(x => x.ValorCupones, valor);
 
 		var dialog = await Dialog.ShowAsync<PaymentForm>(string.Empty, parameters, disableBackdropClick);
 

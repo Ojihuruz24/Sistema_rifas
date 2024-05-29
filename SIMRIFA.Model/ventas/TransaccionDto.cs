@@ -65,7 +65,7 @@ namespace SIMRIFA.Model.ventas
 
 
 		[Column("REFERENCIA")]
-		public string? Referencia { get; set; }
+		public string Referencia { get; set; }
 
 
 		[Column("EMAIL")]
@@ -74,7 +74,7 @@ namespace SIMRIFA.Model.ventas
 
 
 		[Column("FECHA_TRANSACCION")]
-		public string FechaTransaccion { get; set; }
+		public DateTime? FechaTransaccion { get; set; }
 
 
 	

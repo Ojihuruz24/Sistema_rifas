@@ -1,34 +1,115 @@
-﻿@using MudBlazor
+﻿@using MudBlazor;
 
-<footer style="background-color:white">
-	<div Class="d-flex justify-space-around flex-wrap mt-4">
-		<MudImage ObjectFit="ObjectFit.Contain" Width="130" Height="130" Src="/img/nike.png" Alt="Örebro Slott" Elevation="25" Class="rounded-lg ma-4" />
-		<MudImage ObjectFit="ObjectFit.Contain" Width="130" Height="130" Src="/img/nike.png" Alt="Örebro Slott" Elevation="25" Class="rounded-lg ma-4" />
-		<MudImage ObjectFit="ObjectFit.Contain" Width="130" Height="130" Src="/img/nike.png" Alt="Örebro Slott" Elevation="25" Class="rounded-lg ma-4" />
-		<MudImage ObjectFit="ObjectFit.Contain" Width="130" Height="130" Src="/img/nike.png" Alt="Örebro Slott" Elevation="25" Class="rounded-lg ma-4" />
-	</div>
-
-	<div Class="d-flex justify-space-around flex-wrap mt-1">
-		<MudText>Copyright © 2024</MudText>
-
-	</div>
-
-
+<!-- Footer -->
+<footer class="text-center text-lg-start bg-body-tertiary text-muted">
+    <!-- Section: Social media -->
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+        <!-- Left -->
+        <div class="me-5 d-none d-lg-block">
+            <span>Conéctate con nosotros en las redes sociales:</span>
+        </div>
+        <!-- Left -->
+        <!-- Right -->
+        <div>
+            <a href="" class="me-4 text-reset">
+                <MudIcon Icon="@Icons.Custom.Brands.Facebook" Title="Facebook" />
+            </a>
+            <a href="" class="me-4 text-reset">
+                <MudIcon Icon="@Icons.Custom.Brands.Twitter" Title="Twitter" /> 
+            </a>
+            <a href="" class="me-4 text-reset">
+                <MudIcon Icon="@Icons.Custom.Brands.Google" Title="Google" />
+            </a>
+            <a href="" class="me-4 text-reset">
+                <MudIcon Icon="@Icons.Custom.Brands.Google" Title="Intagram" /> 
+            </a>
+            <a href="" class="me-4 text-reset">
+                <MudIcon Icon="@Icons.Custom.Brands.LinkedIn" Title="LinkedIn" /> 
+            </a>
+            <a href="" class="me-4 text-reset">
+                <MudIcon Icon="@Icons.Custom.Brands.GitHub" Title="GitHub" /> 
+            </a>
+        </div>
+        <!-- Right -->
+    </section>
+    <!-- Section: Social media -->
+    <!-- Section: Links  -->
+    <section class="">
+        <div class="container text-center text-md-start mt-5">
+            <!-- Grid row -->
+            <div class="row mt-3">
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <!-- Content -->
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        <i class="fas fa-gem me-3"></i>Vehitrams
+                    </h6>
+                    <p>
+                        En <b>Vehitrams</b>, nos dedicamos a simplificar tu vida al ofrecerte una solución
+                        integral para todos tus trámites vehiculares. Somos una empresa especializada 
+                        en la gestión y adquisición del Seguro Obligatorio de Accidentes de Tránsito 
+                        (SOAT), la revisión técnico-mecánica y otros servicios esenciales para la seguridad
+                        y legalidad de tu vehículo..
+                    </p>
+                </div>
+                <!-- Grid column -->
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        Productos
+                    </h6>
+                    <p>
+                        <a href="#!" class="text-reset">Tramites</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-reset">SOAT</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-reset">Tecnomecanica</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-reset">Escuelas</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4">
+                       Tecnologia
+                    </h6>
+                    <p>
+                        <a href="#!" class="text-reset">Desarrollo Web</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-reset">Soporte</a>
+                    </p>
+                    <p>
+                        <a href="#!" class="text-reset">Creacion</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase fw-bold mb-4">Contactanos</h6>
+                    <p> <MudIcon Icon="@Icons.Material.Filled.House" Title="Ubicacion" /> Rionegro - Antioquia</p>
+                    <p> <MudIcon Icon="@Icons.Material.Filled.Email" Title="Ubicacion" /> techminds247@gmail.com</p>
+                    <p> <MudIcon Icon="@Icons.Material.Filled.PhoneIphone" Title="Telefono" /> + 57 311 363 33 71</p>
+                    <p> <MudIcon Icon="@Icons.Material.Filled.PhoneIphone" Title="Telefono" /> + 57 305 301 65 52</p>
+                </div>
+                <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+        </div>
+    </section>
+    <div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+        © 2024 Copyright:
+        <a class="text-reset fw-bold" href="#!">vehitrams.com</a>
+    </div>
 </footer>
 
-
-
-
 @code {
-
-
-	int xs = 12;
-	int sm = 12;
-	int md = 12;
-	int lg = 6;
-	int xl = 4;
-	int xxl = 4;
-
-	public int IntValue { get; set; }
 
 }
