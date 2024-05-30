@@ -1,7 +1,8 @@
 ﻿@page "/"
 @using MudBlazor;
+@using SIMRIFA.Data;
 
-<PageTitle>Tipo de rifas</PageTitle>
+<PageTitle>HOME</PageTitle>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,11 +15,11 @@
 	<meta name="viewport" content="initial-scale=1, maximum-scale=1">
 	<!-- site metas -->
 	<!-- bootstrap css -->
-	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css"><!-- NO-->
 	<!-- style css -->
-	<link rel="stylesheet" href="css/bootstrap/style.css">
+	<link rel="stylesheet" href="css/bootstrap/style.css"> <!-- NO-->
 	<!-- Responsive-->
-	<link rel="stylesheet" href="css/bootstrap/responsive.css">
+	<link rel="stylesheet" href="css/bootstrap/responsive.css"> 
 	<!-- fevicon -->
 	<link rel="icon" href="img/index/fevicon.png" type="image/gif" />
 	<!-- Scrollbar Custom CSS -->
@@ -29,6 +30,7 @@
 </head>
 <!-- body -->
 <body class="main-layout">
+	@*<NavMenu />*@
 	<section class="banner_main">
 		<div id="banner1" class="carousel slide banner_slide" data-ride="carousel">
 			<ol class="carousel-indicators">
@@ -512,7 +514,6 @@
 		</div>
 	</div>
 
-	<SIMRIFA.Componentes.RifaOne.PiePag></SIMRIFA.Componentes.RifaOne.PiePag>
 	<!-- end contact section -->
 	<!--  footer -->
 	<!-- end footer -->
@@ -522,4 +523,10 @@
 </html>
 
 @code {
+	@inject MenuState MenuState;
+
+	protected override void OnInitialized()
+	{
+		MenuState.SetMenuVisibility(true);
+	}
 }

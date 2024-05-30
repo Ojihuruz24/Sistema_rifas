@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Pages\Service\DesarrolloWeb\" />
+    <Folder Include="Pages\Service\Retenes\" />
+    <Folder Include="Pages\Service\ServicioEmpresarial\" />
+    <Folder Include="Pages\Service\TramitesTransito\" />
     <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\fonts\" />
   </ItemGroup>
@@ -23,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Componentes\RifaOne\Contenido.razor">
+    <Content Update="Componentes\Rifas\Body\Contenido01.razor">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
     </Content>
   </ItemGroup>

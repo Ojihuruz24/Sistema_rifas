@@ -74,7 +74,7 @@ namespace SIMRIFA.Model.ventas
 
 
 		[Column("FECHA_TRANSACCION")]
-		public DateTime? FechaTransaccion { get; set; }
+		public string? FechaTransaccion { get; set; }
 
 
 	

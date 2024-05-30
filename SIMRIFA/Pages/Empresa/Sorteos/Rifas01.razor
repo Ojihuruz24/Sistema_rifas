@@ -1,0 +1,33 @@
+﻿@page "/Empresa/Sorteos/Rifas01"
+@using MudBlazor
+@using SIMRIFA.Componentes.Rifas.Footer;
+@using SIMRIFA.Componentes.Rifas.Header;
+@using SIMRIFA.Componentes.Rifas.Body;
+@using SIMRIFA.Data;
+@inject IJSRuntime JSRuntime;
+
+@*<MudAppBarSimple ColorBanner="Color.Dark" ColorIcon="Color.Success"></MudAppBarSimple>*@
+
+<MudAppBarDouble Nombre="Pantallas SAS"></MudAppBarDouble>
+<Contenido01></Contenido01>
+
+
+
+@code {
+
+	@inject MenuState MenuState;
+
+	protected override void OnInitialized()
+	{
+		MenuState.SetMenuVisibility(false);
+	}
+
+
+	bool open = false;
+
+	void ToggleDrawer()
+	{
+		open = !open;
+	}
+
+}

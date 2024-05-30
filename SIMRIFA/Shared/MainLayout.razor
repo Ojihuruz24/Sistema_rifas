@@ -1,15 +1,90 @@
 ﻿@using MudBlazor
-@inherits LayoutComponentBase
+@using SIMRIFA.Componentes.Rifas.Footer
+@using SIMRIFA.Data;
+@inherits LayoutComponentBase;
+@inject IJSRuntime JSRuntime;
+@inject MenuState MenuState;
 
-<PageTitle>SIMRIFA</PageTitle>
-
-<MudThemeProvider />
+<MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode" Theme="_currentTheme" />
 <MudDialogProvider />
 <MudSnackbarProvider />
 
+<MudLayout>
+
+	@if (MenuState.ShowMenu)
+	{
+		<MudAppBar Elevation="1" >
+			<MudIconButton Icon="@Icons.Material.Filled.Menu" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+			<MudSpacer />
+			<MudIconButton Icon="@Icons.Material.Filled.Brightness4"
+					   Class="nav-button"
+					   OnClick="@ThemeToggle" />
+		</MudAppBar>
+		<MudDrawer @bind-Open="@open" Elevation="1" Variant="@DrawerVariant.Temporary">
+			<MudDrawerHeader>
+				<MudText Typo="Typo.h6">
+					<MudImage Fluid="true" Src="img/LOGO.png" Alt="Mony the dog" Elevation="25" Class="rounded-lg" />
+				</MudText>
+			</MudDrawerHeader>
+			<MudNavMenu>
+				<div class="nav-item px-3">
+					<MudNavLink Href="#!" Match="NavLinkMatch.All"
+							Icon="@Icons.Material.Filled.Home">HOME</MudNavLink>
+				</div>
+				<div class="nav-item px-3">
+					<MudNavLink Href="/Empresa/Sorteos/IndexRifas" Match="NavLinkMatch.All"
+							Icon="@Icons.Custom.Uncategorized.ColorPalette"
+							>TIPO DE RIFAS</MudNavLink>
+				</div>
+				<div class="nav-item px-3">
+					<MudNavLink Href="https://wa.link/2vn0r8" Target="_blank" Match="NavLinkMatch.All"
+							Icon="@Icons.Custom.Brands.WhatsApp"
+							>Soporte WhatsApp</MudNavLink>
+				</div>
+				<div class="nav-item px-3">
+					<MudNavLink Href="/Ganadores" Match="NavLinkMatch.All"
+							Icon="@Icons.Material.Filled.People"
+							>Ganadores</MudNavLink>
+				</div>
+				<div class="nav-item px-3">
+					<MudNavLink Href="#" Match="NavLinkMatch.All"
+							Icon="@Icons.Custom.Brands.Instagram"
+							>Intagram</MudNavLink>
+				</div>
+				<div class="nav-item px-3">
+					<MudNavLink Href="#" Match="NavLinkMatch.All"
+							Icon="@Icons.Custom.Brands.Facebook"
+							>Facebook</MudNavLink>
+				</div>
+				<div class="nav-item px-3">
+					<MudNavLink Href="#" Match="NavLinkMatch.All"
+							Icon="@Icons.Custom.Brands.Telegram"
+							>Telegram</MudNavLink>
+				</div>
+				@*	<div class="nav-item px-3">
+			<MudNavLink Href="/Reportes" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Login" IconColor="Color.Inherit">Registrarse</MudNavLink>
+			</div>*@
+			</MudNavMenu>
+		</MudDrawer>
+	}
+	<MudMainContent>
+		<MudContainer MaxWidth="MaxWidth.ExtraLarge" Class="my-8">
+			@Body
+		</MudContainer>
+	</MudMainContent>
+</MudLayout>
+@if (MenuState.ShowMenu)
+{
+	<FooterEmpresa></FooterEmpresa>
+}
+
+@*
 <div class="page">
 	<div class="sidebar">
-		<NavMenu />
+		@if (MenuState.ShowMenu)
+		{
+			<NavMenu />
+		}
 	</div>
 	<main>
 		<article class="content px-4">
@@ -17,21 +92,107 @@
 		</article>
 	</main>
 </div>
-
-@*@inherits LayoutComponentBase
-
-<PageTitle>Blazor App</PageTitle>
-
-<AuthorizeView>
-    <Authorized>
-        <div class="main">
-            <div class="content px-4">
-                @Body
-            </div>
-        </div>
-    </Authorized>
-    <NotAuthorized>
-        <p>You are not authorized to view this page.</p>
-    </NotAuthorized>
-</AuthorizeView>
+	<FooterEmpresa></FooterEmpresa>
 *@
+
+@code
+{
+	private MudThemeProvider _mudThemeProvider;
+	private bool _isDarkMode = false;
+	private readonly MudTheme _currentTheme = new()
+		{
+			Palette = new PaletteLight
+			{
+				Primary = Colors.LightBlue.Darken4,
+				Secondary = Colors.LightBlue.Accent4,
+				Info = Colors.Yellow.Darken2,
+				Success = Colors.Green.Darken2,
+				Warning = Colors.Yellow.Accent3,
+				Error = Colors.Red.Accent1,
+				AppbarBackground = Colors.LightBlue.Darken4,
+				AppbarText = Colors.Shades.Black,
+				//TextPrimary = Colors.Shades.Black,
+				//TextSecondary = Colors.Shades.Black,
+				//GrayDefault = Colors.Grey.Default,
+				//DrawerIcon = Colors.LightBlue.Darken4,
+				//Background = Colors.LightBlue.Darken4,
+				// more color properties
+			},
+			PaletteDark = new PaletteDark
+			{
+				Primary = Colors.Amber.Darken4,
+				Secondary = Colors.Amber.Accent4,
+				Info = Colors.DeepOrange.Darken2,
+				Success = Colors.Green.Darken2,
+				Warning = Colors.Yellow.Accent3,
+				Error = Colors.Red.Accent1,
+				AppbarBackground = Colors.Amber.Darken4,
+				AppbarText = Colors.Red.Darken1,
+
+				//TextPrimary = Colors.Shades.Black,
+				//TextSecondary = Colors.Shades.Black,
+				//DrawerIcon = Colors.Amber.Darken3,
+				//Background = Colors.Amber.Darken3,
+				// more color properties
+			},
+			Typography = new Typography()
+			{
+				Default = new Default()
+				{
+					FontFamily = new[] { "Source Sans Pro"
+										,"Segoe UI"
+										,"Roboto"
+										,"Helvetica Neue"
+										,"Arial"
+										,"sans-serif"
+										,"Apple Color Emoji"
+										,"Segoe UI Emoji"
+										,"Segoe UI Symbol"
+									},
+
+					FontSize = "1rem",
+					FontWeight = 400,
+					LineHeight = 1.5,
+				}
+			},
+		};
+	private bool collapseNavMenu = true;
+	private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+	bool open = false;
+
+	private void ToggleNavMenu()
+	{
+		collapseNavMenu = !collapseNavMenu;
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			_isDarkMode = await _mudThemeProvider.GetSystemPreference();
+			await JSRuntime.InvokeVoidAsync("disableContextMenu");
+			StateHasChanged();
+		}
+	}
+
+	protected override void OnInitialized()
+	{
+		MenuState.OnChange += StateHasChanged;
+	}
+
+	public void Dispose()
+	{
+		MenuState.OnChange -= StateHasChanged;
+	}
+
+	void ToggleDrawer()
+	{
+		open = !open;
+	}
+
+	void ThemeToggle()
+	{
+		_isDarkMode = !_isDarkMode;
+	}
+
+}

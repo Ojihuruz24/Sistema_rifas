@@ -28,6 +28,7 @@ builder.Services.AddDbContext<SIMRIFAdbContext>(options =>
 	});
 }, ServiceLifetime.Transient);
 
+builder.Services.AddScoped<MenuState>();
 
 #region "Patron Repositorio" 
 builder.Services.AddRepositorios(configuration);

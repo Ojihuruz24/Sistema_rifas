@@ -1,0 +1,41 @@
+﻿@using MudBlazor;
+
+
+<MudLayout>
+    <MudAppBar Elevation="1" Dense="@dense">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/MudBlazor/MudBlazor" Target="_blank" />
+    </MudAppBar>
+    <MudDrawer @bind-Open="@open" ClipMode="DrawerClipMode.Docked" Breakpoint="Breakpoint.Xl" Elevation="1" Variant="@DrawerVariant.Temporary">
+        <MudDrawerHeader>
+            <MudText Typo="Typo.h6">@Nombre</MudText>
+        </MudDrawerHeader>
+        <MudNavMenu>
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.Facebook" Title="Facebook">Facebook</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.Twitter" Title="Twitter">Twitter</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.Google" Title="Google">Google</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Custom.Brands.Instagram" Title="Intagram">Intagram</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.Dock" Title="Terminos y condiciones">Terminos y condiciones</MudNavLink>
+            <MudNavLink Match="NavLinkMatch.All" Icon="@Icons.Material.Rounded.SupportAgent" Title="Soporte">SOPORTE</MudNavLink>
+
+            <figcaption class="blockquote-footer">
+                Gracias por  <cite title="Source Title">Confiar en nosotros</cite>
+            </figcaption>
+        </MudNavMenu>
+    </MudDrawer>
+</MudLayout>
+@code {
+
+
+    [Parameter]
+    public string Nombre { get; set; } = "APROVECHA!";
+
+    bool open = false;
+    bool dense = false;
+
+    void ToggleDrawer()
+    {
+        open = !open;
+    }
+}

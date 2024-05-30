@@ -1,0 +1,18 @@
+﻿@using MudBlazor
+
+
+@*<MudAppBar  Style="@($"color:{Colors.Green.Darken4};background:{Colors.DeepOrange.Accent3}")" Fixed="true">*@
+<MudAppBar Color="@ColorBanner" Style="height:auto;" Fixed="true">
+    <MudImage ObjectFit="ObjectFit.Cover" Height="30" Width="150" Src="/img/index/logo.png"></MudImage>
+    <MudSpacer />
+    <MudButton Variant="Variant.Text" StartIcon="@Icons.Material.Rounded.SupportAgent" Color="@ColorIcon" IconSize="Size.Large" IconColor="@ColorIcon">SOPORTE</MudButton>
+</MudAppBar>
+
+@code {
+    [Parameter]
+    public Color ColorBanner { get; set; } = Color.Default;
+
+    [Parameter]
+    public Color ColorIcon { get; set; } = Color.Default;
+
+}

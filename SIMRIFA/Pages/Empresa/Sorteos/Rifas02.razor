@@ -1,0 +1,23 @@
+﻿@page "/Empresa/Sorteos/Rifas02"
+@using MudBlazor;
+@using SIMRIFA.Componentes.Rifas.Header;
+@using SIMRIFA.Componentes.Rifas.Footer;
+@using SIMRIFA.Componentes.Rifas.Body;
+@using SIMRIFA.Data;
+@inject IJSRuntime JSRuntime;
+
+<MudAppBarDouble Nombre="Pantallas SAS"></MudAppBarDouble>
+<Carrusel></Carrusel>
+
+<Contenido02></Contenido02>
+
+@code
+{
+	@inject MenuState MenuState;
+
+	protected override void OnInitialized()
+	{
+		MenuState.SetMenuVisibility(false);
+	}
+
+}

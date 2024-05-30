@@ -1,0 +1,46 @@
+﻿@page "/Empresa/Sorteos/Rifas03"
+@using MudBlazor;
+@using SIMRIFA.Componentes.Rifas.Footer;
+@using SIMRIFA.Componentes.Rifas.Body;
+@using SIMRIFA.Componentes.Rifas.Header;
+@inject IJSRuntime JSRuntime;
+
+
+<MudAppBarDouble Nombre="Pantallas SAS"></MudAppBarDouble>
+<MudLayout>
+	<MudMainContent>
+		<MudGrid Justify="Justify.Center" Spacing="10">
+			<MudItem xs="12" sm="6">
+				<SIMRIFA.Componentes.Rifas.Adiccion.CarruselImagen></SIMRIFA.Componentes.Rifas.Adiccion.CarruselImagen>
+			</MudItem>
+			<MudItem xs="12" sm="6">
+				<Contenido03></Contenido03>
+			</MudItem>
+			<MudItem xs="6" sm="3">
+				<MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=6 sm=3</MudPaper>
+			</MudItem>
+			<MudItem xs="6" sm="3">
+				<MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=6 sm=3</MudPaper>
+			</MudItem>
+			<MudItem xs="6" sm="3">
+				<MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=6 sm=3</MudPaper>
+			</MudItem>
+			<MudItem xs="6" sm="3">
+				<MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=6 sm=3</MudPaper>
+			</MudItem>
+		</MudGrid>
+	</MudMainContent>
+</MudLayout>
+
+@code
+{
+	bool open = true;
+	void ToggleDrawer()
+	{
+		open = !open;
+	}
+
+
+
+
+}

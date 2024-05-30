@@ -1,5 +1,7 @@
-﻿@page "/TipoRifas/IndexRifas"
+﻿@page "/Empresa/Sorteos/IndexRifas"
 @using MudBlazor;
+@using SIMRIFA.Data;
+
 
 <PageTitle>Tipo de rifas</PageTitle>
 
@@ -8,12 +10,12 @@
 		<MudCardMedia Image="img/SOAT.png" Height="200" />
 		<MudCardContent>
 			<MudText Typo="Typo.h5">Sorteo de cupones</MudText>
-			<MudText Typo="Typo.body2">Compra cupones con descuento</MudText>
-			<MudText Typo="Typo.body2">Por los numeros de cupones comprados</MudText>
-			<MudText Typo="Typo.body2">regalaremos un premio mayor</MudText>
+			<MudText Typo="Typo.body2">Compra cupones con descuento Por los numeros de</MudText>
+			<MudText Typo="Typo.body2">cupones comprados regalaremos un premio mayor</MudText>
+			<MudText Typo="Typo.body2"></MudText>
 		</MudCardContent>
 		<MudCardActions>
-			<MudButton Variant="Variant.Text" Href="TipoRifas/Rifas02" Color="Color.Primary">Ver demo</MudButton>
+			<MudButton Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas01" Color="Color.Primary">Ver demo</MudButton>
 		</MudCardActions>
 	</MudCard>
 
@@ -25,7 +27,7 @@
 			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
 		</MudCardContent>
 		<MudCardActions>
-			<MudButton Variant="Variant.Text" Href="TipoRifas/Rifas01" Color="Color.Primary">Ver demo</MudButton>
+			<MudButton Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas02" Color="Color.Primary">Ver demo</MudButton>
 		</MudCardActions>
 	</MudCard>
 
@@ -37,7 +39,7 @@
 			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
 		</MudCardContent>
 		<MudCardActions>
-			<MudButton Variant="Variant.Text" Href="Rifas02" Color="Color.Primary">Ver demo</MudButton>
+			<MudButton Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas03" Color="Color.Primary">Ver demo</MudButton>
 		</MudCardActions>
 	</MudCard>
 
@@ -49,7 +51,7 @@
 			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
 		</MudCardContent>
 		<MudCardActions>
-			<MudButton Variant="Variant.Text" Href="Rifas02" Color="Color.Primary">Ver demo</MudButton>
+			<MudButton Variant="Variant.Filled" Href="" Color="Color.Primary">Ver demo</MudButton>
 		</MudCardActions>
 	</MudCard>
 
@@ -61,8 +63,19 @@
 			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
 		</MudCardContent>
 		<MudCardActions>
-			<MudButton Variant="Variant.Text" Href="Rifas02" Color="Color.Primary">Ver demo</MudButton>
+			<MudButton Variant="Variant.Filled" Href="" Color="Color.Primary">Ver demo</MudButton>
 		</MudCardActions>
 	</MudCard>
 
 </MudStack>
+
+@code
+{
+	@inject MenuState MenuState;
+
+	protected override void OnInitialized()
+	{
+		MenuState.SetMenuVisibility(true);
+	}
+	
+}
