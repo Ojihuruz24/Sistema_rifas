@@ -1,22 +1,67 @@
 ﻿@using MudBlazor
 
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+<style type="text/css">
 
+    .bounceIn {
+        opacity: 0;
+        animation-delay: 0.5s;
+        animation-duration: 0.5s;
+        animation-name: bounceIn;
+        animation-fill-mode: forwards;
+    }
 
-<MudCarousel BulletsColor="Color.Error" Class="container py-4 px-3 mx-auto text-center display-2"  Style="height:350px; width:800px" ShowArrows=true ShowBullets=true EnableSwipeGesture=true AutoCycle=true TData="object">
-    <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
+    .bounceOut {
+        animation-duration: 0.5s;
+        animation-name: bounceOut;
+        animation-fill-mode: forwards;
+    }
+
+    .backInDown {
+        opacity: 0;
+        animation-delay: 0.5s;
+        animation-duration: 0.5s;
+        animation-name: backInDown;
+        animation-fill-mode: forwards;
+    }
+
+    .backOutDown {
+        animation-duration: 0.5s;
+        animation-name: backOutDown;
+        animation-fill-mode: forwards;
+    }
+
+    .rotateIn {
+        opacity: 0;
+        animation-delay: 0.5s;
+        animation-duration: 0.5s;
+        animation-name: rotateIn;
+        animation-fill-mode: forwards;
+    }
+
+    .rotateOut {
+        animation-duration: 0.5s;
+        animation-name: rotateOut;
+        animation-fill-mode: forwards;
+    }
+</style>
+
+<MudCarousel BulletsColor="Color.Error" Class="container py-4 px-3 mx-auto text-center display-2"  Style="height:350px; width:auto" ShowArrows=true ShowBullets=true EnableSwipeGesture=true AutoCycle=true TData="object">
+    
+    <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent" CustomTransitionEnter="bounceIn" CustomTransitionExit="bounceOut">
         <div class="d-flex" style="height:100%">
-            <MudImage Fluid=true Src="Img/1.png"  Alt="Swedish Farm House"  Class="mx-auto my-auto" />
+            <MudImage Fluid=true Src="Img/1.png" Alt="Swedish Farm House" Class="mx-auto my-auto img-fluid" />
         </div>
     </MudCarouselItem>
-    <MudCarouselItem Transition="Transition.Slide" Color="@Color.Transparent">
+    <MudCarouselItem Transition="Transition.Custom" Color="@Color.Transparent" CustomTransitionEnter="backInDown" CustomTransitionExit="backOutDown">
         <div class="d-flex" style="height:100%">
-            <MudImage Fluid=true Src="Img/2.png" Width="500" Height="400" Alt="Swedish Farm House" Class="mx-auto my-auto" />
+            <MudImage Fluid=true Src="Img/2.png" Width="500" Height="400" Alt="Swedish Farm House" Class="mx-auto my-auto img-fluid" />
         </div>
     </MudCarouselItem>
-    <MudCarouselItem Transition="Transition.Slide">
-        <div class="d-flex" style="height:100%">
-            <MudImage Fluid=true Src="Img/3.png" Width="500" Height="400" Alt="Swedish Farm House" Class="mx-auto my-auto" />
+    <MudCarouselItem Transition="Transition.Custom" Color="@Color.Transparent" CustomTransitionEnter="rotateIn" CustomTransitionExit="rotateOut">
+        <div class="d-flex" style="height:100%;">
+            <MudImage Fluid=true Src="Img/3.png" Width="500" Height="400" Alt="Swedish Farm House" Class="mx-auto my-auto img-fluid" />
         </div>
     </MudCarouselItem>
 </MudCarousel>

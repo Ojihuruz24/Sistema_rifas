@@ -7,44 +7,152 @@
 @using SIMRIFA.Data;
 @inject IJSRuntime JSRuntime;
 
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Precios Tienda Online</title>
+	<!-- Añade aquí el enlace a Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<!-- Añade aquí tu CSS personalizado -->
+	<style>
+		.pricing-header {
+			text-align: center;
+			background-color: ghostwhite;
+			padding: 3rem 0;
+		}
+
+		.card-header {
+			background-color: orange;
+			color: white;
+		}
+
+		.card-body {
+			background-color: #e9ecef;
+		}
+
+		.price {
+			font-size: 2rem;
+			color: green;
+		}
+	</style>
+</head>
+
+
 <MudAppBarDouble></MudAppBarDouble>
 
 <MudLayout Class="container-fluid text-center">
 	<MudMainContent>
 		<MudGrid Justify="Justify.Center">
-			<MudItem xs="12" sm="12">
-				<img src="Img/rifa3_imagen.png" height="100" class="img-fluid" alt="Wild Landscape" />
-			</MudItem>
-			<MudItem>
-				<CarruselImagen></CarruselImagen>
-			</MudItem>
-			<MudItem xs="6" sm="6">
-				<Contenido03></Contenido03>
-			</MudItem>
-			<MudItem xs="6" sm="3">
-				<MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=6 sm=3</MudPaper>
-			</MudItem>
-			<MudItem xs="6" sm="3">
-				<MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=6 sm=3</MudPaper>
-			</MudItem>
-			<MudItem xs="6" sm="3">
-				<MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=6 sm=3</MudPaper>
-			</MudItem>
-			<MudItem xs="6" sm="3">
-				<MudPaper Class="d-flex align-center justify-center mud-width-full py-8">xs=6 sm=3</MudPaper>
+			<MudItem xxl="12" xs="12" sm="12" Style="background-color:dimgrey">
+				<div class="pricing-header">
+					<h1>PARTICIPA POR EL SORTEO</h1>
+					<p>SE PREMIARA CON UN REGALO LOS PRIMERO NUMEROS</p>
+				</div>
 			</MudItem>
 		</MudGrid>
 	</MudMainContent>
 </MudLayout>
 
+<MudLayout Class="container-fluid text-center">
+	<MudMainContent>
+		<MudGrid Justify="Justify.Center" >
+			<MudItem xs="12" sm="12" md="6" lg="6" xl="6" xxl="6">
+				<CarruselImagen></CarruselImagen>
+			</MudItem>
+			<MudItem xs="12" sm="12" md="6" lg="6" xl="6" xxl="6">
+				<Contenido03></Contenido03>
+			</MudItem>
+		</MudGrid>
+	</MudMainContent>
+</MudLayout>
 
+<MudLayout Class="container-fluid text-center">
+	<MudMainContent>
+		<MudGrid Justify="Justify.Center">
+			<MudItem xs="6" sm="3">
+				<div class="card mb-4 shadow-sm">
+					<div class="card-header">
+						<h4 class="my-0 font-weight-normal">APROVECHA!</h4>
+					</div>
+					<div class="card-body">
+						<h1 class="card-title price">$ 20.000</h1>
+						<ul class="list-unstyled mt-3 mb-4">
+							<li>¡Aprovecha nuestra oferta especial! </li>
+							<li> Disfruta de increíbles descuentos</li>
+							<li>¡Compra ahora y ahorra!</li>
+							<!-- Añade más características aquí -->
+						</ul>
+						<button type="button" class="btn btn-lg btn-block btn-primary">COMPRAR</button>
+					</div>
+				</div>
+			</MudItem>
+			<MudItem xs="6" sm="3">
+				<div class="card mb-4 shadow-sm">
+					<div class="card-header">
+						<h4 class="my-0 font-weight-normal">APROVECHA!</h4>
+					</div>
+					<div class="card-body">
+						<h1 class="card-title price">$ 30.000</h1>
+						<ul class="list-unstyled mt-3 mb-4">
+							<li>¡Aprovecha nuestra oferta especial! </li>
+							<li> Disfruta de increíbles descuentos</li>
+							<li>¡Compra ahora y ahorra!</li>
+							<!-- Añade más características aquí -->
+						</ul>
+						<button type="button" class="btn btn-lg btn-block btn-primary">COMPRAR</button>
+					</div>
+				</div>
+			</MudItem>
+			<MudItem xs="6" sm="3">
+				<div class="card mb-4 shadow-sm">
+					<div class="card-header">
+						<h4 class="my-0 font-weight-normal">APROVECHA!</h4>
+					</div>
+					<div class="card-body">
+						<h1 class="card-title price">$ 40.000</h1>
+						<ul class="list-unstyled mt-3 mb-4">
+							<li>¡Aprovecha nuestra oferta especial! </li>
+							<li> Disfruta de increíbles descuentos</li>
+							<li>¡Compra ahora y ahorra!</li>
+							<!-- Añade más características aquí -->
+						</ul>
+						<button type="button" class="btn btn-lg btn-block btn-primary">COMPRAR</button>
+					</div>
+				</div>
+			</MudItem>
+			<MudItem xs="6" sm="3">
+				<div class="card mb-4 shadow-sm">
+					<div class="card-header">
+						<h4 class="my-0 font-weight-normal">APROVECHA!</h4>
+					</div>
+					<div class="card-body">
+						<h1 class="card-title price">$ 40.000</h1>
+						<ul class="list-unstyled mt-3 mb-4">
+							<li>¡Aprovecha nuestra oferta especial! </li>
+							<li> Disfruta de increíbles descuentos</li>
+							<li>¡Compra ahora y ahorra!</li>
+							<!-- Añade más características aquí -->
+						</ul>
+						<button type="button" class="btn btn-lg btn-block btn-primary">COMPRAR</button>
+					</div>
+				</div>
+			</MudItem>
+		</MudGrid>
+	</MudMainContent>
+</MudLayout>
 
-
-
-
+<header class="bg-secondary text-white text-center py-3">
+	<div class="container">
+		<h1 class="display-4">Muchas gracias por su confianza</h1>
+		<p class="lead">Nos vemos pronto!</p>
+	</div>
+</header>
 
 @code
 {
+	//xs="@xs" sm="@sm" md="@md" lg="@lg" xl="@xl" xxl="@xxl"
+
 	bool open = true;
 	void ToggleDrawer()
 	{
