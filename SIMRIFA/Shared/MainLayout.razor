@@ -5,7 +5,16 @@
 @inject IJSRuntime JSRuntime;
 @inject MenuState MenuState;
 
-<MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode" Theme="_currentTheme" />
+@if (MenuState.ShowMenu)
+{
+	<MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode" Theme="_currentTheme" />
+}
+else
+{
+	<MudThemeProvider />
+}
+
+@*<MudThemeProvider @ref="@_mudThemeProvider" @bind-IsDarkMode="@_isDarkMode" Theme="_currentTheme" />*@
 <MudDialogProvider />
 <MudSnackbarProvider />
 
@@ -13,7 +22,7 @@
 
 	@if (MenuState.ShowMenu)
 	{
-		<MudAppBar Elevation="1" >
+		<MudAppBar Elevation="1">
 			<MudIconButton Icon="@Icons.Material.Filled.Menu" Edge="Edge.Start" OnClick="@ToggleDrawer" />
 			<MudSpacer />
 			<MudIconButton Icon="@Icons.Material.Filled.Brightness4"
@@ -33,33 +42,27 @@
 				</div>
 				<div class="nav-item px-3">
 					<MudNavLink Href="/Empresa/Sorteos/IndexRifas" Match="NavLinkMatch.All"
-							Icon="@Icons.Custom.Uncategorized.ColorPalette"
-							>TIPO DE RIFAS</MudNavLink>
+							Icon="@Icons.Custom.Uncategorized.ColorPalette">TIPO DE RIFAS</MudNavLink>
 				</div>
 				<div class="nav-item px-3">
 					<MudNavLink Href="https://wa.link/2vn0r8" Target="_blank" Match="NavLinkMatch.All"
-							Icon="@Icons.Custom.Brands.WhatsApp"
-							>Soporte WhatsApp</MudNavLink>
+							Icon="@Icons.Custom.Brands.WhatsApp">Soporte WhatsApp</MudNavLink>
 				</div>
 				<div class="nav-item px-3">
 					<MudNavLink Href="/Ganadores" Match="NavLinkMatch.All"
-							Icon="@Icons.Material.Filled.People"
-							>Ganadores</MudNavLink>
+							Icon="@Icons.Material.Filled.People">Ganadores</MudNavLink>
 				</div>
 				<div class="nav-item px-3">
 					<MudNavLink Href="#" Match="NavLinkMatch.All"
-							Icon="@Icons.Custom.Brands.Instagram"
-							>Intagram</MudNavLink>
+							Icon="@Icons.Custom.Brands.Instagram">Intagram</MudNavLink>
 				</div>
 				<div class="nav-item px-3">
 					<MudNavLink Href="#" Match="NavLinkMatch.All"
-							Icon="@Icons.Custom.Brands.Facebook"
-							>Facebook</MudNavLink>
+							Icon="@Icons.Custom.Brands.Facebook">Facebook</MudNavLink>
 				</div>
 				<div class="nav-item px-3">
 					<MudNavLink Href="#" Match="NavLinkMatch.All"
-							Icon="@Icons.Custom.Brands.Telegram"
-							>Telegram</MudNavLink>
+							Icon="@Icons.Custom.Brands.Telegram">Telegram</MudNavLink>
 				</div>
 				@*	<div class="nav-item px-3">
 			<MudNavLink Href="/Reportes" Match="NavLinkMatch.All" Icon="@Icons.Material.Filled.Login" IconColor="Color.Inherit">Registrarse</MudNavLink>

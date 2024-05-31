@@ -17,8 +17,8 @@
     <Folder Include="Pages\Service\Retenes\" />
     <Folder Include="Pages\Service\ServicioEmpresarial\" />
     <Folder Include="Pages\Service\TramitesTransito\" />
-    <Folder Include="wwwroot\js\" />
     <Folder Include="wwwroot\fonts\" />
+    <Folder Include="wwwroot\bost\" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,19 +1,24 @@
 ﻿@page "/Empresa/Sorteos/Rifas03"
 @using MudBlazor;
+@using SIMRIFA.Componentes.Rifas.Adiccion
 @using SIMRIFA.Componentes.Rifas.Footer;
 @using SIMRIFA.Componentes.Rifas.Body;
 @using SIMRIFA.Componentes.Rifas.Header;
+@using SIMRIFA.Data;
 @inject IJSRuntime JSRuntime;
 
+<MudAppBarDouble></MudAppBarDouble>
 
-<MudAppBarDouble Nombre="Pantallas SAS"></MudAppBarDouble>
-<MudLayout>
+<MudLayout Class="container-fluid text-center">
 	<MudMainContent>
-		<MudGrid Justify="Justify.Center" Spacing="10">
-			<MudItem xs="12" sm="6">
-				<SIMRIFA.Componentes.Rifas.Adiccion.CarruselImagen></SIMRIFA.Componentes.Rifas.Adiccion.CarruselImagen>
+		<MudGrid Justify="Justify.Center">
+			<MudItem xs="12" sm="12">
+				<img src="Img/rifa3_imagen.png" height="100" class="img-fluid" alt="Wild Landscape" />
 			</MudItem>
-			<MudItem xs="12" sm="6">
+			<MudItem>
+				<CarruselImagen></CarruselImagen>
+			</MudItem>
+			<MudItem xs="6" sm="6">
 				<Contenido03></Contenido03>
 			</MudItem>
 			<MudItem xs="6" sm="3">
@@ -32,6 +37,12 @@
 	</MudMainContent>
 </MudLayout>
 
+
+
+
+
+
+
 @code
 {
 	bool open = true;
@@ -40,6 +51,12 @@
 		open = !open;
 	}
 
+	@inject MenuState MenuState;
+
+	protected override void OnInitialized()
+	{
+		MenuState.SetMenuVisibility(false);
+	}
 
 
 
