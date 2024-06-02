@@ -20,7 +20,7 @@ namespace SIMRIFA.Service.ConfiguracionServicio
 	public static class ServiceExtensions
 	{
 
-		public static IServiceCollection AddLogica(this IServiceCollection services)
+		public static IServiceCollection AddService(this IServiceCollection services)
 		{
 			services.TryAddScoped<IUtils, Utils>();
 			services.TryAddScoped<ICompradorService, CompradorService>();

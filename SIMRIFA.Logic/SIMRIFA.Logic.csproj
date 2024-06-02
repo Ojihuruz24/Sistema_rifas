@@ -7,14 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Cliente\" />
     <Folder Include="Compra\" />
     <Folder Include="ConfiguracionLogica\" />
-    <Folder Include="Correo\" />
     <Folder Include="Transaccion\" />
     <Folder Include="Tools\" />
     <Folder Include="Serie\" />
     <Folder Include="NumeroAleatorio\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SIMRIFA.Service\SIMRIFA.Service.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,74 +1,40 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SIMRIFA.DataAccess.Repository;
-using SIMRIFA.Model.core;
-using SIMRIFA.Service.Series;
-using System.ComponentModel.DataAnnotations;
+﻿using SIMRIFA.Service.NumeroAleatorio;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace SIMRIFA.Service.NumeroAleatorio
+namespace SIMRIFA.Logic.NumeroAleatorio
 {
-	public class NumeroAleatorioService : INumeroAleatorioService
+	public class NumeroAleatorioLogicService : INumeroAleatorioLogicService
 	{
-		private readonly IRepository<SIMRIFA.Model.core.NumeroAleatorio> _repository;
+		private readonly INumeroAleatorioService _numeroAleatorioService;
 
-		public NumeroAleatorioService(IRepository<SIMRIFA.Model.core.NumeroAleatorio> repository)
+		public NumeroAleatorioLogicService(INumeroAleatorioService numeroAleatorioService)
 		{
-			_repository = repository;
+			_numeroAleatorioService = numeroAleatorioService;
 		}
-
 
 		public async Task<SIMRIFA.Model.core.NumeroAleatorio> AgregarAsync(SIMRIFA.Model.core.NumeroAleatorio numeroAleatorio)
 		{
-			var result = await _repository.Add(numeroAleatorio);
-			return result;
+			return await _numeroAleatorioService.AgregarAsync(numeroAleatorio);
 		}
 
 		public async Task<Model.core.NumeroAleatorio> ActualizarAsync(Model.core.NumeroAleatorio numeroAleatorio)
 		{
-
-			Model.core.NumeroAleatorio data = await _repository.Update(numeroAleatorio);
-			return data;
+			return await _numeroAleatorioService.ActualizarAsync(numeroAleatorio);
 		}
 
 		public async Task<IEnumerable<Model.core.NumeroAleatorio>> ObtenerAsync(Expression<Func<Model.core.NumeroAleatorio, bool>> Function = default)
 		{
-			var Qry = await _repository.GetOneOrAll(Function);
-			return Qry;
+			return await _numeroAleatorioService.ObtenerAsync(Function);
 		}
 
 		public async Task<Model.core.NumeroAleatorio> EliminarAsync(Model.core.NumeroAleatorio numeroAleatorio)
 		{
-			var result = await _repository.Delete(numeroAleatorio);
-			return result;
-
-		}
-
-		public async Task<List<string>> ObtenerNumerosAsync(Expression<Func<Model.core.NumeroAleatorio, bool>> Function = default)
-		{
-			var Qry = await _repository.GetOneOrAll(Function);
-
-			IEnumerable<string> numeros = new List<string>();
-
-			if (Qry != null)
-			{
-				numeros = Qry.Select(x => x.Numero);
-			}
-
-			return numeros.ToList();
-		}
-
-		public async Task<List<string>> ActualizarEstadoNumero(Expression<Func<Model.core.NumeroAleatorio, bool>> Function = default)
-		{
-			var Qry = await _repository.GetOneOrAll(Function);
-
-			IEnumerable<string> numeros = new List<string>();
-
-			if (Qry != null)
-			{
-				numeros = Qry.Select(x => x.Numero);
-			}
-
-			return numeros.ToList();
+			return await _numeroAleatorioService.EliminarAsync(numeroAleatorio);
 		}
 
 		public async Task<List<string>> GenerarNumeroAletorio(int valor, int valorMaximo)
@@ -104,6 +70,20 @@ namespace SIMRIFA.Service.NumeroAleatorio
 			return newlit;
 		}
 
+		private async Task<List<string>> ObtenerNumerosAsync(Expression<Func<Model.core.NumeroAleatorio, bool>> Function = default)
+		{
+			var Qry = await _numeroAleatorioService.ObtenerAsync(Function);
+
+			IEnumerable<string> numeros = new List<string>();
+
+			if (Qry != null)
+			{
+				numeros = Qry.Select(x => x.Numero);
+			}
+
+			return numeros.ToList();
+		}
+
 		private async Task<string> GenerarNumeroAleatorio(int valorMaximo)
 		{
 			Random rnd = new Random();
@@ -121,5 +101,11 @@ namespace SIMRIFA.Service.NumeroAleatorio
 
 			return numeroFormateado;
 		}
+
+
+
+
+
+
 	}
 }

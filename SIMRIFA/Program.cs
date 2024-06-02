@@ -10,6 +10,7 @@ using SIMRIFA.Service.ConfiguracionServicio;
 using SIMRIFA.DataAccess.Db_Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.SqlServer;
+using SIMRIFA.Logic.ConfiguracionLogica;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
@@ -30,12 +31,17 @@ builder.Services.AddDbContext<SIMRIFAdbContext>(options =>
 
 builder.Services.AddScoped<MenuState>();
 
-#region "Patron Repositorio" 
-builder.Services.AddRepositorios(configuration);
+#region Logica servicio
+
+builder.Services.AddLogica();
 #endregion
 
+#region "Patron Repositorio" 
+builder.Services.AddRepositorios(configuration);
+#endregion	   
+
 #region "Servicios" 
-builder.Services.AddLogica();
+builder.Services.AddService();
 #endregion
 
 

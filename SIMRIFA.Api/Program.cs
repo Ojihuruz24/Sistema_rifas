@@ -62,7 +62,7 @@ builder.Services.AddRepositorios(configuration);
 #endregion
 
 #region "Servicios" 
-builder.Services.AddLogica();
+builder.Services.AddService();
 #endregion
 
 builder.Services.AddSignalR(e =>

@@ -18,8 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SIMRIFA.Model\SIMRIFA.Model.csproj" />
-    <ProjectReference Include="..\SIMRIFA.Service\SIMRIFA.Service.csproj" />
+    <ProjectReference Include="..\SIMRIFA.Logic\SIMRIFA.Logic.csproj" />
   </ItemGroup>
 
 </Project>
