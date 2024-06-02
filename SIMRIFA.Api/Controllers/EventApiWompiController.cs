@@ -406,15 +406,5 @@ namespace SIMRIFA.Api.Controllers
 		}
 		#endregion
 
-		[HttpGet("Identificacion")]
-		public async Task<IActionResult> GetTransaccion(string identificacion)
-		{
-
-			return Ok();
-		}
-
-
-
-
 	}
 }

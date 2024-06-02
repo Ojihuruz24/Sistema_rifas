@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIMRIFA.Model", "..\SIMRIFA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SIMRIFA.Api", "..\SIMRIFA.Api\SIMRIFA.Api.csproj", "{449BB65D-9DB9-45BE-AB18-12C4D202F897}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIMRIFA.Logic", "..\SIMRIFA.Logic\SIMRIFA.Logic.csproj", "{AC0F6040-C14B-45D9-8AE7-F5615B565185}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{449BB65D-9DB9-45BE-AB18-12C4D202F897}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{449BB65D-9DB9-45BE-AB18-12C4D202F897}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{449BB65D-9DB9-45BE-AB18-12C4D202F897}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC0F6040-C14B-45D9-8AE7-F5615B565185}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC0F6040-C14B-45D9-8AE7-F5615B565185}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC0F6040-C14B-45D9-8AE7-F5615B565185}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC0F6040-C14B-45D9-8AE7-F5615B565185}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

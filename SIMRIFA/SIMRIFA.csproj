@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Events\" />
     <Folder Include="Pages\Service\DesarrolloWeb\" />
     <Folder Include="Pages\Service\Retenes\" />
     <Folder Include="Pages\Service\ServicioEmpresarial\" />

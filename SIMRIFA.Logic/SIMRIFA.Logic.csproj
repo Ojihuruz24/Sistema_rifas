@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Cliente\" />
+    <Folder Include="Compra\" />
+    <Folder Include="ConfiguracionLogica\" />
+    <Folder Include="Correo\" />
+    <Folder Include="Transaccion\" />
+    <Folder Include="Tools\" />
+    <Folder Include="Serie\" />
+    <Folder Include="NumeroAleatorio\" />
+  </ItemGroup>
+
+</Project>
