@@ -1,6 +1,6 @@
 ﻿using SIMRIFA.Model.Models;
 
-namespace SIMRIFA.Logic.Correo
+namespace SIMRIFA.Logic.CorreoLogic
 {
 	public interface ICorreoLogicService
 	{

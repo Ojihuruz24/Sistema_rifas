@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMRIFA.Logic.Correo
+namespace SIMRIFA.Logic.CorreoLogic
 {
 	public class CorreoLogicService : ICorreoLogicService
 	{

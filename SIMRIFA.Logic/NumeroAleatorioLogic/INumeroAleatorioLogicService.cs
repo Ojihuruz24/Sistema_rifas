@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace SIMRIFA.Logic.NumeroAleatorio
+namespace SIMRIFA.Logic.NumeroAleatorioLogic
 {
 	public interface INumeroAleatorioLogicService
 	{

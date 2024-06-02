@@ -7,9 +7,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SIMRIFA.Logic.Cliente
+namespace SIMRIFA.Logic.ClienteLogic
 {
-	public class ClienteLogicService
+	public class ClienteLogicService : IClienteLogicService
 	{
 		private readonly IClienteService _service;
 
