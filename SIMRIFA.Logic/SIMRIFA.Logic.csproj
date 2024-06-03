@@ -9,10 +9,6 @@
   <ItemGroup>
     <Folder Include="Compra\" />
     <Folder Include="ConfiguracionLogica\" />
-    <Folder Include="Transaccion\" />
-    <Folder Include="Tools\" />
-    <Folder Include="Serie\" />
-    <Folder Include="NumeroAleatorio\" />
   </ItemGroup>
 
   <ItemGroup>

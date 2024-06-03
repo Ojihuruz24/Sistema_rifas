@@ -345,12 +345,5 @@ namespace SIMRIFA.Service.Tools
 
 		}
 
-		private async Task<CorreoConfig> correoConfig()
-		{
-			var result = await _utils.GetConfiguracionCorreoAsync();
-
-			return result;
-		}
-
 	}
 }

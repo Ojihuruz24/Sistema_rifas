@@ -1,6 +1,6 @@
 ﻿@page "/checkout"
 @using MudBlazor
-@using SIMRIFA.Service.Tools;
+@using SIMRIFA.Logic.Tools;
 @using SIMRIFA.Tools.ConexionFrontBackend;
 @inject NavigationManager Navigation
 @inject IJSRuntime JS
@@ -52,9 +52,7 @@
 	private int TaxInCentsVat { get; set; }
 	#region
 	[Inject]
-	IUtils _utils { get; set; }
-
-	[Inject] private IConexionApi<Utils, Utils> _utilsApi { get; set; }
+	IUtilisLogic _utils { get; set; }
 
 	[Inject] IJSRuntime Js { get; set; }
 
@@ -73,8 +71,6 @@
 	{
 		int casteo = AddTrailingZeros(ValorCupones, 2);
 		ExpirationTime = DateTime.UtcNow.AddMinutes(5).ToString("yyyy-MM-ddTHH:mm:ss.fffZ");
-
-		//(string, string) prueba3 = await  ;
 
 		(string, string) prueba = await _utils.has(AddTrailingZeros(ValorCupones, 2), Cupones, ExpirationTime);
 		PublicKey = "pub_test_EKiDBdydoVychiwazPqDsm52168IjGmQ";

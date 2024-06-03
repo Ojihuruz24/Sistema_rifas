@@ -1,9 +1,8 @@
 ﻿@using MudBlazor
 @using SIMRIFA.Componentes.Rifas.Wompi;
 @using SIMRIFA.Model.Models.Wompi;
-@using SIMRIFA.Service.Compra;
-@using SIMRIFA.Service.Series;
-@using SIMRIFA.Service.Tools;
+@using SIMRIFA.Logic.SerieLogic;
+@using SIMRIFA.Logic.Tools;
 @using System.Text;
 @using SIMRIFA.Service.Wompi;
 @inject IDialogService Dialog;
@@ -25,15 +24,14 @@
 
 <AliadosCupones></AliadosCupones>
 
-
-
 <MudGrid Justify="Justify.Center">
 	<MudItem xs="12" sm="12" md="12" lg="12" xl="12" xxl="12">
 		<MudText Align="Align.Center">
 			<h2 class="container py-4 px-3 mx-auto text-center display-2" style="color:dodgerblue">
 				<b>INCREIBLE!!!</b>
 			</h2>
-			<MudProgressLinear Color="Color.Info" Striped="true" Size="Size.Large" Value="@vendidas" Class="d-flex align-center justify-center mud-width-full py-8" Min="1" Max="@ValorMaximo">
+			<MudProgressLinear Color="Color.Info" Striped="true" Size="Size.Large" Value="@vendidas"
+							   Class="d-flex align-center justify-center mud-width-full py-8" Min="1" Max="@ValorMaximo">
 				<MudText Typo="Typo.subtitle1" Color="Color.Dark">
 					<b>@Porcentaje %</b>
 				</MudText>
@@ -89,6 +87,8 @@
 			</MudCardActions>
 		</MudCard>
 	</MudItem>
+
+
 	<MudGrid Justify="Justify.Center">
 		<MudItem xs="@xl" sm="@xl" md="@xl" lg="@xl" xl="@xl" xxl="@xl">
 			<MudNumericField @bind-Value="@cantidadVenta" HideSpinButtons="false" Label="CANTIDAD" Variant="Variant.Filled" Min="1" Max="20" />
@@ -126,13 +126,10 @@
 	private IWompiService wompiService { get; set; }
 
 	[Inject]
-	private ISerieService serieService { get; set; }
+	private ISerieLogicService serieService { get; set; }
 
 	[Inject]
-	private ICompradorService compradorService { get; set; }
-
-	[Inject]
-	IUtils _utils { get; set; }
+	IUtilisLogic _utils { get; set; }
 
 	protected override async Task OnInitializedAsync()
 	{
@@ -186,13 +183,9 @@
 	{
 		await OpenDialog();
 		vendidas += cantidadVenta;
-
 		var valorWompi = cantidadVenta * 500000;
 		var valor = cantidadVenta * 500000;
-
 		await OpenPagosDialog(cantidadVenta, valorWompi);
-
-		//await compradorService.AddComprador(cantidadVenta, $"{valor.ToString("N")}");
 	}
 
 	private async Task OpenPagosDialog(int boletas, int valor)

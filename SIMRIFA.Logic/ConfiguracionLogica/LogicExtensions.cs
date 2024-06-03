@@ -4,6 +4,7 @@ using SIMRIFA.Logic.ClienteLogic;
 using SIMRIFA.Logic.CorreoLogic;
 using SIMRIFA.Logic.NumeroAleatorioLogic;
 using SIMRIFA.Logic.SerieLogic;
+using SIMRIFA.Logic.Tools;
 using SIMRIFA.Logic.Transaccion;
 
 namespace SIMRIFA.Logic.ConfiguracionLogica
@@ -17,6 +18,7 @@ namespace SIMRIFA.Logic.ConfiguracionLogica
 			services.TryAddScoped<IClienteLogicService, ClienteLogicService>();
 			services.TryAddScoped<ISerieLogicService, SerieLogicService>();
 			services.TryAddScoped<ITransaccionLogicService, TransaccionLogicService>();
+			services.TryAddScoped<IUtilisLogic, UtilisLogic>();
 			return services;
 		}
 	}

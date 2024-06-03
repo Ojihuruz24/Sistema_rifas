@@ -10,6 +10,7 @@ using System.Text.Json;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using SIMRIFA.Logic.ConfiguracionLogica;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
@@ -54,6 +55,12 @@ builder.Services.AddDbContext<SIMRIFAdbContext>(options =>
 	{
 	});
 });
+
+#endregion
+
+#region
+
+builder.Services.AddLogica();
 
 #endregion
 

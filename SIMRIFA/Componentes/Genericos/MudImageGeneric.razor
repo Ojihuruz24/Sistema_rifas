@@ -1,0 +1,17 @@
+﻿@using MudBlazor
+
+
+<MudImage Fluid="@Fluid" Src="@urlImageCupones1" Alt="@Alt" Class="rounded-lg" />
+
+@code {
+
+	[Parameter]
+	public string urlImageCupones1 { get; set; } = "...";
+
+	[Parameter]
+	public bool Fluid { get; set; } = true;
+
+	[Parameter]
+	public string Alt { get; set; } = string.Empty;
+
+}

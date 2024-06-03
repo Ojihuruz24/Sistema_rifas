@@ -35,78 +35,6 @@ namespace SIMRIFA.Service.Tools
 			_correConfig = correoConfig;
 		}
 
-		public decimal Calcular(decimal valor, decimal cantidad)
-		{
-			//var porcentajeAdiccional = MargenError(valor);
-
-			decimal info = Decimal.Truncate((Convert.ToDecimal(valor) / Convert.ToDecimal(cantidad)) * Convert.ToDecimal(100));
-
-			return info;
-		}
-
-		public async Task<(string referencia, string has)> has(int amount, int cantidad, string fechaExpiracion)
-		{
-			Random random = new Random();
-
-			var valorrandom = await GenerarReferenciaUnica(cantidad);
-
-			var publicKey = "test_integrity_YcpIHCiQvGKc01VK9kpTNo3wvb4vFV8g";
-			var currency = "COP";
-			var reference = $"{valorrandom}";
-
-			var conca = $"{reference}{amount}{currency}{fechaExpiracion}{publicKey}";
-			//var conca = $"{reference}{amount}{currency}{publicKey}";
-
-			using (SHA256 sha256Hash = SHA256.Create())
-			{
-				byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(conca));
-
-				StringBuilder builder = new StringBuilder();
-				for (int i = 0; i < bytes.Length; i++)
-				{
-					builder.Append(bytes[i].ToString("x2"));
-				}
-				return (reference.ToString(), builder.ToString());
-			}
-		}
-
-		public async Task<T> GetValueFromJsonElement<T>(JsonElement jsonElement, params string[] keys)
-		{
-			JsonElement currentElement = jsonElement;
-
-			foreach (var key in keys)
-			{
-				if (!currentElement.TryGetProperty(key, out currentElement))
-				{
-					throw new ArgumentException($"Problemas con '{key}' no encontrado en el json JSON.");
-				}
-			}
-
-			// Convertir el valor a tipo T
-			T value;
-			if (typeof(T) == typeof(string))
-			{
-				value = (T)(object)currentElement.GetString();
-			}
-			else if (typeof(T) == typeof(int))
-			{
-				value = (T)(object)currentElement.GetInt32();
-			}
-			else if (typeof(T) == typeof(bool))
-			{
-				value = (T)(object)currentElement.GetBoolean();
-			}
-			else
-			{
-				throw new ArgumentException($"No soporta el tipo '{typeof(T)}'.");
-			}
-
-
-			await Task.CompletedTask;
-
-			return value;
-		}
-
 		public async Task<CorreoConfig> GetConfiguracionCorreoAsync()
 		{
 			var correoConfig = await _correConfig.GetOneOrAll(x => x.Estado == true);
@@ -114,44 +42,6 @@ namespace SIMRIFA.Service.Tools
 			var correo = correoConfig.FirstOrDefault();
 
 			return correo;
-		}
-
-		public async Task<bool> ValidacionInfo(string TransaccionID, string TransaccionStatus, string TransaccionAmount, string TransaccionChecksum, string timestamp = default)
-		{
-			//var TransaccionID = response?.Data?.Transaction?.Id;
-			//var TransaccionStatus = response?.Data?.Transaction?.Status;
-			//var TransaccionAmount = response?.Data?.Transaction?.AmountInCents.ToString();
-			//var timestamp = response?.Timestamp.ToString();
-
-			var clave = "test_events_QeLdcWGI7qBSTtMoSSLt5hB8PmEERLTY";
-
-			string concat = $"{TransaccionID}{TransaccionStatus}{TransaccionAmount}{clave}";
-
-			if (!string.IsNullOrEmpty(timestamp))
-			{
-				concat = $"{TransaccionID}{TransaccionStatus}{TransaccionAmount}{timestamp}{clave}";
-			}
-
-			StringBuilder builder = new StringBuilder();
-
-			using (SHA256 sha256Hash = SHA256.Create())
-			{
-				byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(concat));
-
-				for (int i = 0; i < bytes.Length; i++)
-				{
-					builder.Append(bytes[i].ToString("x2"));
-				}
-			}
-
-			var encryp = builder.ToString();
-
-			if (encryp == TransaccionChecksum)
-			{
-				return true;
-			}
-
-			return false;
 		}
 
 		#region Buscador de un json

@@ -1,0 +1,83 @@
+﻿@using MudBlazor
+@using SIMRIFA.Componentes.Rifas.Wompi;
+@using SIMRIFA.Model.Models.Wompi;
+@using SIMRIFA.Logic.SerieLogic;
+@using SIMRIFA.Logic.Tools;
+@using System.Text;
+@using SIMRIFA.Service.Wompi;
+@inject IDialogService Dialog;
+@inject NavigationManager Navigation;
+@using SIMRIFA.Componentes.Rifas.Adiccion;
+@using static SIMRIFA.Pages.Empresa.Sorteos.Generic.GenericRifa01;
+
+<br />
+<br />
+
+<h1 class="container py-4 px-3 mx-auto text-center display-2" style="color:dodgerblue">
+	<b>@TextoPrincipal</b>
+</h1>
+
+<MudImage class="rounded mx-auto d-block border border-primary border-5" Fluid="true" Height="400" Width="400" ObjectFit="ObjectFit.Cover" Src="@ImagenPrincipal" Alt="SOAT" Elevation="0" />
+
+<h2 class="container py-4 px-3 mx-auto text-center display-2" style="color:dodgerblue">
+	<b>@TextoRedimible</b>
+</h2>
+
+<MudGrid Justify="Justify.Center">
+	<MudItem xs="12" sm="12" md="12" lg="12" xl="12" xxl="12">
+		<MudText Align="Align.Center">
+			<h2 class="container py-4 px-3 mx-auto text-center display-2" style="color:dodgerblue">
+				<b>@TextoSorprendete</b>
+			</h2>
+			<MudProgressLinear Color="Color.Info" Striped="true" Size="Size.Large" Value="@BoletasVendidas"
+							   Class="d-flex align-center justify-center mud-width-full py-8" Min="1" Max="@ProgressValorMaximo">
+				<MudText Typo="Typo.subtitle1" Color="Color.Dark">
+					<b>@Porcentaje %</b>
+				</MudText>
+			</MudProgressLinear>
+		</MudText>
+	</MudItem>
+</MudGrid>
+<br />
+
+@code {
+
+	[Parameter]
+	public string TextoPrincipal { get; set; } = "Por favor actualizar el texto principal";
+
+	[Parameter]
+	public string ImagenPrincipal { get; set; } = "Por favor Subir la imagen principal";
+
+	[Parameter]
+	public string TextoRedimible { get; set; } = "Por favor ingresar mensaje de cupones redimibles";
+
+	[Parameter]
+	public string TextoSorprendete { get; set; } = "Por favor agregar el texto";
+
+
+	private int txs = 12;
+	private int tsm = 6;
+	private int tmd = 4;
+	private int tlg = 3;
+	private int txl = 3;
+	private int txxl = 3;
+
+	private decimal Porcentaje { get; set; } = 0;
+
+	[Parameter]
+	public int BoletasVendidas { get; set; }
+
+	[Parameter]
+	public int ProgressValorMaximo { get; set; }
+
+	private int cantidadVenta { get; set; } = 1;
+
+	[Inject]
+	IUtilisLogic _utils { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		Porcentaje = _utils.Calcular(BoletasVendidas, ProgressValorMaximo);
+
+	}
+}

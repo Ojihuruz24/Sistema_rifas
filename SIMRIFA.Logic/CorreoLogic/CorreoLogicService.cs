@@ -22,9 +22,9 @@ namespace SIMRIFA.Logic.CorreoLogic
 			await _correoServicio.EnvioCorreoSendGrid(destinatarios, asunto, contenido);
 		}
 
-		public async Task EnvioCorreoMailNet(CompradorDto comprador)
+		public async Task<bool> EnvioCorreoMailNet(CompradorDto comprador)
 		{
-			await _correoServicio.EnvioCorreoMailNet(comprador);
+			return await _correoServicio.EnvioCorreoMailNet(comprador);
 		}
 
 

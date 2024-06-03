@@ -3,7 +3,7 @@
 @using SIMRIFA.Model.Models.Wompi;
 @using SIMRIFA.Service.Compra;
 @using SIMRIFA.Service.Series;
-@using SIMRIFA.Service.Tools;
+@using SIMRIFA.Logic.Tools;
 @using System.Text;
 @using SIMRIFA.Service.Wompi;
 @inject IDialogService Dialog;
@@ -170,7 +170,7 @@
 	private ICompradorService compradorService { get; set; }
 
 	[Inject]
-	IUtils _utils { get; set; }
+	IUtilisLogic _utils { get; set; }
 
 	protected override async Task OnInitializedAsync()
 	{

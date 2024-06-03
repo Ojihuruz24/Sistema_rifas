@@ -1,26 +1,19 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using SIMRIFA.Model.core;
 using SIMRIFA.Model.Models;
 using SIMRIFA.Model.Models.Wompi;
 using Newtonsoft.Json.Linq;
 using SIMRIFA.Model.ventas;
-using SIMRIFA.Service.Cliente;
-using SIMRIFA.Service.Compra;
-using SIMRIFA.Service.Transaccion;
-using SIMRIFA.Service.Wompi;
 using SIMRIFA.DataAccess.UnitOfWork;
 using SIMRIFA.Service.TransaccionesWompi;
-using System;
 using System.Text.Json;
-using SIMRIFA.Service.Tools;
+using SIMRIFA.Logic.Tools;
 using SIMRIFA.Service.Series;
 using SIMRIFA.Service.NumeroAleatorio;
 using System.Text;
-//using Newtonsoft.Json;
-using System.Text.Json;
-using SendGrid;
-using System.Threading;
+using SIMRIFA.Logic.CorreoLogic;
+using SIMRIFA.Logic.ClienteLogic;
+using SIMRIFA.Logic.Transaccion;
 
 namespace SIMRIFA.Api.Controllers
 {
@@ -28,20 +21,20 @@ namespace SIMRIFA.Api.Controllers
 	[ApiController]
 	public class EventApiWompiController : ControllerBase
 	{
-		private readonly IClienteService _clienteService;
-		private readonly ITransaccionService _transaccionService;
+		private readonly IClienteLogicService _clienteService;
+		private readonly ITransaccionLogicService _transaccionService;
 		private readonly IUnitOfWork _IUnitOfWork;
 		private readonly ITransaccionesService _transaccionesWompiService;
-		private readonly IUtils _utils;
+		private readonly IUtilisLogic _utils;
 		private readonly ISerieService _serieService;
 		private readonly INumeroAleatorioService _numeroAleatorioService;
-		private readonly ICorreo _correo;
+		private readonly ICorreoLogicService _correo;
 
 		private readonly SemaphoreSlim semaphoreSlim = new SemaphoreSlim(1, 1);
 
-		public EventApiWompiController(IUnitOfWork iUnitOfWork, IClienteService clienteService, ITransaccionService transaccionService
-			, ITransaccionesService transaccionesWompiService, IUtils utils, ISerieService serieService,
-			INumeroAleatorioService numeroAleatorioService, ICorreo correo)
+		public EventApiWompiController(IUnitOfWork iUnitOfWork, IClienteLogicService clienteService, ITransaccionLogicService transaccionService
+			, ITransaccionesService transaccionesWompiService, IUtilisLogic utils, ISerieService serieService,
+			INumeroAleatorioService numeroAleatorioService, ICorreoLogicService correo)
 		{
 			_clienteService = clienteService;
 			_transaccionService = transaccionService;
@@ -367,7 +360,7 @@ namespace SIMRIFA.Api.Controllers
 									FechaCreacion = DateTime.Now
 								};
 
-								var send = await _correo.EnvioCorreoNetMail(comprador);
+								var send = await _correo.EnvioCorreoMailNet(comprador);
 
 								if (send)
 								{
@@ -405,6 +398,9 @@ namespace SIMRIFA.Api.Controllers
 			return Ok("OK");
 		}
 		#endregion
+
+
+
 
 	}
 }

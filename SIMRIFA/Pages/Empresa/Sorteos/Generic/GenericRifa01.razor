@@ -1,0 +1,174 @@
+﻿
+@page "/Empresa/Sorteos/{ClienteId}"
+@using MudBlazor;
+@using SIMRIFA.Componentes.Rifas.Body.Generic
+@using SIMRIFA.Componentes.Rifas.Header
+@using SIMRIFA.Data;
+
+@if (clienteTemp != null)
+{
+
+	<MudAppBarSimple UrlSoporte="https://github.com/MudBlazor/MudBlazor" UrlLogo="/img/index/logo.png" ColorBanner="Color.Dark" ColorIcon="Color.Success"></MudAppBarSimple>
+
+	<Contenido01Generico TextoPrincipal="SOAT - tecnomecanica - moto 0km - licencia de conduccion"
+					 ImagenPrincipal="/img/rifa_cupones.png" TextoRedimible="Cupones redimibles en"
+					 TextoSorprendete="INCREIBLE!!" BoletasVendidas="@vendidas" ProgressValorMaximo="@maximas"></Contenido01Generico>
+	<MudGrid Justify="Justify.Center">
+		@foreach (var item in infoMudItems)
+		{
+			<MudItem xs="12" sm="6" md="4" lg="3" xl="3" xxl="3">
+				<div class="d-flex justify-center ">
+					<MudImage Fluid="true" Width="@item.Ancho" Height="@item.Alto" ObjectFit="ObjectFit.ScaleDown" Src="@item.ImagenCupon"
+					  Alt="..." Elevation="0" Class="border border-danger border-5 rounded-pill" />
+				</div>
+			</MudItem>
+		}
+	</MudGrid>
+
+	<MudGrid Justify="Justify.Center">
+		@foreach (var item in CupnesLista)
+		{
+			<MudItem xs="12" sm="6" md="4" lg="3" xl="3" xxl="3">
+				<MudCard Style="border:groove;border-color:red">
+
+					<MudImage Fluid="true" Src="@item.UrlCupon" Alt="Rifa finalizada" Class="rounded-lg" />
+					<MudCardActions>
+						<MudButton Variant="Variant.Filled" Class="py-4 px-6 mx-4 rounded-pill" OnClick="(() => Comprar(item.CantidadCupon,item.ValorCupon))"
+						   FullWidth="true">COMPRAR @item.CantidadCupon CUPONES POR @item.ValorCupon</MudButton>
+					</MudCardActions>
+				</MudCard>
+			</MudItem>
+		}
+	</MudGrid>
+	<MudGrid Justify="Justify.Center">
+		<MudItem xs="@xl" sm="@xl" md="@xl" lg="@xl" xl="@xl" xxl="@xl">
+			<MudNumericField @bind-Value="@cantidadVenta" HideSpinButtons="false" Label="CANTIDAD" Variant="Variant.Filled" Min="1" Max="20" />
+			<br />
+			<MudButton Variant="Variant.Filled" Class="py-4 px-6 mx-4 rounded-pill" FullWidth="true" OnClick="CompraCantidad">COMPRAR</MudButton>
+		</MudItem>
+	</MudGrid>
+}
+else
+{
+	<p style="color:red">Cliente no encontrado.</p>
+}
+
+@code {
+
+	private int xs = 12;
+	private int sm = 6;
+	private int md = 4;
+	private int lg = 3;
+	private int xl = 3;
+	private int xxl = 3;
+
+	[Parameter]
+	public string ClienteId { get; set; }
+
+	private cliente clienteTemp;
+
+	@inject MenuState MenuState;
+
+	private List<InfoMudItem> infoMudItems { get; set; }
+	private List<CuponesLista> CupnesLista { get; set; }
+
+	private int vendidas { get; set; }
+
+	private int maximas { get; set; }
+
+	private int cantidadVenta { get; set; } = 1;
+
+	protected override async Task OnInitializedAsync()
+	{
+
+		MenuState.SetMenuVisibility(false);
+
+		clienteTemp = new cliente
+			{
+				ClienteId = "001",
+				Email = "oscar.agudelo@gmail.com",
+				Nombre = "Oscar Dayan Agudelo Patiño"
+			};
+
+		ClienteId = clienteTemp.ClienteId;
+
+		infoMudItems = new List<InfoMudItem>();
+
+		infoMudItems.Add(new InfoMudItem
+			{
+				ImagenCupon = "https://file.lavanguardia.com/ext1/img02/2015/08/05/54434766643.jpg",
+				Alto = 200,
+				Ancho = 200
+			});
+
+		vendidas = 600;
+		maximas = 999;
+
+		CupnesLista = new List<CuponesLista>();
+
+		CupnesLista.Add(new CuponesLista
+			{
+				UrlCupon = "Img/comboOne.png",
+				CantidadCupon = 2,
+				ValorCupon = 10000
+			});
+
+		CupnesLista.Add(new CuponesLista
+			{
+				UrlCupon = "Img/comboTwo.png",
+				CantidadCupon = 4,
+				ValorCupon = 20000
+			});
+
+		CupnesLista.Add(new CuponesLista
+			{
+				UrlCupon = "Img/comboThre.png",
+				CantidadCupon = 6,
+				ValorCupon = 30000
+			});
+
+		CupnesLista.Add(new CuponesLista
+			{
+				UrlCupon = "Img/Cupon1.png",
+				CantidadCupon = 8,
+				ValorCupon = 40000
+			});
+	}
+
+	public async void Comprar(int cantidad, int valor)
+	{
+
+	}
+
+	public async void CompraCantidad()
+	{
+
+	}
+
+	public class cliente
+	{
+		public string ClienteId { get; set; }
+		public string Nombre { get; set; }
+		public string Email { get; set; }
+	}
+
+
+	public class InfoMudItem
+	{
+		public string ImagenCupon { get; set; }
+		public int Alto { get; set; }
+		public int Ancho { get; set; }
+	}
+
+	public class CuponesLista
+	{
+		public string UrlCupon { get; set; }
+
+		public int CantidadCupon { get; set; }
+
+		public int ValorCupon { get; set; }
+
+
+	}
+
+}
