@@ -24,7 +24,7 @@
 		}
 
 		body {
-			background-image: linear-gradient(to right, white 0%, white 100%);
+			background: #FAFAFA;
 		}
 
 		.header {
@@ -33,24 +33,37 @@
 		}
 
 
+		.navbar {
+			background-color: black;
+			background-image: linear-gradient(to right, #98B2E8 0%, #00FFFF 100%);
+		}
+
+
 
 		.section-1 {
-			background: #f5f5f5;
+			background: #EDEDED;
 		}
 
 		.section-2 {
-			background: #EAEAEA;
+			background: #EDEDED;
 			border: dashed;
 			border-color: cornflowerblue;
 		}
 
 		.section-3 {
-			background: #EAEAEA;
+			background: #EDEDED;
 		}
 
 		.section-4 {
-			background: #E5E5E5;
+			background: #EDEDED;
 		}
+
+		.section-5 {
+			background: red;
+		}
+
+
+
 	</style>
 </head>
 <body>
@@ -107,8 +120,8 @@
 	</header>
 
 	<!-- Imagen con la descripcion de la rifa-->
-	<section class="py-5 section-1">
-		<div class="col-lg-6 mx-auto">
+	<section class="py-5 section-1 mx-auto" style="width:50%">
+		<div class="col-lg-12 mx-auto">
 			<MudGrid Justify="Justify.FlexStart">
 				<MudItem xxl="6" sm="6">
 					<img src="Img/Rifa04_imagen.png" class="img-fluid border-4 border-primary rounded img-thumbnail" alt="Aqui va tu imagen promocional">
@@ -147,7 +160,7 @@
 		</div>
 	</section>
 
-	<div class="container py-5 text-center">
+	<div class="container py-5 text-center mx-auto" style="width:50%">
 		<MudStack Justify="Justify.SpaceBetween" Row="true" Class="container py-5 section-2 text-center">
 			<svg width="150" height="150"
 				 fill="currentColor"
@@ -169,7 +182,7 @@
 		</MudStack>
 	</div>
 
-	<section class="py-5 section-3">
+	<section class="py-5 section-3 mx-auto" style="width:50%">
 		<div class="container py-5 text-center">
 			<div class="row">
 				<div class="col-lg-12 mx-auto">
@@ -193,7 +206,6 @@
 												</MudChip>
 											}
 										}
-
 									</MudChipSet>
 								</MudStack>
 							</MudPaper>
@@ -202,12 +214,16 @@
 					<div class="d-flex justify-center">
 						@if (selected != null && selected.Length > 0)
 						{
-							<MudChip Text="green" Variant="Variant.Filled" Color="Color.Success">
-								<MudText>@string.Join("  ,  ", selected.Select(chip=>chip.Text)).</MudText>
-							</MudChip>
+							<MudChipSet AllClosable="true" OnClose="Closed">
+								@foreach (var value in selected)
+								{
+									<MudChip Color="Color.Primary" IconColor="Color.Error" Text="@value.Text"></MudChip>
+								}
+							</MudChipSet>
 						}
 						else
 						{
+							<br />
 							<MudText>No ha seleccionado ninguno</MudText>
 						}
 					</div>
@@ -216,7 +232,29 @@
 		</div>
 	</section>
 
-	<section class="py-5 section-4" id="contacto">
+
+
+
+
+	<section class="py-5 section-4 mx-auto" style="width:50%">
+		<div class="container py-5 text-center">
+			<div class="row">
+				<div class="col-lg-8 mx-auto">
+					<div class="wrapper">
+						<button class="Comprar">
+							COMPRAR!!!
+							<span></span>
+							<span></span>
+							<span></span>
+							<span></span>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="py-5 section-5 mx-auto" style="width:50%">
 		<div class="container py-5 text-center">
 			<div class="row">
 				<div class="col-lg-12 mx-auto">
@@ -450,7 +488,7 @@
 
 	private Dictionary<int, bool> ObtenerNumeros()
 	{
-	
+
 		Random rand = new Random();
 
 		for (int i = 0; i < 1000; i++) // Ajusta esto al tamaño de tu lista
@@ -461,8 +499,13 @@
 		return diccionario;
 	}
 
+	List<string> NumerosSeleccionados = new List<string>();
 
+	public void Closed(MudChip chipt)
+	{
+		selected = selected.Where(chip => chip.Text != chipt.Text).ToArray();
 
+	}
 }
 
 
