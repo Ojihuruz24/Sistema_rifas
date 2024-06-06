@@ -1,32 +1,468 @@
-﻿@page "/Empresa/Sorteos/Rifas01"
+﻿@page "/Empresa/Sorteos/Rifas04"
 @using MudBlazor
+@using SIMRIFA.Componentes.Rifas.Adiccion
 @using SIMRIFA.Componentes.Rifas.Footer;
 @using SIMRIFA.Componentes.Rifas.Header;
 @using SIMRIFA.Componentes.Rifas.Body;
+@using SIMRIFA.Componentes.Rifas.Wompi;
 @using SIMRIFA.Data;
 @inject IJSRuntime JSRuntime;
+@inject IDialogService Dialog;
 
-<MudAppBarSimple UrlSoporte="https://github.com/MudBlazor/MudBlazor" UrlLogo="/img/index/logo.png" 
-ColorBanner="Color.Dark" ColorIcon="Color.Success"></MudAppBarSimple>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Tu Página</title>
+	<!-- Asegúrate de incluir el CSS de Bootstrap aquí -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-@*<MudAppBarDouble Nombre="Pantallas SAS"></MudAppBarDouble>*@
-<Contenido01></Contenido01>
+	<style>
+		.text-small {
+			font-size: 0.9rem !important;
+		}
 
+		body {
+			background-image: linear-gradient(to right, white 0%, white 100%);
+		}
+
+		.header {
+			background-color: black;
+			background-image: linear-gradient(to right, #98B2E8 0%, #00FFFF 100%);
+		}
+
+
+
+		.section-1 {
+			background: #f5f5f5;
+		}
+
+		.section-2 {
+			background: #EAEAEA;
+			border: dashed;
+			border-color: cornflowerblue;
+		}
+
+		.section-3 {
+			background: #EAEAEA;
+		}
+
+		.section-4 {
+			background: #E5E5E5;
+		}
+	</style>
+</head>
+<body>
+
+	<div class="confidential-watermark" style="position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);z-index: 9999;opacity: 0.05;pointer-events: none;">
+		<p style="font-size: 3em;color: #383838;background: #fff;border-radius: 11px;padding: 9px;font-weight: bold;transform: rotate(-45deg);white-space: nowrap;">
+			SITIO WEB DE PRUEBAS
+		</p>
+	</div>
+
+	<section class="py-1 header text-center">
+		<div class="container py-1 text-white">
+			<header class="py-1">
+				<h1 class="display-4">Bienvenidos a la rifa</h1>
+				<p class="font-italic mb-1">[Informacion de tu rifa]</p>
+				<p class="font-italic mb-1">Puede subir imagen, texto o otro tipo de info</p>
+				@*<img src="img/SOAT.png" width="150" height="150" />*@
+			</header>
+		</div>
+	</section>
+
+	<!-- Sticky navbar-->
+	<header class="header sticky-top">
+		<nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm">
+			<div class="container">
+				<a class="navbar-brand" href="#">
+					<strong class="h6 mb-0 font-weight-bold text-uppercase">Sticky navbar</strong>
+				</a>
+				<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav ml-auto">
+						<li class="nav-item active">
+							<a class="nav-link" href="#">
+								INICIO
+								<span class="sr-only">(current)</span>
+							</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#Verificador">VERIFICADOR</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">PREGUNTAS</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">CONTACTO</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#contacto">CONTACTO</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<!-- Imagen con la descripcion de la rifa-->
+	<section class="py-5 section-1">
+		<div class="col-lg-6 mx-auto">
+			<MudGrid Justify="Justify.FlexStart">
+				<MudItem xxl="6" sm="6">
+					<img src="Img/Rifa04_imagen.png" class="img-fluid border-4 border-primary rounded img-thumbnail" alt="Aqui va tu imagen promocional">
+
+				</MudItem>
+				<MudItem xxl="6" sm="6">
+					<span>
+						<h4><b>🗓️	30 DIC 2024  🕓 08:00 PM</b></h4>
+
+						<h2><b>Demo Rifa de Prueba 1000</b></h2>
+					</span>
+					<span>
+						Aquí va su descripción, en este ejemplo son:
+					</span>
+
+					<span id="raffleDescription">
+						<h4><b>1000 Boletos</b></h4>
+						<b>Puedes tener varios premios...</b> <br />
+						🥇Primer Premio: Moto 🏍️<br />
+						🥈Segundo Lugar: iPhone 📱<br />
+						🥉Tercer Premio: Efectivo 💴<br />
+
+						🔹 Descuentos Activados<br />
+						🔹 Promoción 3x2 Activada<br />
+
+						🗓️ <b>Fecha:</b> 30 de Diciembre<br />
+						🎥 <b>Transmisión en vivo:</b> 🕓 8:00 pm<br />
+
+						<b>¿Cómo funciona? 🍀</b><br />
+						🔹 Se eligen los boletos 🎟<br />
+						🔹 Se llenan los datos.<br />
+						🔹 Se realiza el registro. <br />
+					</span>
+				</MudItem>
+			</MudGrid>
+		</div>
+	</section>
+
+	<div class="container py-5 text-center">
+		<MudStack Justify="Justify.SpaceBetween" Row="true" Class="container py-5 section-2 text-center">
+			<svg width="150" height="150"
+				 fill="currentColor"
+				 class="bi bi-ticket-perforated"
+				 viewBox="0 0 16 16"
+				 style="font-size: 1rem;color: cornflowerblue;transform: rotate(120deg);">
+				<path d="M4 4.85v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9z" />
+				<path d="M1.5 3A1.5 1.5 0 0 0 0 4.5V6a.5.5 0 0 0 .5.5 1.5 1.5 0 1 1 0 3 .5.5 0 0 0-.5.5v1.5A1.5 1.5 0 0 0 1.5 13h13a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-.5-.5 1.5 1.5 0 0 1 0-3A.5.5 0 0 0 16 6V4.5A1.5 1.5 0 0 0 14.5 3zM1 4.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v1.05a2.5 2.5 0 0 0 0 4.9v1.05a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-1.05a2.5 2.5 0 0 0 0-4.9z" />
+			</svg>
+			<h2><span style="font-size: 5rem; color: cornflowerblue;" id="formTitle">LISTA DE BOLETAS</span></h2>
+			<svg width="150" height="150"
+				 fill="currentColor"
+				 class="bi bi-ticket-perforated"
+				 viewBox="0 0 16 16"
+				 style="font-size: 1rem; color: cornflowerblue;transform: rotate(220deg);">
+				<path d="M4 4.85v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9z" />
+				<path d="M1.5 3A1.5 1.5 0 0 0 0 4.5V6a.5.5 0 0 0 .5.5 1.5 1.5 0 1 1 0 3 .5.5 0 0 0-.5.5v1.5A1.5 1.5 0 0 0 1.5 13h13a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-.5-.5 1.5 1.5 0 0 1 0-3A.5.5 0 0 0 16 6V4.5A1.5 1.5 0 0 0 14.5 3zM1 4.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v1.05a2.5 2.5 0 0 0 0 4.9v1.05a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-1.05a2.5 2.5 0 0 0 0-4.9z" />
+			</svg>
+		</MudStack>
+	</div>
+
+	<section class="py-5 section-3">
+		<div class="container py-5 text-center">
+			<div class="row">
+				<div class="col-lg-12 mx-auto">
+					<MudContainer>
+						<div id="unique_id_scroll_section" class="ma-0" style="height:500px;overflow: auto;">
+							<MudPaper>
+								<MudStack Row="true" Justify="Justify.SpaceEvenly" Wrap="Wrap.Wrap">
+									<MudChipSet @bind-SelectedChips="selected" MultiSelection="true" Filter="false">
+										@foreach (var item in diccionario)
+										{
+											if (item.Value == true)
+											{
+												<MudChip Variant="Variant.Text" SelectedColor="Color.Success" Disabled>
+												<p>@item.Key.ToString("D3")</p>
+											</MudChip>
+											}
+											else
+											{
+												<MudChip Text="@item.Key.ToString("D3")" Variant="Variant.Text" Color="Color.Default" SelectedColor="Color.Primary">
+													<p>@item.Key.ToString("D3")</p>
+												</MudChip>
+											}
+										}
+
+									</MudChipSet>
+								</MudStack>
+							</MudPaper>
+						</div>
+					</MudContainer>
+					<div class="d-flex justify-center">
+						@if (selected != null && selected.Length > 0)
+						{
+							<MudChip Text="green" Variant="Variant.Filled" Color="Color.Success">
+								<MudText>@string.Join("  ,  ", selected.Select(chip=>chip.Text)).</MudText>
+							</MudChip>
+						}
+						else
+						{
+							<MudText>No ha seleccionado ninguno</MudText>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="py-5 section-4" id="contacto">
+		<div class="container py-5 text-center">
+			<div class="row">
+				<div class="col-lg-12 mx-auto">
+				</div>
+			</div>
+		</div>
+	</section>
+
+</body>
+</html>
+
+
+<!--
+<MudAppBarSimple UrlSoporte="https://github.com/MudBlazor/MudBlazor" UrlLogo="/img/index/logo.png"
+				 ColorBanner="Color.Dark" ColorIcon="Color.Success"></MudAppBarSimple>
+ -->
+<!--
+<h1 class="container py-4 px-3 mx-auto text-center display-2" style="color:dodgerblue">
+	<b>SOAT - tecnomecanica - moto 0km - licencia de conduccion</b>
+</h1>
+-->
+<!--
+<MudImage class="rounded mx-auto d-block border border-primary border-5" Fluid="true" Height="400" Width="400" ObjectFit="ObjectFit.Cover" Src="/img/rifa_cupones.png" Alt="SOAT" Elevation="0" />
+-->
+<!--
+<h2 class="container py-4 px-3 mx-auto text-center display-2" style="color:dodgerblue">
+	<b>Cupones redimibles en</b>
+</h2>
+-->
+<!-- ACA VAN LAS EMPRESAS ALIADAS PARA REDIMIR CUPONES-->
+<!--
+<MudGrid Justify="Justify.Center">
+	<MudItem xs="12" sm="6" md="4" lg="3" xl="3" xxl="3">
+		<div class="d-flex justify-center ">
+			<MudImage Fluid="true" Width="150" Height="150" ObjectFit="ObjectFit.ScaleDown" Src="https://file.lavanguardia.com/ext1/img02/2015/08/05/54434766643.jpg"
+					  Alt="SOAT" Elevation="0" Class="border border-danger border-5 rounded-pill" />
+		</div>
+	</MudItem>
+	<MudItem xs="12" sm="6" md="4" lg="3" xl="3" xxl="3">
+		<div class="d-flex justify-center ">
+			<MudImage Fluid="true" Width="150" Height="150" ObjectFit="ObjectFit.ScaleDown" Src="https://file.lavanguardia.com/ext1/img02/2015/08/05/54434766643.jpg"
+					  Alt="SOAT" Elevation="0" Class="border border-danger border-5 rounded-pill" />
+		</div>
+	</MudItem>
+	<MudItem xs="12" sm="6" md="4" lg="3" xl="3" xxl="3">
+		<div class="d-flex justify-center ">
+			<MudImage Fluid="true" Width="150" Height="150" ObjectFit="ObjectFit.ScaleDown" Src="https://file.lavanguardia.com/ext1/img02/2015/08/05/54434766643.jpg"
+					  Alt="SOAT" Elevation="0" Class="border border-danger border-5 rounded-pill" />
+		</div>
+	</MudItem>
+	<MudItem xs="12" sm="6" md="4" lg="3" xl="3" xxl="3">
+		<div class="d-flex justify-center ">
+			<MudImage Fluid="true" Width="150" Height="150" ObjectFit="ObjectFit.ScaleDown" Src="https://file.lavanguardia.com/ext1/img02/2015/08/05/54434766643.jpg"
+					  Alt="SOAT" Elevation="0" Class="border border-danger border-5 rounded-pill" />
+		</div>
+	</MudItem>
+	<MudItem xs="12" sm="6" md="4" lg="3" xl="3" xxl="3">
+		<div class="d-flex justify-center ">
+			<MudImage Fluid="true" Width="150" Height="150" ObjectFit="ObjectFit.ScaleDown" Src="https://file.lavanguardia.com/ext1/img02/2015/08/05/54434766643.jpg"
+					  Alt="SOAT" Elevation="0" Class="border border-danger border-5 rounded-pill" />
+		</div>
+	</MudItem>
+	<MudItem xs="12" sm="6" md="4" lg="3" xl="3" xxl="3">
+		<div class="d-flex justify-center ">
+			<MudImage Fluid="true" Width="150" Height="150" ObjectFit="ObjectFit.ScaleDown" Src="https://file.lavanguardia.com/ext1/img02/2015/08/05/54434766643.jpg"
+					  Alt="SOAT" Elevation="0" Class="border border-danger border-5 rounded-pill" />
+		</div>
+	</MudItem>
+</MudGrid>
+
+-->
+<!-- ACA VA LA BARRA PROGRESIVA-->
+<!--
+<MudGrid Justify="Justify.Center">
+	<MudItem xs="12" sm="12" md="12" lg="12" xl="12" xxl="12">
+		<MudText Align="Align.Center">
+			<h2 class="container py-4 px-3 mx-auto text-center display-2" style="color:dodgerblue">
+				<b>INCREIBLE!!!</b>
+			</h2>
+			<MudProgressLinear Color="Color.Info" Striped="true" Size="Size.Large" Value="@vendidas"
+							   Class="d-flex align-center justify-center mud-width-full py-8" Min="1" Max="@ValorMaximo">
+				<MudText Typo="Typo.subtitle1" Color="Color.Dark">
+					<b>@Porcentaje %</b>
+				</MudText>
+			</MudProgressLinear>
+		</MudText>
+	</MudItem>
+</MudGrid>
+<br />
+-->
+<!-- ACA VAN LAS CARDS CON INFORMACION DE PAGOS-->
+<!--
+<MudGrid Justify="Justify.Center">
+	<MudItem xs="12" sm="6" md="4" lg="3" xl="3" xxl="3">
+		<MudCard Style="border:groove;border-color:red">
+			<MudImage Fluid="true" Src="@urlImageCupones1" Alt="Rifa finalizada" Class="rounded-lg" />
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Class="py-4 px-6 mx-4 rounded-pill" Color="Color.Primary" OnClick="(() => Comprar(2,10000))"
+						   FullWidth="true" Disabled="@EstadoButton">COMPRAR 2 CUPONES POR 10.000</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</MudItem>
+
+	<MudItem xs="12" sm="6" md="4" lg="3" xl="3" xxl="3">
+		<MudCard Style="border:groove;border-color:red">
+			<div class="d-flex justify-center">
+				<MudImage Fluid="true" Src="@urlImageCupones1" Alt="Rifa finalizada" Class="rounded-lg" />
+			</div>
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Class="py-4 px-6 mx-4 rounded-pill" OnClick="(() => Comprar(4,20000))"
+						   FullWidth="true" Disabled="@EstadoButton">COMPRAR 4 CUPONES POR 20.000</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</MudItem>
+
+	<MudItem xs="12" sm="6" md="4" lg="3" xl="3" xxl="3">
+		<MudCard Style="border:groove;border-color:red">
+			<div class="d-flex justify-center">
+				<MudImage Fluid="true" Src="@urlImageCupones1" Alt="Rifa finalizada" Class="rounded-lg" />
+			</div>
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Class="py-4 px-6 mx-4 rounded-pill" OnClick="(() => Comprar(6,30000))"
+						   FullWidth="true" Disabled="@EstadoButton">COMPRAR 6 CUPONES POR 30.0000</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</MudItem>
+
+	<MudItem xs="12" sm="6" md="4" lg="3" xl="3" xxl="3">
+		<MudCard Style="border:groove;border-color:red">
+			<MudImage Fluid="true" Src="@urlImageCupones1" Alt="Rifa finalizada" Class="rounded-lg" />
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Class="py-4 px-6 mx-4 rounded-pill" OnClick="(() => Comprar(8,40000))"
+						   FullWidth="true" Disabled="@EstadoButton">COMPRAR 8 CUPONES POR 40.0000</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</MudItem>
+
+
+	<MudGrid Justify="Justify.Center">
+		<MudItem xs="3" sm="3" md="3" lg="3" xl="3" xxl="3">
+			<MudNumericField @bind-Value="@cantidadVenta" HideSpinButtons="false" Label="CANTIDAD" Variant="Variant.Filled" Min="1" Max="20" />
+			<br />
+			<MudButton Variant="Variant.Filled" Class="py-4 px-6 mx-4 rounded-pill" FullWidth="true" OnClick="CompraCantidad">COMPRAR</MudButton>
+		</MudItem>
+	</MudGrid>
+</MudGrid>
+-->
 @code {
 
-	@inject MenuState MenuState;
+	@inject MenuState MenuState
+	private bool EstadoButton = false;
+	private string urlImageOne = "Img/comboOne.png";
+	private string urlImageTwho = "Img/comboTwo.png";
+	private string urlImageTrhe = "Img/comboThre.png";
+	private string urlImageCupones1 = "Img/Cupon1.png";
+	private string urlImageCupones2 = "Img/Cupon2.png";
+
+	private int vendidas { get; set; }
+	private int ValorMaximo = 1;
+	private decimal Porcentaje { get; set; } = 0;
+	private int cantidadVenta { get; set; } = 1;
+
 
 	protected override void OnInitialized()
 	{
+		ObtenerNumeros();
 		MenuState.SetMenuVisibility(false);
 	}
 
-
-	bool open = false;
-
-	void ToggleDrawer()
+	public async void Comprar(int cantidad, int valor)
 	{
-		open = !open;
+		await OpenDialog();
+		await OpenPagosDialog(cantidad, valor);
+
 	}
 
+	public async void CompraCantidad()
+	{
+		await OpenDialog();
+		vendidas += cantidadVenta;
+		var valorWompi = cantidadVenta * 500000;
+		var valor = cantidadVenta * 500000;
+		await OpenPagosDialog(cantidadVenta, valorWompi);
+	}
+
+	private async Task OpenPagosDialog(int boletas, int valor)
+	{
+		DialogOptions disableBackdropClick = new DialogOptions()
+			{
+				MaxWidth = MaxWidth.Medium,
+				Position = DialogPosition.Center,
+				FullWidth = false,
+			};
+
+
+		var parameters = new DialogParameters<PaymentForm>();
+		parameters.Add(x => x.Cupones, boletas);
+		parameters.Add(x => x.ValorCupones, valor);
+
+		var dialog = await Dialog.ShowAsync<PaymentForm>(string.Empty, parameters, disableBackdropClick);
+
+		var result = await dialog.Result;
+
+		if (!result.Canceled)
+		{
+			//In a real world scenario we would reload the data from the source here since we "removed" it in the dialog already.
+			Guid.TryParse(result.Data.ToString(), out Guid deletedServer);
+			// se ltransacion ha sido cancelada
+		}
+	}
+
+	private async Task OpenDialog()
+	{
+		if (vendidas >= ValorMaximo)
+		{
+			DialogOptions disableBackdropClick = new DialogOptions()
+				{
+					DisableBackdropClick = true,
+					MaxWidth = MaxWidth.Medium,
+					Position = DialogPosition.Center,
+					FullWidth = true
+				};
+
+			Dialog.Show<CierreVentas>(string.Empty, disableBackdropClick);
+		}
+	}
+
+	MudChip[] selected;
+
+	Dictionary<int, bool> diccionario = new Dictionary<int, bool>();
+
+	private Dictionary<int, bool> ObtenerNumeros()
+	{
+	
+		Random rand = new Random();
+
+		for (int i = 0; i < 1000; i++) // Ajusta esto al tamaño de tu lista
+		{
+			diccionario.Add(i, rand.Next(2) == 0); // Genera un bool y un entero aleatorios
+		}
+
+		return diccionario;
+	}
+
+
+
 }
+
+
