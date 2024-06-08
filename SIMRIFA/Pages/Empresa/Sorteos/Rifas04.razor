@@ -6,8 +6,10 @@
 @using SIMRIFA.Componentes.Rifas.Body;
 @using SIMRIFA.Componentes.Rifas.Wompi;
 @using SIMRIFA.Data;
+@using System.ComponentModel.DataAnnotations;
 @inject IJSRuntime JSRuntime;
 @inject IDialogService Dialog;
+@inject MenuState MenuState;
 
 <html>
 <head>
@@ -36,19 +38,14 @@
 		.navbar {
 			border-top: 8px solid #07768f;
 			border-bottom: 8px solid #07768f;
-			/*	background-color: black;
-					background-image: linear-gradient(to right, #98B2E8 0%, #00FFFF 100%);*/
 		}
 
-
-		.Section-rifa {
-			color : transparent;
+		.Inicio {
+			color: transparent;
 		}
 
-		.section-2 {
+		.Section-rifa{
 			background: #EDEDED;
-			/*	border: dashed;
-											border-color: cornflowerblue;*/
 		}
 
 		.section-3 {
@@ -57,14 +54,6 @@
 
 		.section-4 {
 			background: #EDEDED;
-		}
-
-		.section-5 {
-			background: #FAFAFA;
-		}
-
-		.section-6 {
-			background: #FAFAFA;
 		}
 
 		.card-verificador {
@@ -87,15 +76,46 @@
 			padding-bottom: 15px;
 		}
 
-		#TextoRifa{
+		#TextoRifa {
 			color: #07768f;
 			font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 			display: grid;
-			justify-content:flex-start;
+			justify-content: flex-start;
 			align-items: center;
-			
 		}
 
+		.Iconos {
+			color: #98B2E8;
+		}
+
+		.footer {
+			color: #07768f;
+			background-color: aqua;
+		}
+
+		.text-reset {
+			color: #07768f;
+		}
+
+		.card {
+			box-shadow: 0 20px 27px 0 rgb(0 0 0 / 5%);
+		}
+
+		.card_pago {
+			min-width: 0;
+			word-wrap: break-word;
+			background-color: #fff;
+			background-clip: border-box;
+			border: 0 solid rgba(0,0,0,.125);
+			border-radius: 1rem;
+		}
+
+		.card-body {
+			-webkit-box-flex: 1;
+			-ms-flex: 1 1 auto;
+			flex: 1 1 auto;
+			padding: 1.5rem 1.5rem;
+		}
 	</style>
 </head>
 
@@ -107,7 +127,7 @@
 		</p>
 	</div>
 	<!--ACA VA LA INFORMACION DE QUIEN HACE LA RIFA-->
-	<section class="py-1 header text-center navbar-expand-lg navbar-light bg-light">
+	<section id="Inicio" class="py-1 header text-center navbar-expand-lg navbar-light bg-light">
 		<div class="container py-1 text-white">
 			<header class="py-1">
 				<h1 class="display-4">Bienvenidos a la rifa</h1>
@@ -130,19 +150,19 @@
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav ml-auto">
 						<li class="nav-item active">
-							<a class="nav-link" href="#">
+							<a class="nav-link" href="#Inicio">
 								INICIO
 								<span class="sr-only">(current)</span>
 							</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#section-5">VERIFICADOR</a>
+							<a class="nav-link" href="#ListaBoletas">Boletas</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="Empresa/Sorteos/Rifas04/#section-6">PREGUNTAS</a>
+							<a class="nav-link" href="#verificador">Verificador</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">CONTACTO</a>
+							<a class="nav-link" href="#preguntas">Preguntas</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="#contacto">CONTACTO</a>
@@ -155,7 +175,6 @@
 
 	<!-- Imagen con la descripcion de la rifa-->
 	<section class="py-5 Section-rifa mx-auto" style="width:80%">
-
 		<MudGrid Justify="Justify.FlexEnd">
 			<MudItem xs="12" sm="12" md="6" lg="6" xl="6" xxl="6" Class="d-flex justify-end">
 				<img src="Img/Rifa04_imagen.png" class="img-fluid rounded " alt="Aqui va tu imagen promocional">
@@ -165,7 +184,7 @@
 					<div class="d-block pa-2"><h1><b>🗓️	30 DIC 2024  🕓 08:00 PM</b></h1></div>
 					<div class="d-block pa-2"><h2><b>Demo Rifa de Prueba 1000</b></h2></div>
 					<div class="d-block pa-2"><b>Aquí va su descripción, en este ejemplo son:</b></div>
-					<div  class="d-block pa-2">
+					<div class="d-block pa-2">
 						<h4><b>1000 Boletos</b></h4>
 						<b>Puedes tener varios premios...</b> <br />
 						🥇Primer Premio: Moto 🏍️<br />
@@ -189,7 +208,8 @@
 	</section>
 
 	<br />
-	<MudStack Justify="Justify.Center" Row="true" Class="container py-5 section-2" style="width:auto%">
+	<!-- Imagen de centro de la rifa -->
+	<MudStack id="ListaBoletas" Justify="Justify.Center" Row="true" Class="container py-5 section-2" style="width:80%">
 		<img height="200" src="Img/listaBoletas.png" class="img-fluid rounded " alt="Aqui va tu imagen promocional">
 		<!--	<svg width="150" height="150"
 					 fill="currentColor"
@@ -211,221 +231,270 @@
 								</svg>-->
 	</MudStack>
 	<br />
-	<section class="py-5 section-3 mx-auto" style="width:auto">
-		<div class="container py-5 text-center">
-			<MudContainer>
-				<div id="unique_id_scroll_section" class="ma-0" style="height:500px;overflow: auto;">
-					<MudPaper>
-						<MudStack Row="true" Justify="Justify.SpaceEvenly" Wrap="Wrap.Wrap">
-							<MudChipSet @bind-SelectedChips="selected" MultiSelection="true" Filter="false">
-								@foreach (var item in diccionario)
+
+	<!-- lista de boletas -->
+	<div class="container section-3 py-5 text-center">
+
+		<MudChipSet AllClosable="true">
+			<MudChip Color="Color.Success" IconColor="Color.Success" Text="COMPRADO"></MudChip>
+			<MudChip Color="Color.Default" IconColor="Color.Default" Text="LIBRE"></MudChip>
+		</MudChipSet>
+		<MudContainer>
+			<div id="unique_id_scroll_section" class="ma-0" style="max-height:500px;overflow: auto;">
+				<MudPaper>
+					<MudStack Row="true" Justify="Justify.SpaceEvenly" Wrap="Wrap.Wrap">
+						<MudChipSet @bind-SelectedChips="selected" MultiSelection="true" Filter="false">
+							@foreach (var item in diccionario)
+							{
+								if (item.Value == true)
 								{
-									if (item.Value == true)
-									{
-										<MudChip Variant="Variant.Text" SelectedColor="Color.Success" Disabled>
+									<MudChip Variant="Variant.Text" Color="Color.Success" Disabled>
+									<p>@item.Key.ToString("D3")</p>
+								</MudChip>
+								}
+								else
+								{
+									<MudChip Text="@item.Key.ToString("D3")" Variant="Variant.Text" Color="Color.Default" SelectedColor="Color.Primary">
 										<p>@item.Key.ToString("D3")</p>
 									</MudChip>
-									}
-									else
-									{
-										<MudChip Text="@item.Key.ToString("D3")" Variant="Variant.Text" Color="Color.Default" SelectedColor="Color.Primary">
-											<p>@item.Key.ToString("D3")</p>
-										</MudChip>
-									}
 								}
-							</MudChipSet>
-						</MudStack>
-					</MudPaper>
-				</div>
-			</MudContainer>
-			<br />
-			<br />
-			<div class="d-flex justify-center">
-
-				@if (selected != null && selected.Length > 0)
-				{
-
-					<MudChipSet AllClosable="true" OnClose="Closed">
-						@foreach (var value in selected)
-						{
-
-
-
-							<MudChip Color="Color.Success" IconColor="Color.Success" Text="@value.Text"></MudChip>
-						}
-					</MudChipSet>
-				}
-				else
-				{
-					<br />
-					<MudText>No ha seleccionado ninguno</MudText>
-				}
+							}
+						</MudChipSet>
+					</MudStack>
+				</MudPaper>
 			</div>
+		</MudContainer>
+		<br />
+		<br />
+		<div class="d-flex justify-center">
+
+			@if (selected != null && selected.Length > 0)
+			{
+				CantidadBoletas = selected.Count();
+
+				Total = CantidadBoletas * ValorBoleta;
+
+				DeshabilitarBotonCompra = false;
+
+				<MudChipSet AllClosable="true" OnClose="Closed">
+					@foreach (var value in selected)
+					{
+						<MudChip Color="Color.Success" IconColor="Color.Success" Text="@value.Text"></MudChip>
+					}
+				</MudChipSet>
+			}
+			else
+			{
+				CantidadBoletas = 0;
+
+				Total = CantidadBoletas * ValorBoleta;
+
+				DeshabilitarBotonCompra = true;
+
+				<br />
+				<MudText>No ha seleccionado ninguno</MudText>
+			}
 		</div>
-	</section>
+	</div>
 	<br />
-	<section class="py-5 section-4 mx-auto text-center" style="width:100%">
-		<div>
-			<div>
-				<svg width="100" height="100"
-					 fill="currentColor"
-					 class="bi bi-ticket-perforated"
-					 viewBox="0 0 16 16"
-					 style="font-size: 1rem;color: cornflowerblue;transform: rotate(120deg);">
-					<path d="M4 4.85v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9z" />
-					<path d="M1.5 3A1.5 1.5 0 0 0 0 4.5V6a.5.5 0 0 0 .5.5 1.5 1.5 0 1 1 0 3 .5.5 0 0 0-.5.5v1.5A1.5 1.5 0 0 0 1.5 13h13a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-.5-.5 1.5 1.5 0 0 1 0-3A.5.5 0 0 0 16 6V4.5A1.5 1.5 0 0 0 14.5 3zM1 4.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v1.05a2.5 2.5 0 0 0 0 4.9v1.05a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-1.05a2.5 2.5 0 0 0 0-4.9z" />
-				</svg>
-				<MudFab StartIcon="@Icons.Material.Filled.Search" Label="COMPRAR" Color="Color.Success" DisableElevation="true" />
-				<svg width="100" height="100"
-					 fill="currentColor"
-					 class="bi bi-ticket-perforated"
-					 viewBox="0 0 16 16"
-					 style="font-size: 1rem;color: cornflowerblue;transform: rotate(120deg);">
-					<path d="M4 4.85v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9zm-7 1.8v.9h1v-.9zm7 0v.9h1v-.9z" />
-					<path d="M1.5 3A1.5 1.5 0 0 0 0 4.5V6a.5.5 0 0 0 .5.5 1.5 1.5 0 1 1 0 3 .5.5 0 0 0-.5.5v1.5A1.5 1.5 0 0 0 1.5 13h13a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-.5-.5 1.5 1.5 0 0 1 0-3A.5.5 0 0 0 16 6V4.5A1.5 1.5 0 0 0 14.5 3zM1 4.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v1.05a2.5 2.5 0 0 0 0 4.9v1.05a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-1.05a2.5 2.5 0 0 0 0-4.9z" />
-				</svg>
-			</div>
-			<div>
-			</div>
-		</div>
 
+	<!-- boton de comprar-->
+	<section class="container section-4 py-5">
+
+		<EditForm Model="@model" OnValidSubmit="ComprarNumeros">
+			<DataAnnotationsValidator />
+			<MudGrid Justify="Justify.SpaceAround">
+				<MudItem xs="12" sm="12" md="8" lg="8" xl="8" xxl="8" Class="justify-start">
+					<MudCard>
+						<MudCardContent>
+							<MudTextField Label="Nombre" HelperText="Max. 8 characters"
+										  Immediate="true"
+										  @bind-Value="model.Nombre" For="@(() => model.Nombre)" />
+							<MudTextField Label="Correo" Class="mt-3" Immediate="true"
+										  @bind-Value="model.Email" For="@(() => model.Email)" />
+
+							<MudTextField Label="Celular" Class="mt-3" Immediate="true"
+										  @bind-Value="model.Celular" For="@(() => model.Celular)" />
+
+							<MudTextField Label="Direccion" Class="mt-3" Immediate="true"
+										  @bind-Value="model.Direccion" For="@(() => model.Direccion)" />
+						</MudCardContent>
+						<MudCardActions>
+							<MudButton Size="Size.Large" Style="width:100" ButtonType="ButtonType.Submit" Disabled="@DeshabilitarBotonCompra" Variant="Variant.Filled" FullWidth="true" Color="Color.Primary" StartIcon="@Icons.Material.Filled.AddShoppingCart" DisableElevation="true">COMPRAR</MudButton>
+						</MudCardActions>
+					</MudCard>
+				</MudItem>
+				<MudItem xs="12" sm="12" md="4" lg="4" xl="4" xxl="4" Class="d-flex justify-end">
+					<div class="card_pago" style="width: 100%">
+						<div class="p-3 bg-opacity-10">
+							<h6 class="card-title mb-3">PAGO</h6>
+							<div class="d-flex justify-content-between mb-1 small">
+								<span>Cantidad</span> <span>@CantidadBoletas</span>
+							</div>
+							<div class="d-flex justify-content-between mb-1 small">
+								<span>Valor</span> <span>$ @ValorBoleta</span>
+							</div>
+							<hr>
+							<div class="d-flex justify-content-between mb-4 small">
+								<span>TOTAL</span> <strong class="text-dark">$ @Total</strong>
+							</div>
+						</div>
+					</div>
+				</MudItem>
+			</MudGrid>
+		</EditForm>
 	</section>
-	<br />
 	<br />
 
 	<!--Section de verificador de numeros-->
-	<section id="section-5" class="py-5 section-5 mx-auto" style="width:100%">
+	<section id="verificador" class="py-5 section-5 mx-auto" style="width:100%">
 		<div class="card card-verificador">
 			<div class="card-body text-center">
 				<h5 class="card-title text-center">VERIFICADOR DE BOLETOS</h5>
 				<MudTextField @bind-Value="BuscarBoleta" Label="Ingresa telefono o correo" HelperText="con el que hizo el pago" Variant="Variant.Filled" />
 				<br />
-				<MudFab StartIcon="@Icons.Material.Filled.Search" Label="BUSCAR" Color="Color.Success" DisableElevation="true" />
+				<MudButton OnClick="BuscarNumero" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Search" Color="Color.Primary" DisableElevation="true">BUSCAR</MudButton>
 			</div>
 		</div>
-
 	</section>
 
 	<br />
 	<!--Section de preguntas-->
-	<section id="section-6" class="py-5 section-6 mx-auto" style="width:60%">
-		<MudExpansionPanels Square=true MultiExpansion="false" DisableBorders="true" Elevation="0" Class="paneles">
-			<MudExpansionPanel Text="¿Cuánto cuesta el ticket?">
-				<pre>El costo es de:
-				🔹 1 Ticket: $5.000 pesos.
-				🔹 2 Tickets: $10.000 pesos.
-				🔹 3 Tickets: $15.000 pesos.
-				🔹 5 Tickets: $20.000 pesos.
-				🔹 10 Tickets: $40.000 pesos.
-				🔹 20 Tickets: $80.000 pesos.
-				🔹 50 Tickets: $230.000 pesos.
-				🔹 100 Tickets: $450.000 pesos.
-				</pre>
+	<section id="preguntas" class="py-5 section-6 mx-auto" style="width:60%">
+		<MudExpansionPanels Square=true MultiExpansion="true" DisableBorders="true" Elevation="0" Class="paneles">
+			<MudExpansionPanel Text="¿Detalles de la Rifa?">
+				<span>
+					<b>Premio Principal:</b> [Descripción del premio principal] <br />
+					<b>Modalidad de Ganancia:</b> El número ganador se determinará mediante los últimos cuatro dígitos del sorteo de la [Lotería Nacional, otro evento de sorteo, etc.]. <br />
+					<b>Fecha del Sorteo:</b>Fecha del Sorteo: [Fecha y hora del sorteo]<br />
+					<b>Costo de la Boleta</b><br />
+					<b>Precio de la Boleta:</b> [Especificar el precio, por ejemplo: $10.00]<br />
+				</span>
 			</MudExpansionPanel>
-			<MudExpansionPanel Text="¿Dinámica del sorteo?">
-				Se juega con los 4 últimos dígitos de la Lotería Nacional.
+			<MudExpansionPanel Text="¿Costo de la Boleta?">
+				<span>
+					<b>Cantidad de Boletas Disponibles:</b> [Número de boletas disponibles, opcional]<br />
+					<b>Descuentos por Compra en Volumen:</b> [Si aplicable, por ejemplo: 5 boletas por $45.00]<br />
+
+				</span>
 			</MudExpansionPanel>
-			<MudExpansionPanel Text="¿Cuantas boletas son?">
-				Son 999 oportunidades de ganar!
+			<MudExpansionPanel Text="¿Cómo Adquirir Tu Boleta?">
+				<span>
+					<b>Puntos de Venta:</b>	 [Dirección de los puntos de venta físicos, si aplica]<br />
+					<b>Compra en Línea:</b> [Enlace al sitio web o plataforma de pago en línea]<br />
+					<b>Contacto para Más Información:</b>	 [Número de teléfono, correo electrónico]<br />
+				</span>
+			</MudExpansionPanel>
+			<MudExpansionPanel Text="¿Términos y Condiciones?">
+				<span>
+					<b>Elegibilidad: </b>	[Cualquier restricción de edad o ubicación]<br />
+					<b>Fecha Límite para Comprar Boletas:</b>	 [Fecha límite para la venta de boletas]<br />
+					<b>Entrega del Premio:</b>	 [Cómo y cuándo se entregará el premio al ganador]<br />
+				</span>
+			</MudExpansionPanel>
+			<MudExpansionPanel Text="¿Ejemplo de Costo?">
+				<span>
+					Si decides participar, puedes adquirir tu boleta por solo $10.00. ¡No te pierdas la oportunidad de ganar y ayudar a [causa o motivo de la rifa, si aplica]!<br />
+				</span>
 			</MudExpansionPanel>
 		</MudExpansionPanels>
 	</section>
 
+	<!--PIE DE PAGINA-->
+	<footer id="contacto" class="footer bg-light">
+		<!-- Section: Social media -->
+		<section class="d-flex justify-content-center justify-content-lg-between p-1 border-bottom">
+			<!-- Left -->
+			<div class="me-5 d-none d-lg-block">
+				<span>Conéctate con nosotros en las redes sociales:</span>
+			</div>
+			<div>
+				<a href="" class="me-4 text-reset">
+					<MudIcon Class="Iconos" Icon="@Icons.Custom.Brands.Facebook" Title="Facebook" />
+				</a>
+				<a href="" class="me-4 text-reset">
+					<MudIcon Class="Iconos" Icon="@Icons.Custom.Brands.Twitter" Title="Twitter" />
+				</a>
+				<a href="" class="me-4 text-reset">
+					<MudIcon Class="Iconos" Icon="@Icons.Custom.Brands.Google" Title="Google" />
+				</a>
+				<a href="" class="me-4 text-reset">
+					<MudIcon Class="Iconos" Icon="@Icons.Custom.Brands.Google" Title="Intagram" />
+				</a>
+				<a href="" class="me-4 text-reset">
+					<MudIcon Class="Iconos" Icon="@Icons.Custom.Brands.LinkedIn" Title="LinkedIn" />
+				</a>
+				<a href="" class="me-4 text-reset">
+					<MudIcon Class="Iconos" Icon="@Icons.Custom.Brands.GitHub" Title="GitHub" />
+				</a>
+			</div>
+			<!-- Right -->
+		</section>
+		<!-- Section: Links  -->
+		<section>
+			<div class="container text-center text-md-start mt-5">
+				<!-- Grid row -->
+				<div class="row mt-3">
+					<!-- Grid column -->
+					<div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+						<!-- Content -->
+						<h6 class="text-uppercase fw-bold mb-4">
+							<i class="fas fa-gem me-3"></i>CLIENTE DEMO
+						</h6>
+						<p>
+							Información breve acerca de su Marca, Organización, Persona o Empresa.
+						</p>
+					</div>
+					<!-- Grid column -->
+					<!-- Grid column -->
+					<div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+						<!-- Links -->
+						<h6 class="text-uppercase fw-bold mb-4">
+							SECCIONES
+						</h6>
+						<p>
+							<a href="#Inicio" class="text-reset nav-link">INICIO</a>
+						</p>
+						<p>
+							<a href="#ListaBoletas" class="text-reset nav-link">Lista boletas</a>
+						</p>
+						<p>
+							<a href="#verificador" class="text-reset nav-link">Verificar boletas</a>
+						</p>
+						<p>
+							<a href="#preguntas" class="text-reset nav-link">Preguntas frecuentes</a>
+						</p>
+					</div>
+					<!-- Grid column -->
+					<div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+						<!-- Links -->
+						<h6 class="text-uppercase fw-bold mb-4">Contactanos</h6>
+						<p> <MudIcon Icon="@Icons.Material.Filled.House" Title="Ubicacion" /> Rionegro - Antioquia</p>
+						<p> <MudIcon Icon="@Icons.Material.Filled.Email" Title="Ubicacion" /> techminds247@gmail.com</p>
+						<p> <MudIcon Icon="@Icons.Material.Filled.PhoneIphone" Title="Telefono" /> + 57 311 363 33 71</p>
+						<p> <MudIcon Icon="@Icons.Material.Filled.PhoneIphone" Title="Telefono" /> + 57 305 301 65 52</p>
+					</div>
+					<!-- Grid column -->
+				</div>
+				<!-- Grid row -->
+			</div>
+		</section>
+		<div class="text-center p-4" style="background-color: rgba(0, 0, 0, 0.05);">
+			© 2024 Copyright:
+			<a class="text-reset fw-bold" href="#!">vehitrams.com</a>
+		</div>
+	</footer>
 </body>
 </html>
 
 @code {
 
-	@inject MenuState MenuState
-	private bool EstadoButton = false;
-	private string urlImageOne = "Img/comboOne.png";
-	private string urlImageTwho = "Img/comboTwo.png";
-	private string urlImageTrhe = "Img/comboThre.png";
-	private string urlImageCupones1 = "Img/Cupon1.png";
-	private string urlImageCupones2 = "Img/Cupon2.png";
+	private int CantidadBoletas { get; set; }
+	private int ValorBoleta { get; set; }
 	private string BuscarBoleta { get; set; }
-
-	private int vendidas { get; set; }
-	private int ValorMaximo = 1;
-	private decimal Porcentaje { get; set; } = 0;
-	private int cantidadVenta { get; set; } = 1;
-
-
-	protected override void OnInitialized()
-	{
-		ObtenerNumeros();
-		MenuState.SetMenuVisibility(false);
-	}
-
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-		{
-			await JSRuntime.InvokeVoidAsync("initializeSmoothScroll");
-		}
-	}
-
-	public async void Comprar(int cantidad, int valor)
-	{
-		await OpenDialog();
-		await OpenPagosDialog(cantidad, valor);
-
-	}
-
-	public async void CompraCantidad()
-	{
-		await OpenDialog();
-		vendidas += cantidadVenta;
-		var valorWompi = cantidadVenta * 500000;
-		var valor = cantidadVenta * 500000;
-		await OpenPagosDialog(cantidadVenta, valorWompi);
-	}
-
-	private async Task OpenPagosDialog(int boletas, int valor)
-	{
-		DialogOptions disableBackdropClick = new DialogOptions()
-			{
-				MaxWidth = MaxWidth.Medium,
-				Position = DialogPosition.Center,
-				FullWidth = false,
-			};
-
-
-		var parameters = new DialogParameters<PaymentForm>();
-		parameters.Add(x => x.Cupones, boletas);
-		parameters.Add(x => x.ValorCupones, valor);
-
-		var dialog = await Dialog.ShowAsync<PaymentForm>(string.Empty, parameters, disableBackdropClick);
-
-		var result = await dialog.Result;
-
-		if (!result.Canceled)
-		{
-			//In a real world scenario we would reload the data from the source here since we "removed" it in the dialog already.
-			Guid.TryParse(result.Data.ToString(), out Guid deletedServer);
-			// se ltransacion ha sido cancelada
-		}
-	}
-
-	private async Task OpenDialog()
-	{
-		if (vendidas >= ValorMaximo)
-		{
-			DialogOptions disableBackdropClick = new DialogOptions()
-				{
-					DisableBackdropClick = true,
-					MaxWidth = MaxWidth.Medium,
-					Position = DialogPosition.Center,
-					FullWidth = true
-				};
-
-			Dialog.Show<CierreVentas>(string.Empty, disableBackdropClick);
-		}
-	}
-
-	MudChip[] selected;
-
-	Dictionary<int, bool> diccionario = new Dictionary<int, bool>();
+	private int Total { get; set; }
+	private MudChip[] selected;
+	private bool DeshabilitarBotonCompra { get; set; } = true;
 
 	private Dictionary<int, bool> ObtenerNumeros()
 	{
@@ -440,11 +509,65 @@
 		return diccionario;
 	}
 
-	List<string> NumerosSeleccionados = new List<string>();
+
+	protected override void OnInitialized()
+	{
+		ObtenerNumeros();
+		ValorBoleta = 5000;
+
+		MenuState.SetMenuVisibility(false);
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			await JSRuntime.InvokeVoidAsync("initializeSmoothScroll");
+		}
+	}
+
+
+	Dictionary<int, bool> diccionario = new Dictionary<int, bool>();
+
 
 	public void Closed(MudChip chipt)
 	{
 		selected = selected.Where(chip => chip.Text != chipt.Text).ToArray();
+
+		CantidadBoletas = selected.Count();
+		Total = CantidadBoletas * ValorBoleta;
+	}
+
+	RegisterAccountForm model = new RegisterAccountForm();
+
+	private void ComprarNumeros(EditContext context)
+	{
+		StateHasChanged();
+	}
+
+	private async Task BuscarNumero()
+	{
+		var sdsd = BuscarBoleta;
+	}
+
+	public class RegisterAccountForm
+	{
+		[Required(ErrorMessage = "Campo requerido")]
+		[MinLength(5, ErrorMessage = "Nombre incompleto")]
+		public string Nombre { get; set; }
+
+		[Required(ErrorMessage = "Campo requerido")]
+		[EmailAddress(ErrorMessage = "Correo invalido")]
+		public string Email { get; set; }
+
+		[Required(ErrorMessage = "Campo requerido")]
+		[MinLength(10, ErrorMessage = "Telefono invalido")]
+		public string Celular { get; set; }
+
+		[Required(ErrorMessage = "Campo requerido")]
+		[MinLength(8, ErrorMessage = "Direccion invalida")]
+		public string Direccion { get; set; }
+
 
 	}
 }
