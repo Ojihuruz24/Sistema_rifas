@@ -24,7 +24,7 @@
 
 		body {
 			background: #FAFAFA;
-			width:100%;
+			width: 100%;
 		}
 
 		.header {
@@ -36,19 +36,19 @@
 		.navbar {
 			border-top: 8px solid #07768f;
 			border-bottom: 8px solid #07768f;
-		/*	background-color: black;
-			background-image: linear-gradient(to right, #98B2E8 0%, #00FFFF 100%);*/
+			/*	background-color: black;
+					background-image: linear-gradient(to right, #98B2E8 0%, #00FFFF 100%);*/
 		}
 
 
-		.section-1 {
-			background: #EDEDED;
+		.Section-rifa {
+			color : transparent;
 		}
 
 		.section-2 {
 			background: #EDEDED;
 			/*	border: dashed;
-									border-color: cornflowerblue;*/
+											border-color: cornflowerblue;*/
 		}
 
 		.section-3 {
@@ -87,6 +87,15 @@
 			padding-bottom: 15px;
 		}
 
+		#TextoRifa{
+			color: #07768f;
+			font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+			display: grid;
+			justify-content:flex-start;
+			align-items: center;
+			
+		}
+
 	</style>
 </head>
 
@@ -97,7 +106,7 @@
 			SITIO WEB DE PRUEBAS
 		</p>
 	</div>
-
+	<!--ACA VA LA INFORMACION DE QUIEN HACE LA RIFA-->
 	<section class="py-1 header text-center navbar-expand-lg navbar-light bg-light">
 		<div class="container py-1 text-white">
 			<header class="py-1">
@@ -109,7 +118,7 @@
 		</div>
 	</section>
 
-	<!-- Sticky navbar-->
+	<!-- MENU-->
 	<header class="header sticky-top">
 		@*<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">*@
 		<nav class="navbar navbar-expand-lg navbar-light bg-light py-3 fixed-top">
@@ -145,39 +154,36 @@
 	</header>
 
 	<!-- Imagen con la descripcion de la rifa-->
-	<section class="py-5 section-1 mx-auto" style="width:80%">
+	<section class="py-5 Section-rifa mx-auto" style="width:80%">
 
 		<MudGrid Justify="Justify.FlexEnd">
 			<MudItem xs="12" sm="12" md="6" lg="6" xl="6" xxl="6" Class="d-flex justify-end">
-				<img src="Img/Rifa04_imagen.png" class="img-fluid border-4 border-primary rounded img-thumbnail" alt="Aqui va tu imagen promocional">
+				<img src="Img/Rifa04_imagen.png" class="img-fluid rounded " alt="Aqui va tu imagen promocional">
 			</MudItem>
 			<MudItem xs="12" sm="12" md="6" lg="6" xl="6" xxl="6" Class="justify-start	">
-				<span>
-					<h4><b>🗓️	30 DIC 2024  🕓 08:00 PM</b></h4>
+				<div id="TextoRifa">
+					<div class="d-block pa-2"><h1><b>🗓️	30 DIC 2024  🕓 08:00 PM</b></h1></div>
+					<div class="d-block pa-2"><h2><b>Demo Rifa de Prueba 1000</b></h2></div>
+					<div class="d-block pa-2"><b>Aquí va su descripción, en este ejemplo son:</b></div>
+					<div  class="d-block pa-2">
+						<h4><b>1000 Boletos</b></h4>
+						<b>Puedes tener varios premios...</b> <br />
+						🥇Primer Premio: Moto 🏍️<br />
+						🥈Segundo Lugar: iPhone 📱<br />
+						🥉Tercer Premio: Efectivo 💴<br />
 
-					<h2><b>Demo Rifa de Prueba 1000</b></h2>
-				</span>
-				<span>
-					Aquí va su descripción, en este ejemplo son:
-				</span>
-				<span id="raffleDescription">
-					<h4><b>1000 Boletos</b></h4>
-					<b>Puedes tener varios premios...</b> <br />
-					🥇Primer Premio: Moto 🏍️<br />
-					🥈Segundo Lugar: iPhone 📱<br />
-					🥉Tercer Premio: Efectivo 💴<br />
+						🔹 Descuentos Activados<br />
+						🔹 Promoción 3x2 Activada<br />
 
-					🔹 Descuentos Activados<br />
-					🔹 Promoción 3x2 Activada<br />
+						🗓️ <b>Fecha:</b> 30 de Diciembre<br />
+						🎥 <b>Transmisión en vivo:</b> 🕓 8:00 pm<br />
 
-					🗓️ <b>Fecha:</b> 30 de Diciembre<br />
-					🎥 <b>Transmisión en vivo:</b> 🕓 8:00 pm<br />
-
-					<b>¿Cómo funciona? 🍀</b><br />
-					🔹 Se eligen los boletos 🎟<br />
-					🔹 Se llenan los datos.<br />
-					🔹 Se realiza el registro. <br />
-				</span>
+						<b>¿Cómo funciona? 🍀</b><br />
+						🔹 Se eligen los boletos 🎟<br />
+						🔹 Se llenan los datos.<br />
+						🔹 Se realiza el registro. <br />
+					</div>
+				</div>
 			</MudItem>
 		</MudGrid>
 	</section>
@@ -207,7 +213,7 @@
 	<br />
 	<section class="py-5 section-3 mx-auto" style="width:auto">
 		<div class="container py-5 text-center">
-			<MudContainer>                           
+			<MudContainer>
 				<div id="unique_id_scroll_section" class="ma-0" style="height:500px;overflow: auto;">
 					<MudPaper>
 						<MudStack Row="true" Justify="Justify.SpaceEvenly" Wrap="Wrap.Wrap">
@@ -304,7 +310,7 @@
 	<!--Section de preguntas-->
 	<section id="section-6" class="py-5 section-6 mx-auto" style="width:60%">
 		<MudExpansionPanels Square=true MultiExpansion="false" DisableBorders="true" Elevation="0" Class="paneles">
-			<MudExpansionPanel Text="¿Cuánto cuesta el ticket?" >
+			<MudExpansionPanel Text="¿Cuánto cuesta el ticket?">
 				<pre>El costo es de:
 				🔹 1 Ticket: $5.000 pesos.
 				🔹 2 Tickets: $10.000 pesos.
@@ -352,12 +358,12 @@
 	}
 
 	protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            await JSRuntime.InvokeVoidAsync("initializeSmoothScroll");
-        }
-    }
+	{
+		if (firstRender)
+		{
+			await JSRuntime.InvokeVoidAsync("initializeSmoothScroll");
+		}
+	}
 
 	public async void Comprar(int cantidad, int valor)
 	{
