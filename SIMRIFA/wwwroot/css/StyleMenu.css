@@ -1,0 +1,53 @@
+﻿
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    background: #8ff1ff36;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+a {
+    color: #333;
+}
+
+.logo {
+    height: 40px !important;
+}
+
+.text-small {
+    font-size: 0.9rem !important;
+}
+
+Header {
+    background-color: #8ff1ffff;
+}
+
+
+nav ul {
+    margin-right: 20px;
+}
+
+div ul li {
+    display: flex;
+    margin: 0 5px;
+}
+
+        div ul li a {
+            color: gray;
+            font-size: 18px;
+            padding: 7px 13px;
+            border-radius: 3px;
+            text-transform: uppercase;
+        }
+
+            div ul li a:hover {
+                background-clip: border-box !important;
+                transition: .1s;
+                border-block-end: groove;
+                border-block-start: groove;
+                color: #093137ff;
+            }
+
+
