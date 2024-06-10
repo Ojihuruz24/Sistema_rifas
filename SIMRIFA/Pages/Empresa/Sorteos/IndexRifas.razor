@@ -2,70 +2,88 @@
 @using MudBlazor;
 @using SIMRIFA.Data;
 
-
 <PageTitle>Tipo de rifas</PageTitle>
 
-<MudStack Row="true" Wrap="Wrap.Wrap" Spacing="11">
-	<MudCard>
-		<MudCardMedia Image="img/SOAT.png" Height="200" />
-		<MudCardContent>
-			<MudText Typo="Typo.h5">Sorteo de cupones</MudText>
-			<MudText Typo="Typo.body2">Compra cupones con descuento Por los numeros de</MudText>
-			<MudText Typo="Typo.body2">cupones comprados regalaremos un premio mayor</MudText>
-			<MudText Typo="Typo.body2"></MudText>
-		</MudCardContent>
-		<MudCardActions>
-			<MudButton Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas01" Color="Color.Primary">Ver demo</MudButton>
-		</MudCardActions>
-	</MudCard>
 
-	<MudCard>
-		<MudCardMedia Image="img/TECNO.png" Height="200" />
-		<MudCardContent>
-			<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
-			<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
-			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
-		</MudCardContent>
-		<MudCardActions>
-			<MudButton Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas02" Color="Color.Primary">Ver demo</MudButton>
-		</MudCardActions>
-	</MudCard>
-	<MudCard>
-		<MudCardMedia Image="img/TECNO.png" Height="200" />
-		<MudCardContent>
-			<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
-			<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
-			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
-		</MudCardContent>
-		<MudCardActions>
-			<MudButton Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas03" Color="Color.Primary">Ver demo</MudButton>
-		</MudCardActions>
-	</MudCard>
+<html>
+	<head>
+		<style>
+		#header {
+			background: url(https://images.unsplash.com/photo-1415795854641-f4a487a0fdc8?ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80) center center / cover no-repeat;
+			/*background: url(/Img/TipoRifas/imagenHeader.png) center center / cover no-repeat;*/
+		}
+		</style>
+	</head>
+	<body class="mud-main-content">
+	<section id="header" class="jumbotron text-center">
+		<h1 class="display-3">FOREST</h1>
+		<p class="lead">Lorem ipsum, dolor sit amet consectetur adipisicing elit.</p>
+		<a href="" class="btn btn-primary">Click</a>
+		<a href="" class="btn btn-secondary">Click</a>
+	</section>
+	<MudStack Row="true" Wrap="Wrap.Wrap" Spacing="5">
+		<MudCard>
+			<MudCardMedia Image="img/SOAT.png"  />
+			<MudCardContent>
+				<MudText Typo="Typo.h5">Sorteo de cupones</MudText>
+				<MudText Typo="Typo.body2">Compra cupones con descuento Por los numeros de</MudText>
+				<MudText Typo="Typo.body2">cupones comprados regalaremos un premio mayor</MudText>
+				<MudText Typo="Typo.body2"></MudText>
+			</MudCardContent>
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas01" Color="Color.Primary">Ver demo</MudButton>
+			</MudCardActions>
+		</MudCard>
 
-	<MudCard>
-		<MudCardMedia Image="img/TECNO.png" Height="200" />
-		<MudCardContent>
-			<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
-			<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
-			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
-		</MudCardContent>
-		<MudCardActions>
-			<MudButton Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas04" Color="Color.Primary">Ver demo</MudButton>
-		</MudCardActions>
-	</MudCard>
+		<MudCard>
+			<MudCardMedia Image="img/TECNO.png" Height="200" />
+			<MudCardContent>
+				<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
+				<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
+				<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
+			</MudCardContent>
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas02" Color="Color.Primary">Ver demo</MudButton>
+			</MudCardActions>
+		</MudCard>
+		<MudCard>
+			<MudCardMedia Image="img/TECNO.png" Height="200" />
+			<MudCardContent>
+				<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
+				<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
+				<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
+			</MudCardContent>
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas03" Color="Color.Primary">Ver demo</MudButton>
+			</MudCardActions>
+		</MudCard>
 
-	<MudCard>
-		<MudCardMedia Image="img/TECNO.png" Height="200" />
-		<MudCardContent>
-			<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
-			<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
-			<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
-		</MudCardContent>
-		<MudCardActions>
-			<MudButton Variant="Variant.Filled" Href="" Color="Color.Primary">Ver demo</MudButton>
-		</MudCardActions>
-	</MudCard>
-</MudStack>
+		<MudCard>
+			<MudCardMedia Image="img/tiporifas/rifa04_imagen.png" Height="200" />
+			<MudCardContent>
+				<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
+				<MudText Typo="Typo.body2">Tienes la oportunidad de escoger tus numeros</MudText>
+				<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
+			</MudCardContent>
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas04" Color="Color.Primary">Ver demo</MudButton>
+			</MudCardActions>
+		</MudCard>
+
+		<MudCard>
+			<MudCardMedia Image="img/TECNO.png" Height="200" />
+			<MudCardContent>
+				<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
+				<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
+				<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
+			</MudCardContent>
+			<MudCardActions>
+				<MudButton Variant="Variant.Filled" Href="" Color="Color.Primary">Ver demo</MudButton>
+			</MudCardActions>
+		</MudCard>
+	</MudStack>
+	</body>
+</html>
 
 @code
 {
