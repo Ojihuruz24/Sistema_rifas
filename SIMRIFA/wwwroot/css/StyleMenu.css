@@ -34,11 +34,11 @@ div ul li {
     margin: 0 5px;
 }
 
-        div ul li a {
-            color: gray;
+        div ul li a  {
+            color: black;
             font-size: 18px;
             padding: 7px 13px;
-            border-radius: 3px;
+            border-radius: 15px;
             text-transform: uppercase;
         }
 
@@ -49,5 +49,6 @@ div ul li {
                 border-block-start: groove;
                 color: #093137ff;
             }
+
 
 
