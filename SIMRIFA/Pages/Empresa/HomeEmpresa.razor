@@ -3,229 +3,416 @@
 @using SIMRIFA.Data;
 
 <head>
-		<!-- style css -->
-		<link rel="stylesheet" href="/css/Empresa/StyleEmpresa.css"> <!-- NO-->
-		
-</head>
+	<!-- style css -->
+	<link rel="stylesheet" href="/css/Empresa/StyleEmpresa.css">
 
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
 <body>
+	
+	<section>
+		<svg id="svg-background" class="position-absolute" viewBox="0 0 1920 880">
+			<g>
+				<linearGradient id="svg-gradient" x1="0" x2="1" y1="0" y2="0">
+					<stop stop-color="hsl(217, 88%, 33.7%)" offset="0"></stop>
+					<stop stop-color="hsl(217, 88%, 75.1%)" offset="1"></stop>
+				</linearGradient>
+				<path d="" fill="url(#svg-gradient)" opacity="0.4">
+					<animate attributeName="d" dur="33s" repeatCount="indefinite"
+							 values="M0 0L 0 804.2328934685746Q 320 597.3613372284876  640 571.0708916590191T 1280 512.0661063245175T 1920 301.8788007488083L 1920 0 Z;M0 0L 0 877.6839081951588Q 320 668.0720922803877  640 649.0018928349388T 1280 328.7087077664202T 1920 162.95038242563396L 1920 0 Z;M0 0L 0 724.9886210051687Q 320 661.4364572061575  640 623.2173947479624T 1280 359.20353038907734T 1920 135.51673041732283L 1920 0 Z;M0 0L 0 804.2328934685746Q 320 597.3613372284876  640 571.0708916590191T 1280 512.0661063245175T 1920 301.8788007488083L 1920 0 Z">
+					</animate>
+				</path>
+				<path d="" fill="url(#svg-gradient)" opacity="0.4">
+					<animate attributeName="d" dur="33s" repeatCount="indefinite"
+							 values="M0 0L 0 765.7607191473613Q 320 641.7853945676919  640 624.2534689988059T 1280 365.27264408032966T 1920 190.38947978522663L 1920 0 Z;M0 0L 0 842.1984196370487Q 320 570.6690721707517  640 540.6844954979398T 1280 439.92879442880593T 1920 200.29713960445451L 1920 0 Z;M0 0L 0 796.6802345094818Q 320 721.9216894353016  640 696.8815669355181T 1280 373.6367381440213T 1920 196.63169821789495L 1920 0 Z;M0 0L 0 765.7607191473613Q 320 641.7853945676919  640 624.2534689988059T 1280 365.27264408032966T 1920 190.38947978522663L 1920 0 Z">
+					</animate>
+				</path>
+				<path d="" fill="url(#svg-gradient)" opacity="0.4">
+					<animate attributeName="d" dur="33s" repeatCount="indefinite"
+							 values="M0 0L 0 801.7562714943509Q 320 634.0247183381232  640 605.7090791951217T 1280 503.9393370140325T 1920 224.7551247480177L 1920 0 Z;M0 0L 0 821.0401780336218Q 320 670.8690783540507  640 637.0744123031742T 1280 456.40745286432224T 1920 278.1294357804296L 1920 0 Z;M0 0L 0 744.0534225112256Q 320 637.6425395409125  640 593.2079605185819T 1280 457.03995196824286T 1920 254.87693899994804L 1920 0 Z;M0 0L 0 801.7562714943509Q 320 634.0247183381232  640 605.7090791951217T 1280 503.9393370140325T 1920 224.7551247480177L 1920 0 Z">
+					</animate>
+				</path>
+				<path d="" fill="url(#svg-gradient)" opacity="0.4">
+					<animate attributeName="d" dur="33s" repeatCount="indefinite"
+							 values="M0 0L 0 817.8603658675457Q 320 592.9404308081629  640 559.1126621853513T 1280 428.9912604821798T 1920 209.017381620229L 1920 0 Z;M0 0L 0 802.0504889976935Q 320 561.3963273210122  640 537.6024084387631T 1280 430.41283267566695T 1920 256.1972069733954L 1920 0 Z;M0 0L 0 789.4448177495887Q 320 561.9675446430498  640 531.6192318019404T 1280 414.76018143244175T 1920 265.9163329632971L 1920 0 Z;M0 0L 0 817.8603658675457Q 320 592.9404308081629  640 559.1126621853513T 1280 428.9912604821798T 1920 209.017381620229L 1920 0 Z">
+					</animate>
+				</path>
+				<path d="" fill="url(#svg-gradient)" opacity="0.4">
+					<animate attributeName="d" dur="33s" repeatCount="indefinite"
+							 values="M0 0L 0 844.0541574423102Q 320 623.0697081316591  640 592.8483890737847T 1280 469.85448734523794T 1920 190.81850676853674L 1920 0 Z;M0 0L 0 871.4928294956283Q 320 618.9784567388518  640 593.1183717103518T 1280 376.5051942642811T 1920 141.32293927545027L 1920 0 Z;M0 0L 0 782.0118384610068Q 320 727.3267836497654  640 694.0476176759635T 1280 518.1545471640493T 1920 276.0053882957168L 1920 0 Z;M0 0L 0 844.0541574423102Q 320 623.0697081316591  640 592.8483890737847T 1280 469.85448734523794T 1920 190.81850676853674L 1920 0 Z">
+					</animate>
+				</path>
+			</g>
+		</svg>
+	</section>
 
 	<section>
-		<div class="container-lg">
+		<div class="fa-cube">
+			<div class="cube">
+				<div style="--x:-1; --y:0;">
+					<span style="--i:3;"></span>
+					<span style="--i:2;"></span>
+					<span style="--i:1;"></span>
+				</div>
+				<div style="--x:0; --y:0;">
+					<span style="--i:3;"></span>
+					<span style="--i:2;"></span>
+					<span style="--i:1;"></span>
+				</div>
+				<div style="--x:1; --y:0;">
+					<span style="--i:3;"></span>
+					<span style="--i:2;"></span>
+					<span style="--i:1;"></span>
+				</div>
+			</div>
+			<div class="cube">
+				<div style="--x:-1; --y:0;">
+					<span style="--i:3;"></span>
+					<span style="--i:2;"></span>
+					<span style="--i:1;"></span>
+				</div>
+				<div style="--x:0; --y:0;">
+					<span style="--i:3;"></span>
+					<span style="--i:2;"></span>
+					<span style="--i:1;"></span>
+				</div>
+				<div style="--x:1; --y:0;">
+					<span style="--i:3;"></span>
+					<span style="--i:2;"></span>
+					<span style="--i:1;"></span>
+				</div>
+			</div>
+			<div class="cube">
+				<div style="--x:-1; --y:0;">
+					<span style="--i:3;"></span>
+					<span style="--i:2;"></span>
+					<span style="--i:1;"></span>
+				</div>
+				<div style="--x:0; --y:0;">
+					<span style="--i:3;"></span>
+					<span style="--i:2;"></span>
+					<span style="--i:1;"></span>
+				</div>
+				<div style="--x:1; --y:0;">
+					<span style="--i:3;"></span>
+					<span style="--i:2;"></span>
+					<span style="--i:1;"></span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="services">
+		<div class="container">
+			<div class="row justify-content-center">
+				<!-- section title -->
+				<div class="col-xl-6 col-lg-8">
+					<div class="title text-center">
+						<h2>Nuestro Sistema te brinda</h2>
+						<p>
+							Vende más rápido tus boletos por Internet gracias a estos beneficios.
+							Diseñado y programado por expertos. Puede probar el funcionamiento aquí:
+						</p>
+						<div class="border"></div>
+					</div>
+				</div>
+				<!-- /section title -->
+			</div>
+			<div class="row no-gutters">
+
+				<!-- Single Service Item -->
+				<div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+					<div class="service-block p-4 color-bg text-center">
+						<div class="service-icon text-center">
+							<MudIcon Icon="@Icons.Material.Filled.Web" Size="Size.Large"></MudIcon>
+						</div>
+						<h3>Página Web Online</h3>
+						<p>
+							Landing Page con tu logo, colores y configuraciones donde los
+							usuarios pueden elegir sus números de tickets, subir su voucher de
+							pago y verificar sus tickets.
+						</p>
+					</div>
+				</div>
+				<!-- End Single Service Item -->
+				<!-- Single Service Item -->
+				<div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+					<div class="service-block p-4 text-center">
+						<div class="service-icon text-center">
+							<i class="fa-regular fa-clock"></i>
+						</div>
+						<h3>Responsive Design</h3>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur.. Sed id lorem eget orci dictum facilisis vel id
+							tellus. Nullam
+							iaculis arcu at mauris dapibus consectetur.
+						</p>
+					</div>
+				</div>
+				<!-- End Single Service Item -->
+				<!-- Single Service Item -->
+				<div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+					<div class="service-block p-4 color-bg text-center">
+						<div class="service-icon text-center">
+							<i class="fa-solid fa-book"></i>
+						</div>
+						<h3>Media & Advertisement</h3>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur.. Sed id lorem eget orci dictum facilisis vel id
+							tellus. Nullam
+							iaculis arcu at mauris dapibus consectetur.
+						</p>
+					</div>
+				</div>
+				<!-- End Single Service Item -->
+				<!-- Single Service Item -->
+				<div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+					<div class="service-block p-4  text-center">
+						<div class="service-icon text-center">
+							<i class="fa-solid fa-briefcase"></i>
+						</div>
+						<h3>Graphic Design</h3>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur.. Sed id lorem eget orci dictum facilisis vel id
+							tellus. Nullam
+							iaculis arcu at mauris dapibus consectetur.
+						</p>
+					</div>
+				</div>
+				<!-- End Single Service Item -->
+				<!-- Single Service Item -->
+				<div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+					<div class="service-block p-4 color-bg text-center">
+						<div class="service-icon text-center">
+							<i class="fa-solid fa-crop"></i>
+						</div>
+						<h3>Apps Development</h3>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur.. Sed id lorem eget orci dictum facilisis vel id
+							tellus. Nullam
+							iaculis arcu at mauris dapibus consectetur.
+						</p>
+					</div>
+				</div>
+				<!-- End Single Service Item -->
+				<!-- Single Service Item -->
+				<div class="col-lg-4 col-sm-6 mb-4 mb-lg-0">
+					<div class="service-block p-4 text-center">
+						<div class="service-icon text-center">
+							<i class="fa-solid fa-house-user"></i>
+						</div>
+						<h3>Networking</h3>
+						<p>
+							Lorem ipsum dolor sit amet, consectetur.. Sed id lorem eget orci dictum facilisis vel id
+							tellus. Nullam
+							iaculis arcu at mauris dapibus consectetur.
+						</p>
+					</div>
+				</div>
+				<!-- End Single Service Item -->
+
+			</div> <!-- End row -->
+		</div> <!-- End container -->
+	</section>
+
+	<section class="py-5 header">
+		<div class="container py-4">
+			<div class="row justify-content-center">
+				<div class="col-xl-6 col-lg-8">
+					<div class="title text-center">
+						<h2 id="TitleTestimonials">Nuestro Sistema te brinda</h2>
+						<div class="border"></div>
+					</div>
+				</div>
+				<!-- /section title -->
+			</div>
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-3">
+					<!-- Tabs nav -->
+					<div class="nav flex-column nav-pills nav-pills-custom" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+						<a class="nav-link mb-3 p-3 shadow active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">
+							<i class="fa fa-user-circle-o mr-2"></i>
+							<span class="font-weight-bold small text-uppercase">Página Web Online</span>
+						</a>
+
+						<a class="nav-link mb-3 p-3 shadow" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+							<i class="fa fa-calendar-minus-o mr-2"></i>
+							<span class="font-weight-bold small text-uppercase">Automatizacion</span>
+						</a>
+
+						<a class="nav-link mb-3 p-3 shadow" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false">
+							<i class="fa fa-star mr-2"></i>
+							<span class="font-weight-bold small text-uppercase">Múltiples Configuraciones</span>
+						</a>
+
+						<a class="nav-link mb-3 p-3 shadow" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false">
+							<i class="fa fa-check mr-2"></i>
+							<span class="font-weight-bold small text-uppercase">Envio de correo</span>
+						</a>
+					</div>
+				</div>
+				<div class="col-md-9">
+					<!-- Tabs content -->
+					<div class="tab-content" id="v-pills-tabContent">
+						<div class="tab-pane fade shadow rounded bg-white show active p-5" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+							<h4 class="font-italic mb-4">Personal information</h4>
+							<p class="font-italic text-muted mb-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						</div>
+
+						<div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+							<h4 class="font-italic mb-4">Bookings</h4>
+							<p class="font-italic text-muted mb-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						</div>
+
+						<div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+							<h4 class="font-italic mb-4">Reviews</h4>
+							<p class="font-italic text-muted mb-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						</div>
+
+						<div class="tab-pane fade shadow rounded bg-white p-5" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+							<h4 class="font-italic mb-4">Confirm booking</h4>
+							<p class="font-italic text-muted mb-2">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section>
+		<div class="container-xl">
+			<div class="row">
+				<div class="col-lg-8 mx-auto">
+					<h2>Testimonials</h2>
 					<div id="myCarousel" class="carousel slide" data-ride="carousel">
 						<!-- Carousel indicators -->
 						<ol class="carousel-indicators">
-							<li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+							<li data-target="#myCarousel" data-slide-to="0"></li>
 							<li data-target="#myCarousel" data-slide-to="1"></li>
 							<li data-target="#myCarousel" data-slide-to="2"></li>
 						</ol>
 						<!-- Wrapper for carousel items -->
 						<div class="carousel-inner">
 							<div class="carousel-item active">
-								<img src="\img\tiporifas\imagenheader.png" class="img-fluid" alt="Notebook">
-								<div class="carousel-caption">
-									<h3>Award Winning Support</h3>
-									<p>Pulvinar leo id risus pellentesque vestibulum. Sed diam libero, sodales eget cursus dolor.</p>
-									<div class="carousel-action">
-										<a href="#" class="btn btn-primary">Learn More</a>
-										<a href="#" class="btn btn-success">Try Now</a>
-									</div>
-								</div>
+									<MudImage Src="/img/1.png" Alt="Mony the dog" Elevation="25" Class="img-box" />
+								<p class="testimonial">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, 
+									varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante.
+									Idac bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet.</p>
+								<p class="overview"><b>Paula Wilson</b>, Media Analyst</p>
 							</div>
 							<div class="carousel-item">
-								<img src="\img\tiporifas\imagenheader.png" class="img-fluid" alt="Tablet">
-								<div class="carousel-caption">
-									<h3>Amazing Digital Experience</h3>
-									<p>Nullam hendrerit justo non leo aliquet imperdiet. Etiam sagittis lectus condime dapibus.</p>
-									<div class="carousel-action">
-										<a href="#" class="btn btn-primary">Learn More</a>
-										<a href="#" class="btn btn-success">Try Now</a>
-									</div>
-								</div>
+									<MudImage Src="/img/2.png" Alt="Mony the dog" Elevation="25" Class="img-box" />
+								<p class="testimonial">Vestibulum quis quam ut magna consequat faucibus. Pellentesque eget nisi a
+									mi suscipit tincidunt. Utmtc tempus dictum risus. Pellentesque viverra sagittis quam at mattis. 
+									Suspendisse potenti. Aliquam sit amet gravida nibh, facilisis gravida odio.</p>
+								<p class="overview"><b>Antonio Moreno</b>, Web Developer</p>
 							</div>
 							<div class="carousel-item">
-								<img src="\img\tiporifas\imagenheader.png" class="img-fluid" alt="Workstation">
-								<div class="carousel-caption">
-									<h3>Live Monitoring Tools</h3>
-									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu pellentesque sem tempor.</p>
-									<div class="carousel-action">
-										<a href="#" class="btn btn-primary">Learn More</a>
-										<a href="#" class="btn btn-success">Try Now</a>
-									</div>
-								</div>
+									<MudImage Src="/img/3.png" Alt="Mony the dog" Elevation="25" Class="img-box" />
+								<p class="testimonial">Phasellus vitae suscipit justo. Mauris pharetra feugiat ante id lacinia. Etiam 
+									faucibus mauris id tempor egestas. Duis luctus turpis at accumsan tincidunt. Phasellus risus risus, 
+									volutpat vel tellus ac, tincidunt fringilla massa. Etiam hendrerit dolor eget rutrum.</p>
+								<p class="overview"><b>Michael Holz</b>, Seo Analyst</p>
 							</div>
 						</div>
 						<!-- Carousel controls -->
 						<a class="carousel-control-prev" href="#myCarousel" data-slide="prev">
-							<i class="fa fa-angle-left"></i>
+							<i ><MudIcon Icon="@Icons.Material.Filled.KeyboardDoubleArrowLeft" Size="Size.Large"></MudIcon></i>
 						</a>
 						<a class="carousel-control-next" href="#myCarousel" data-slide="next">
-							<i class="fa fa-angle-right"></i>
+							<i><MudIcon Icon="@Icons.Material.Filled.KeyboardDoubleArrowRight" Size="Size.Large"></MudIcon></i>
 						</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
-	<section>
-		<section id="section_imagen" class="py-5">
-			<div class="container">
-				<div class="timeline">
-					<div class="timeline-row">
-						<div class="timeline-time">
-							Sistemas de rifas
-						</div>
-						<div class="timeline-content">
-							<i class="icon-attachment"></i>
-							<h4>Admin theme!</h4>
-							<p>Maxwell Admin Dashboard contains C3 graphs, flot graphs, data tables, calendar, drag &amp; drop and ion slider.</p>
-							<div class="thumbs">
-								<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Maxwell Admin">
-								<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Maxwell Admin">
-								<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Maxwell Admin">
-							</div>
-							<div class="">
-								<span class="badge badge-pill">Sales</span>
-								<span class="badge badge-pill">Admin</span>
-							</div>
+
+	<section id="Section-6">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12 text-center">
+					<h2 class="section-title">Acelera la venta de tus Tickets!</h2>
+				</div>
+				<div class="col-lg-3 col-sm-6 mb-4">
+					<div class="card border-0 shadow rounded-xs pt-5">
+						<div class="card-body">
+							<i class="bi bi-browser-edge icon-lg icon-primary icon-bg-primary icon-bg-circle mb-3">
+							</i>
+							<h4 class="mt-4 mb-3">Sin comisiones</h4>
+							<p id="TextCard">Todos los pagos van directo hacia sus cuentas...</p>
 						</div>
 					</div>
-
-					<div class="timeline-row">
-						<div class="timeline-time">
-							8:00 AM<small>Dec 18</small>
-						</div>
-						<div class="timeline-content">
-							<i class="icon-code"></i>
-							<h4>Admin Dashboard!</h4>
-							<p>
-								Maxwell Admin Dashboard contains C3 graphs, flot graphs, data tables, calendar.
-							</p>
-							<div class="thumbs">
-								<div class="thumbs">
-									<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Maxwell Admin">
-									<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Maxwell Admin">
-									<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Maxwell Admin">
-								</div>
-							</div>
-							<div class="">
-								<span class="badge badge-pill">Graphs</span>
-								<span class="badge badge-pill">Chat</span>
-							</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 mb-4">
+					<div class="card border-0 shadow rounded-xs pt-5">
+						<div class="card-body">
+							<i class="bi bi-browser-edge icon-lg icon-yellow icon-bg-yellow icon-bg-circle mb-3"></i>
+							<h4 class="mt-4 mb-3">Fácil de Usar</h4>
+							<p id="TextCard">Landing Page y Panel con una interfaz amigable...</p>
 						</div>
 					</div>
-
-					<div class="timeline-row">
-						<div class="timeline-time">
-							7:25 PM<small>Dec 6</small>
-						</div>
-						<div class="timeline-content">
-							<i class="icon-turned_in_not"></i>
-							<h4>Best Admin Template!</h4>
-							<p>Custom C3 graphs, Custom flot graphs, flot graphs, small graphs, Sass, profile and timeline.</p>
-							<div>
-								<span class="badge badge-pill">Invoice</span>
-								<span class="badge badge-pill">Tasks</span>
-							</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 mb-4">
+					<div class="card border-0 shadow rounded-xs pt-5">
+						<div class="card-body">
+							<i class="bi bi-browser-edge icon-lg icon-purple icon-bg-purple icon-bg-circle mb-3"></i>
+							<h4 class="mt-4 mb-3">Web Design</h4>
+							<p id="TextCard">For what reason would it be advisable for me to think about business content?</p>
 						</div>
 					</div>
-
-					<div class="timeline-row">
-						<div class="timeline-time">
-							3:55 PM<small>Dec 26</small>
-						</div>
-						<div class="timeline-content">
-							<i class="icon-directions"></i>
-							<h4>Maxwell Admin</h4>
-							<p>Maxwell Admin Dashboard contains C3 graphs, flot graphs, data tables, calendar, drag &amp; drop and ion slider.</p>
-							<div>
-								<span class="badge badge-pill">Profile</span>
-								<span class="badge badge-pill">Sales</span>
-							</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 mb-4">
+					<div class="card border-0 shadow rounded-xs pt-5">
+						<div class="card-body">
+							<i class="bi bi-browser-edge icon-lg icon-cyan icon-bg-cyan icon-bg-circle mb-3"></i>
+							<h4 class="mt-4 mb-3">Cloud Service</h4>
+							<p>For what reason would it be advisable for me to think about business content?</p>
 						</div>
 					</div>
-
-					<div class="timeline-row">
-						<div class="timeline-time">
-							5:24 PM<small>Dec 12</small>
-						</div>
-						<div class="timeline-content">
-							<i class="icon-change_history"></i>
-							<h4>Maxwell Dashboard</h4>
-							<p class="no-margin">Maxwell Admin dashboard includes invoice, profile, tasks, gallery, projects, maintanence.</p>
-							<div class="thumbs">
-								<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
-								<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Maxwell Admin">
-								<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar5.png" alt="Maxwell Admin">
-							</div>
-							<div>
-								<span class="badge badge-pill">Analytics</span>
-								<span class="badge badge-pill">Contacts</span>
-							</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 mb-4">
+					<div class="card border-0 shadow rounded-xs pt-5">
+						<div class="card-body">
+							<i class="bi bi-browser-edge icon-lg icon-red icon-bg-red icon-bg-circle mb-3"></i>
+							<h4 class="mt-4 mb-3">Consulting</h4>
+							<p id="TextCard">For what reason would it be advisable for me to think about business content?</p>
 						</div>
 					</div>
-
-					<div class="timeline-row">
-						<div class="timeline-time">
-							8:00 AM<small>Dec 18</small>
-						</div>
-						<div class="timeline-content">
-							<i class="icon-code"></i>
-							<h4>Admin Dashboard!</h4>
-							<p>
-								Maxwell Admin Dashboard contains C3 graphs, flot graphs, data tables, calendar.
-							</p>
-							<div class="thumbs">
-								<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
-								<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar4.png" alt="Maxwell Admin">
-								<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Maxwell Admin">
-							</div>
-							<div class="">
-								<span class="badge badge-pill">Ecommerce</span>
-								<span class="badge badge-pill">CRM</span>
-							</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 mb-4">
+					<div class="card border-0 shadow rounded-xs pt-5">
+						<div class="card-body">
+							<i class="bi bi-browser-edge icon-lg icon-green icon-bg-green icon-bg-circle mb-3"></i>
+							<h4 class="mt-4 mb-3">SEO Optimization</h4>
+							<p id="TextCard">For what reason would it be advisable for me to think about business content?</p>
 						</div>
 					</div>
-
-					<div class="timeline-row">
-						<div class="timeline-time">
-							7:45PM<small>Dec 21</small>
-						</div>
-						<div class="timeline-content">
-							<i class="icon-attachment"></i>
-							<h4>Admin Template!</h4>
-							<p>Maxwell Admin Dashboard contains C3 graphs, flot graphs, data tables, calendar, drag &amp; drop and ion slider.</p>
-							<div class="thumbs">
-								<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="Maxwell Admin">
-								<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar3.png" alt="Maxwell Admin">
-							</div>
-							<div class="">
-								<span class="badge badge-pill">Orders</span>
-								<span class="badge badge-pill">Sales</span>
-							</div>
+				</div>
+				<div class="col-lg-3 col-sm-6 mb-4">
+					<div class="card border-0 shadow rounded-xs pt-5">
+						<div class="card-body">
+							<i class="bi bi-browser-edge icon-lg icon-orange icon-bg-orange icon-bg-circle mb-3"></i>
+							<h4 class="mt-4 mb-3">Usability Testing</h4>
+							<p id="TextCard">For what reason would it be advisable for me to think about business content?</p>
 						</div>
 					</div>
-
-					<div class="timeline-row">
-						<div class="timeline-content">
-							<p class="m-0">Loading...</p>
+				</div>
+				<div class="col-lg-3 col-sm-6 mb-4">
+					<div class="card border-0 shadow rounded-xs pt-5">
+						<div class="card-body">
+							<i class="bi bi-browser-edge icon-lg icon-blue icon-bg-blue icon-bg-circle mb-3"></i>
+							<h4 class="mt-4 mb-3">UX Prototyping</h4>
+							<p id="TextCard">For what reason would it be advisable for me to think about business content?</p>
 						</div>
 					</div>
-
 				</div>
 			</div>
-		</section>
+		</div>
 	</section>
 
 	<section>
-	</section>
-
-	<section>
-	</section>
-
-	<section>
+		
 	</section>
 
 </body>
