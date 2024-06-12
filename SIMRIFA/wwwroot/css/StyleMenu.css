@@ -1,44 +1,90 @@
 ﻿
+
 body {
     font-family: 'Source Sans Pro', sans-serif;
     background: #8ff1ff36;
-    position:center
 }
 
-.logo {
-    height: 40px !important;
-}
-
-Header {
-    background-color: #8ff1ffff;
+.ftco-navbar-light {
+    background: #8ff1ffff !important;
+    z-index: 1;
 }
 
 
-nav ul {
-    margin-right: 20px;
-}
-
-div ul li {
-    display: table-cell;
-    margin: 0 5px;
-}
-
-    div ul li a {
-        color: black;
-        font-size: 18px;
-        padding: 7px 13px;
-        border-radius: 15px;
-        text-transform: uppercase;
-        font-family: 'Source Sans Pro', sans-serif;
+@media (max-width: 991.98px) {
+    .ftco-navbar-light {
+        background: #8ff1ffff !important;
+        position: relative;
+        top: 0;
+        padding: 10px 15px;
     }
-        
-            div ul li a:hover {
-                background-clip: border-box !important;
-                transition: .1s;
-                border-block-end: groove;
-                border-block-start: groove;
-                color: #093137ff;
-            }
+
+    .logo {
+        height: 40px;
+    }
+}
+
+.ftco-navbar-light .navbar-nav > .nav-item > .nav-link {
+    font-size: 14px;
+    padding-top: 1.2rem;
+    padding-bottom: 1.2rem;
+    padding-left: 20px;
+    padding-right: 20px;
+    font-weight: 400;
+    color: black;
+    position: relative;
+    opacity: 1 !important;
+}
+
+    .ftco-navbar-light .navbar-nav > .nav-item > .nav-link:hover {
+        background-clip: border-box !important;
+        transition: .1s;
+        border-block-end: ridge;
+        color: #093137ff;
+    }
+
+
+.ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu {
+    border: none;
+    background: #8ff1ffff;
+    border-radius: 20px;
+    top: 80px;
+    width: auto;
+    position:center;
+}
+
+.ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item {
+        font-size: 12px;
+        color: black;
+        padding: 15px 20px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    }
+
+.ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item:hover, .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item:focus {
+            background-clip: border-box !important;
+            transition: .1s;
+            border-block-end: double;
+            color: white;
+            background: #093137ff;
+            width: 100%;
+        }
+
+
+.ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .text h3 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 0;
+    }
+
+.ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .text h3 a {
+            color: darkblue;
+        }
+
+.ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .text span {
+        font-size: 14px;
+        color: rgba(0, 0, 0, 0.2);
+    }
+
 
 
 

@@ -44,7 +44,7 @@
 			color: transparent;
 		}
 
-		.Section-rifa{
+		.Section-rifa {
 			background: #EDEDED;
 		}
 
@@ -116,12 +116,48 @@
 			flex: 1 1 auto;
 			padding: 1.5rem 1.5rem;
 		}
+
+
+		.navbar-brand > .navbar-brand-logo {
+			position: fixed;
+			transition: all 300ms ease 0ms;
+			z-index: 2000;
+			border-radius: 50%;
+			top: 6px;
+		
+		}
+
+		.navbar-brand > .navbar-brand-logo > #clientLogo{
+			width: 110px;
+			height: 110px;
+		}
+
+		@@media  screen and (max-width: 990px)
+		{
+			.navbar-brand > .navbar-brand-logo {
+				right: 72px;
+				transition: all 300ms ease 0ms;
+				z-index: 2000;
+				border-radius: 50%;
+				top: -5px;
+				
+			}
+
+			.navbar-brand > .navbar-brand-logo > #clientLogo {
+				width: 90px;
+				height: 90px;
+			}
+		}
+
 	</style>
 </head>
 
 <body>
+
+
+
 	<!-- ACA VA LA MARKA DE AGUA DE "PRUEBAS" quitar si se vende-->
-	<div class="confidential-watermark" style="position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);z-index: 9999;opacity: 0.05;pointer-events: none;">
+	<div class="confidential-watermark" style="position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);z-index: 1;opacity: 0.05;pointer-events: none;">
 		<p style="font-size: 3em;color: #383838;background: #fff;border-radius: 11px;padding: 9px;font-weight: bold;transform: rotate(-45deg);white-space: nowrap;">
 			SITIO WEB DE PRUEBAS
 		</p>
@@ -146,6 +182,14 @@
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="container">
+
+				<div class="navbar-brand">
+					<a class="navbar-brand-logo" href="#">
+						<img id="clientLogo" src="/Img/Empresa/tuLogoAqui.png" alt="Logo">
+					</a>
+				</div>
+
+
 				@*<strong class="h6 mb-0 font-weight-bold text-uppercase">Sticky navbar</strong>*@
 				<div class="collapse navbar-collapse" id="navbarNav">
 					<ul class="navbar-nav ml-auto">
