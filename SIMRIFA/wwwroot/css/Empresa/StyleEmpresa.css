@@ -2,6 +2,7 @@
 /*FONDO*/
 
 
+
 @media (max-width: 992px) {
     .timeline {
         padding: 15px;
@@ -157,7 +158,7 @@
 
 
 .services {
-   padding: 0px 0;
+    padding: 0px 0;
 }
 
 .title h2 {
@@ -387,7 +388,7 @@ h2 {
     .card:hover {
         transform: translateY(-20px);
         transition: 0.4s ease-out;
-        border-radius : 20px;
+        border-radius: 20px;
         border: double;
         border-color: aqua;
         background: #3682ff;
@@ -514,7 +515,84 @@ h2 {
 
 
 
+/*//////////////////*/
 
+#buttonWsp {
+    color: white;
+    border-radius: 50%;
+    height: 50px;
+    width: 20px;
+}
 
+.btn-flotante {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    transition: all 300ms ease 0ms;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    z-index: 99;
+    border-radius: 50%;
+}
 
+    .btn-flotante:hover {
+        box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.3);
+        transform: translateY(-7px);
+    }
 
+@media only screen and (max-width: 600px) {
+    .btn-flotante {
+        font-size: 14px;
+        bottom: 20px;
+        right: 20px;
+    }
+}
+
+.pulse {
+    height: 50px;
+    width: 50px;
+    background-color: green;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+}
+
+    .pulse::before {
+        content: "";
+        position: absolute;
+        border: 1px solid green;
+        width: calc(100% + 40px);
+        height: calc(100% + 40px);
+        border-radius: 50%;
+        animation: pulse 1s linear infinite;
+    }
+
+    .pulse::after {
+        position: absolute;
+        border: 1px solid green;
+        width: calc(100% + 40px);
+        height: calc(100% + 40px);
+        border-radius: 50%;
+        animation: pulse 1s linear infinite;
+        animation-delay: 0.3s;
+    }
+
+@keyframes pulse {
+
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1.3);
+        opacity: 0;
+    }
+}
