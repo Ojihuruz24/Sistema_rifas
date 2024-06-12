@@ -2,22 +2,11 @@
 body {
     font-family: 'Source Sans Pro', sans-serif;
     background: #8ff1ff36;
-}
-
-* {
-    box-sizing: border-box;
-}
-
-a {
-    color: #333;
+    position:center
 }
 
 .logo {
     height: 40px !important;
-}
-
-.text-small {
-    font-size: 0.9rem !important;
 }
 
 Header {
@@ -30,17 +19,18 @@ nav ul {
 }
 
 div ul li {
-    display: flex;
+    display: table-cell;
     margin: 0 5px;
 }
 
-        div ul li a  {
-            color: black;
-            font-size: 18px;
-            padding: 7px 13px;
-            border-radius: 15px;
-            text-transform: uppercase;
-        }
+    div ul li a {
+        color: black;
+        font-size: 18px;
+        padding: 7px 13px;
+        border-radius: 15px;
+        text-transform: uppercase;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
 
             div ul li a:hover {
                 background-clip: border-box !important;
