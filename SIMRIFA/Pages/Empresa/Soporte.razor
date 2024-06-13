@@ -1,0 +1,212 @@
+﻿@page "/Empresa/Soporte"
+@using MudBlazor;
+@using SIMRIFA.Componentes.Genericos
+@using SIMRIFA.Componentes.Rifas.Header
+@using SIMRIFA.Data;
+@inject IDialogService Dialog;
+@inject ISnackbar Snackbar;
+
+<html>
+<head>
+	@*<link rel="stylesheet" href="/css/Empresa/StyleEmpresa.css">*@
+
+
+	<style>
+		.contact3 {
+			font-family: "Montserrat", sans-serif;
+			color: #8d97ad;
+			font-weight: 300;
+		}
+
+			.contact3 h1,
+			.contact3 h2,
+			.contact3 h3,
+			.contact3 h4,
+			.contact3 h5,
+			.contact3 h6 {
+				color: #3e4555;
+			}
+
+			.contact3 .font-weight-medium {
+				font-weight: 500;
+			}
+
+			.contact3 .card-shadow {
+				-webkit-box-shadow: 0px 0px 30px rgba(115, 128, 157, 0.1);
+				box-shadow: 0px 0px 30px rgba(115, 128, 157, 0.1);
+			}
+
+			.contact3 .btn-danger-gradiant {
+				background: #ff4d7e;
+				background: -webkit-linear-gradient(legacy-direction(to right), #ff4d7e 0%, #ff6a5b 100%);
+				background: -webkit-gradient(linear, left top, right top, from(#ff4d7e), to(#ff6a5b));
+				background: -webkit-linear-gradient(left, #ff4d7e 0%, #ff6a5b 100%);
+				background: -o-linear-gradient(left, #ff4d7e 0%, #ff6a5b 100%);
+				background: linear-gradient(to right, #ff4d7e 0%, #ff6a5b 100%);
+			}
+
+				.contact3 .btn-danger-gradiant:hover {
+					background: #ff6a5b;
+					background: -webkit-linear-gradient(legacy-direction(to right), #ff6a5b 0%, #ff4d7e 100%);
+					background: -webkit-gradient(linear, left top, right top, from(#ff6a5b), to(#ff4d7e));
+					background: -webkit-linear-gradient(left, #ff6a5b 0%, #ff4d7e 100%);
+					background: -o-linear-gradient(left, #ff6a5b 0%, #ff4d7e 100%);
+					background: linear-gradient(to right, #ff6a5b 0%, #ff4d7e 100%);
+				}
+
+	</style>
+</head>
+
+<body>
+	<HeaderTexto Texto="Soporte"></HeaderTexto>
+
+
+	<section class="container">
+	</section>
+
+	<section id="SistemaRifas">
+	</section>
+
+	<section id="SistemaTicket">
+		<div class="container">
+			<MudGrid Justify="Justify.Center" Spacing="3" Style="align-items:center">
+				<MudItem sm="12" lg="6" xl="6">
+					<div class="card-shadow">
+						<img src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/contact/2.jpg" class="img-fluid">
+					</div>
+				</MudItem>
+				<MudItem sm="12" lg="6" xl="6">
+					<div class="contact-box ml-3">
+						<h1 class="font-weight-light mt-2">Contactanos</h1>
+						<MudForm>
+							<MudTextField T="string" Label="Nombre" Required="true" RequiredError="Nombre requerido" Variant="Variant.Text" />
+							<MudTextField T="string" Label="Correo" Required="true" RequiredError="Correo requerido" Variant="Variant.Text" />
+							<MudTextField T="string" Label="Telefono" Required="true" RequiredError="Telefono requerido" Variant="Variant.Text" />
+							<MudTextField T="string" Label="Mensaje" Required="true" RequiredError="Mensaje requerido" Variant="Variant.Text" Lines="3" />
+						</MudForm>
+					</div>
+					<br />
+					<MudFileUpload T="IBrowserFile" Accept=".pdf" FilesChanged="UploadFiles2" MaximumFileCount="100">
+						<ButtonTemplate>
+							<MudFab HtmlTag="label"
+									Color="Color.Success"
+									Icon="@Icons.Material.Filled.AttachFile"
+									Size="Size.Small"
+		 for="@context.Id" />
+						</ButtonTemplate>
+					</MudFileUpload>
+
+					@if (files != null)
+					{
+						<MudText Typo="@Typo.h6">@files.Count() File@(files.Count() == 1 ? "" : "s"):</MudText>
+						<MudList>
+							@foreach (var file in files)
+							{
+								<MudListItem Icon="@Icons.Material.Filled.AttachFile" @key="@file">
+									@file.Name <code>@file.Size bytes</code>
+								</MudListItem>
+							}
+						</MudList>
+					}
+
+
+					<MudButton OnClick="@Clear"
+							   Variant="Variant.Filled"
+							   Color="Color.Surface"
+							   StartIcon="@Icons.Material.Filled.Clear" Size="Size.Small">
+					</MudButton>
+					<MudButton Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small">Enviar</MudButton>
+				</MudItem>
+
+				<MudItem sm="12" lg="12" xl="12">
+					<div class="card mt-4 border-0 mb-4">
+						<div class="row">
+							<div class="col-lg-4 col-md-4">
+								<div class="card-body d-flex align-items-center c-detail pl-0">
+									<div class="mr-3 align-self-center">
+										<img src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/contact/icon1.png">
+									</div>
+									<div class="">
+										<h6 class="font-weight-medium">Direccion</h6>
+										<p class="">
+											Rionegro- Antioquia.
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4">
+								<div class="card-body d-flex align-items-center c-detail">
+									<div class="mr-3 align-self-center">
+										<img src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/contact/icon2.png">
+									</div>
+									<div class="">
+										<h6 class="font-weight-medium">Telefonos</h6>
+										<p class="">
+											311 363 33 71
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-4 col-md-4">
+								<div class="card-body d-flex align-items-center c-detail">
+									<div class="mr-3 align-self-center">
+										<img src="https://www.wrappixel.com/demos/ui-kit/wrapkit/assets/images/contact/icon3.png">
+									</div>
+									<div class="">
+										<h6 class="font-weight-medium">Correo</h6>
+										<p class="">
+											techminds247@gmail.com
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</MudItem>
+				<MudItem></MudItem>
+			</MudGrid>
+		</div>
+	</section>
+
+	<section class="contact3 py-5">
+	</section>
+
+</body>
+</html>
+
+@code {
+
+	@inject MenuState MenuState;
+
+
+
+	protected override void OnInitialized()
+	{
+		MenuState.SetMenuVisibility(true);
+	}
+
+
+	IList<IBrowserFile> files = new List<IBrowserFile>();
+
+	private void UploadFiles2(IBrowserFile file)
+	{
+		Snackbar.Clear();
+		Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
+
+		if (!file.Name.EndsWith(".pdf"))
+		{
+			Snackbar.Add("Extension no permitida", Severity.Error);
+			return;
+		}
+
+		Snackbar.Add("Subido exitosamente", Severity.Success);
+		files.Add(file);
+	}
+
+	private async Task Clear()
+	{
+		files.Clear();
+		await Task.Delay(100);
+	}
+
+}

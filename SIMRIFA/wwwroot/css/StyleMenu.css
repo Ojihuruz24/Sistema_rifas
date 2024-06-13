@@ -1,19 +1,23 @@
 ﻿
 
+
 body {
     font-family: 'Source Sans Pro', sans-serif;
-    background: #8ff1ff36;
+    /*background: #8ff1ff36;*/
+    background-image: linear-gradient(to left,#729CCC,#8ff1ff36);
+    /*background-image: url("../Img/EMPRESA/background.png");*/
+    /*background-size: contain;*/
 }
 
 .ftco-navbar-light {
-    background: #8ff1ffff !important;
+    background-image: linear-gradient(to left,#8ff1ffff,#8ff1ff36);
     z-index: 1;
 }
 
 
 @media (max-width: 991.98px) {
     .ftco-navbar-light {
-        background: #8ff1ffff !important;
+        background-image: linear-gradient(to left,#8ff1ffff,#8ff1ff36);
         position: relative;
         top: 0;
         padding: 10px 15px;
@@ -40,17 +44,17 @@ body {
         background-clip: border-box !important;
         transition: .1s;
         border-block-end: ridge;
-        color: #093137ff;
+        background-image: linear-gradient(to left,#8ff1ffff,#8ff1ff36);
     }
 
 
 .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu {
     border: none;
-    background: #8ff1ffff;
+    background-image: linear-gradient(to left,#8ff1ffff,#8ff1ff36);
     border-radius: 20px;
     top: 80px;
     width: auto;
-    position:center;
+    position: center;
 }
 
 .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item {
@@ -60,14 +64,13 @@ body {
         border-bottom: 1px solid rgba(0, 0, 0, 0.1);
     }
 
-.ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item:hover, .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item:focus {
-            background-clip: border-box !important;
-            transition: .1s;
-            border-block-end: double;
-            color: white;
-            background: #093137ff;
-            width: 100%;
-        }
+    .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item:hover, .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .dropdown-item:focus {
+        background-clip: border-box !important;
+        transition: .1s;
+        border-block-end: double;
+        background-image: linear-gradient(to left,#8ff1ffff,#8ff1ff36);
+        width: 100%;
+    }
 
 
 .ftco-navbar-light .navbar-nav > .nav-item .dropdown-menu .text h3 {

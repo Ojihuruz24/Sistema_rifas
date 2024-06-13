@@ -1,0 +1,39 @@
+﻿
+<html>
+	<head>
+		<style>
+		#Banner1 {
+			/*background-image: linear-gradient(to right top,#8ff1ffff,#d7faffff)*/
+			background: url(/img/empresa/header.png)center center / cover no-repeat;
+		}
+
+		#text {
+			color: darkblue;
+			font-family: cursive;
+		}
+
+	</style>
+	</head>
+	<body>
+	<section id="Banner1" class="text-center">
+		<div class="container py-5">
+			<header class="py-1">
+				<h1 class="display-4"><b style="color: dodgerblue">OsdagupO</b> </h1>
+				<h4 id="text">@Texto</h4>
+			</header>
+		</div>
+	</section>
+
+
+   <br />
+   <br />
+
+	</body>
+</html>
+
+@code {
+
+	[Parameter]
+	public string Texto { get; set; }
+
+}

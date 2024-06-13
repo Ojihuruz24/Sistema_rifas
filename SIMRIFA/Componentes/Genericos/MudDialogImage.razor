@@ -1,0 +1,27 @@
+﻿@using MudBlazor
+
+
+<MudDialog>
+    <DialogContent>
+        <MudImageGeneric Fluid=@Fluid Alt="@Alt" urlImageCupones1="@urlImageCupones1"></MudImageGeneric>
+    </DialogContent>
+</MudDialog>
+
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    [Parameter]
+    public string urlImageCupones1 { get; set; } = "...";
+
+    [Parameter]
+    public bool Fluid { get; set; } = true;
+
+    [Parameter]
+    public string Alt { get; set; } = string.Empty;
+
+
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(true));
+    void Cancel() => MudDialog.Cancel();
+}

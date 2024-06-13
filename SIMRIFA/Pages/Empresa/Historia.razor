@@ -1,0 +1,428 @@
+﻿@page "/Empresa/Historia"
+@using MudBlazor;
+@using SIMRIFA.Componentes.Genericos
+@using SIMRIFA.Componentes.Rifas.Header
+@using SIMRIFA.Data;
+
+
+<html>
+<head>
+	<link rel="stylesheet" href="/css/Empresa/StyleEmpresa.css">
+
+
+	<style>
+		.timeline {
+			position: relative;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			padding: 5rem;
+			margin: 0 auto 1rem auto;
+			overflow: hidden;
+		}
+
+			.timeline:after {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 50%;
+				margin-left: -2px;
+				border-right: 2px dashed #4b546f;
+				height: 100%;
+				display: block;
+			}
+
+		.timeline-row {
+			padding-left: 50%;
+			position: relative;
+			margin-bottom: 30px;
+		}
+
+			.timeline-row .timeline-time {
+				position: absolute;
+				right: 50%;
+				top: 15px;
+				text-align: right;
+				margin-right: 20px;
+				color: #1C51DF;
+				font-size: 2rem;
+			}
+
+				.timeline-row .timeline-time small {
+					display: block;
+					font-size: 1rem;
+				}
+
+			.timeline-row .timeline-content {
+				position: relative;
+				padding: 20px 30px;
+				/*background: grey;*/
+				background: linear-gradient(120deg, #8FD8EF 0%, #578492 100%);
+				-webkit-border-radius: 4px;
+				-moz-border-radius: 4px;
+				border-radius: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				text-align: center;
+				color: white;
+			}
+
+				.timeline-row .timeline-content:after {
+					content: "";
+					position: absolute;
+					top: 20px;
+					height: 16px;
+					width: 16px;
+					background: #1a233a;
+				}
+
+				.timeline-row .timeline-content:before {
+					content: "";
+					position: absolute;
+					top: 20px;
+					right: -49px;
+					width: 20px;
+					height: 20px;
+					-webkit-border-radius: 100px;
+					-moz-border-radius: 100px;
+					border-radius: 100px;
+					z-index: 10;
+					background: #272e48;
+					border: 2px dashed #4b546f;
+				}
+
+				.timeline-row .timeline-content h4 {
+					margin: 0 0 20px 0;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					line-height: 150%;
+				}
+
+				.timeline-row .timeline-content p {
+					margin-bottom: 30px;
+					line-height: 150%;
+				}
+
+				.timeline-row .timeline-content i {
+					font-size: 1.2rem;
+					line-height: 100%;
+					padding: 15px;
+					-webkit-border-radius: 100px;
+					-moz-border-radius: 100px;
+					border-radius: 100px;
+					background: #272e48;
+					margin-bottom: 10px;
+					display: inline-block;
+				}
+
+				.timeline-row .timeline-content .thumbs {
+					margin-bottom: 20px;
+					display: flex;
+				}
+
+					.timeline-row .timeline-content .thumbs img {
+						margin: 5px;
+						max-width: 60px;
+					}
+
+				.timeline-row .timeline-content .badge {
+					color: #ffffff;
+					background: linear-gradient(120deg, #00b5fd 0%, #0047b1 100%);
+				}
+
+			.timeline-row:nth-child(even) .timeline-content {
+				margin-left: 40px;
+				text-align: left;
+			}
+
+				.timeline-row:nth-child(even) .timeline-content:after {
+					left: -8px;
+					right: initial;
+					border-bottom: 0;
+					border-left: 0;
+					transform: rotate(-135deg);
+				}
+
+				.timeline-row:nth-child(even) .timeline-content:before {
+					left: -52px;
+					right: initial;
+				}
+
+			.timeline-row:nth-child(odd) {
+				padding-left: 0;
+				padding-right: 50%;
+			}
+
+				.timeline-row:nth-child(odd) .timeline-time {
+					right: auto;
+					left: 50%;
+					text-align: left;
+					margin-right: 0;
+					margin-left: 20px;
+				}
+
+				.timeline-row:nth-child(odd) .timeline-content {
+					margin-right: 40px;
+				}
+
+					.timeline-row:nth-child(odd) .timeline-content:after {
+						right: -8px;
+						border-left: 0;
+						border-bottom: 0;
+						transform: rotate(45deg);
+					}
+
+		@@media (max-width: 992px) {
+			.timeline {
+				padding: 15px;
+			}
+
+				.timeline:after {
+					border: 0;
+				}
+
+				.timeline .timeline-row:nth-child(odd) {
+					padding: 0;
+				}
+
+					.timeline .timeline-row:nth-child(odd) .timeline-time {
+						position: relative;
+						top: 0;
+						left: 0;
+						margin: 0 0 10px 0;
+					}
+
+					.timeline .timeline-row:nth-child(odd) .timeline-content {
+						margin: 0;
+					}
+
+						.timeline .timeline-row:nth-child(odd) .timeline-content:before {
+							display: none;
+						}
+
+						.timeline .timeline-row:nth-child(odd) .timeline-content:after {
+							display: none;
+						}
+
+				.timeline .timeline-row:nth-child(even) {
+					padding: 0;
+				}
+
+					.timeline .timeline-row:nth-child(even) .timeline-time {
+						position: relative;
+						top: 0;
+						left: 0;
+						margin: 0 0 10px 0;
+						text-align: left;
+					}
+
+					.timeline .timeline-row:nth-child(even) .timeline-content {
+						margin: 0;
+					}
+
+						.timeline .timeline-row:nth-child(even) .timeline-content:before {
+							display: none;
+						}
+
+						.timeline .timeline-row:nth-child(even) .timeline-content:after {
+							display: none;
+						}
+		}
+	</style>
+</head>
+
+<body>
+	<HeaderTexto Texto="Historia"></HeaderTexto>
+
+	<section class="container">
+		<MudGrid Spacing="3" Justify="Justify.Center" Style="align-items:center">
+			<MudItem sm="12" lg="6" xl="6">
+				<div class="justify-content-center">
+					<div class="text-center">
+						<h3 class="mb-3">Nuestra historia</h3>
+						<h6 class="subtitle font-weight-normal">
+							En <b>OsdagupO</b> , nos especializamos en desarrollar soluciones web a medida que impulsan el éxito de nuestros clientes.
+							Con un enfoque centrado en la innovación y la calidad, nuestro equipo de expertos trabaja estrechamente con cada cliente para crear
+							páginas web que no solo se vean bien, sino que también ofrezcan una experiencia de usuario excepcional y cumplan con los objetivos
+							de negocio específicos. Desde sitios web corporativos hasta plataformas de comercio electrónico, nos dedicamos a entregar proyectos
+							que superen las expectativas y establezcan una presencia digital sólida y efectiva. <br />
+
+						</h6>
+					</div>
+				</div>
+			</MudItem>
+			<MudItem sm="12" lg="6" xl="6">
+				<figure style="width:500px">
+					<MudImageGeneric Fluid="true" Alt="Nosotros" urlImageCupones1="img/EMPRESA/historia.png"></MudImageGeneric>
+				</figure>
+				@*<figure><img src="img/EMPRESA/nosotros.png" alt="#" style="width: 500px;" /></figure>*@
+			</MudItem>
+		</MudGrid>
+	</section>
+
+	<section id="Historia">
+		<div class="container">
+			<div class="row justify-content-center">
+				<!-- section title -->
+				<div class="col-xl-6 col-lg-8">
+					<div class="title text-center">
+						<h2>Historia...</h2>
+						<p>
+							La empresa surgio por la necesidad de sistematizar procesos y poder facilitar herramientas de uso cotidiano por las personas
+						</p>
+						<div class="border"></div>
+					</div>
+				</div>
+				<!-- /section title -->
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="timeline">
+
+				<div class="timeline-row">
+					<div class="timeline-time">
+						2019<small>Idea</small>
+					</div>
+					<div class="timeline-content">
+						<i class="icon-turned_in_not"></i>
+						<h4>Vision y Mision</h4>
+						<p>
+							En OsdagupO surgió para revolucionar la forma en que las empresas interactúan con el mundo digital.
+							Nos especializamos en crear páginas web intuitivas y sistematizar procesos, facilitando a nuestros
+							clientes una transición suave hacia la era digital. Nuestra pasión por la tecnología y la eficiencia
+							nos impulsa a ofrecer soluciones que no solo satisfacen las necesidades actuales, sino que también
+							se adaptan al futuro del comercio y la comunicación en línea.
+						</p>
+					</div>
+				</div>
+
+				<div class="timeline-row">
+					<div class="timeline-time">
+						2020<small>Web</small>
+					</div>
+					<div class="timeline-content">
+						<i class="icon-attachment"></i>
+						<h4>OsdagupO</h4>
+						<p>
+							Nació de la necesidad de conectar a las empresas con el mundo digital. Nos dedicamos
+							a crear sitios web que no solo lucen increíbles, sino que también funcionan a la perfección, ayudando a
+							nuestros clientes a alcanzar sus metas en línea.
+						</p>
+						<div class="thumbs">
+							<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Maxwell Admin">
+						</div>
+						<div class="">
+							<span class="badge badge-pill">Dayan Agudelo Patiño</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="timeline-row">
+					<div class="timeline-time">
+						2021<small>Primer servicio</small>
+					</div>
+					<div class="timeline-content">
+						<i class="icon-code"></i>
+						<h4>
+							Sistema de sorteos <br />
+						</h4>
+						<p>
+							En OsdagupO, ofrecemos un servicio web especializado en la gestión y realización de sorteos en línea.
+							Nuestra plataforma está diseñada para garantizar un proceso transparente y eficiente,
+							desde la creación del sorteo hasta el usuario final.
+							Con una interfaz intuitiva y fácil de usar, nuestros clientes pueden lanzar sus campañas de
+							sorteos con confianza, sabiendo que cuentan con el soporte de una tecnología segura y confiable.
+							Asegurando la máxima satisfacción y cumplimiento de las regulaciones pertinentes.
+						</p>
+						<div class="thumbs">
+							<div class="thumbs">
+								<span class="badge badge-pill">Sorteos</span>
+								<span class="badge badge-pill">Correo</span>
+								<span class="badge badge-pill">Pagos online</span>
+								<span class="badge badge-pill">Seguridad</span>
+								@*<img class="img-fluid rounded" src="/Img/Empresa/logo.png" alt="Maxwell Admin">*@
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="timeline-row">
+					<div class="timeline-time">
+						2022<small>Segundo servicio</small>
+					</div>
+					<div class="timeline-content">
+						<i class="icon-directions"></i>
+						<h4>Eventos</h4>
+						<p>
+							En OsdagupO, nos enorgullecemos de ofrecer un servicio de tickets online avanzado con
+							tecnología de lectura QR. Nuestra solución permite a los usuarios adquirir entradas de manera rápida
+							y segura, y acceder a eventos con solo escanear un código QR. Este sistema no solo agiliza el proceso
+							de entrada, sino que también mejora la seguridad y reduce las posibilidades de fraude
+						</p>
+						<div>
+							<span class="badge badge-pill">Tikcets</span>
+							<span class="badge badge-pill">Entradas</span>
+							<span class="badge badge-pill">Pagos online</span>
+							<span class="badge badge-pill">Seguridad</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="timeline-row">
+					<div class="timeline-time">
+						2023<small>Nuestro primer socio</small>
+					</div>
+					<div class="timeline-content">
+						<i class="icon-change_history"></i>
+						<h4>SIM</h4>
+						<p class="no-margin">
+							Empresa que se especializa en hacer tu vida más fácil. Imagina un mundo donde los tediosos
+							trámites de compra de SOAT, revisión técnico-mecánica y otros servicios vehiculares
+							se resuelvan de manera rápida y sin estrés. ¡Ese mundo es posible con nosotros!
+						</p>
+						<div class="thumbs">
+							<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Maxwell Admin">
+							<img class="img-fluid rounded" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="Maxwell Admin">
+
+						</div>
+						<div>
+							<span class="badge badge-pill">CEO SIM</span>
+							<span class="badge badge-pill">CEO OsdagupO</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="timeline-row">
+					<div class="timeline-time">
+						2024<small>Enero 01</small>
+					</div>
+					<div class="timeline-content">
+						<p class="m-0">Loading...</p>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<section id="Nuestros_clientes">
+	</section>
+
+</body>
+</html>
+
+
+
+@code {
+
+	@inject MenuState MenuState;
+
+	protected override void OnInitialized()
+	{
+		MenuState.SetMenuVisibility(true);
+	}
+}

@@ -1,0 +1,194 @@
+﻿@page "/Empresa/NuestrosClientes"
+@using MudBlazor;
+@using SIMRIFA.Componentes.Genericos
+@using SIMRIFA.Componentes.Rifas.Header
+@using SIMRIFA.Data;
+@inject IDialogService Dialog;
+
+<html>
+<head>
+	@*<link rel="stylesheet" href="/css/Empresa/StyleEmpresa.css">*@
+
+
+	<style>
+		h2 {
+			color: black;
+			margin-bottom: 40px;
+			text-align: center;
+			font-weight: 100;
+		}
+
+		/************************/
+
+		.ekko-lightbox-nav-overlay a {
+			color: red;
+		}
+
+		.gallery-title {
+			text-align: center;
+			font-weight: 500;
+			border-bottom: 1px dotted blue;
+			margin-top: 1em;
+		}
+
+		.card {
+			height: 250px;
+			width: 100%;
+			border-radius: 20px;
+			background: #A0C7F3;
+		}
+
+			.card:hover {
+				transform: translateY(-10px);
+				transition: 0.4s ease-out;
+				border-radius: 20px;
+				border: double;
+				border-color: blue;
+				background: #99BEE8;
+				color: white;
+			}
+	</style>
+</head>
+
+<body>
+	<HeaderTexto Texto="Nuestros clientes"></HeaderTexto>
+	<section class="container">
+		<MudGrid Spacing="3" Justify="Justify.Center" Style="align-items:center">
+			<MudItem sm="12" lg="6" xl="6">
+				<div class="justify-content-center">
+					<div class="text-center">
+						<h3 class="mb-3">Nuestros clientes</h3>
+						<h6 class="subtitle font-weight-normal">
+							En <b>OsdagupO</b>, nos enorgullecemos de servir a una diversa clientela
+							que abarca desde emprendedores individuales hasta grandes corporaciones. Nuestros clientes eligen nuestros servicios por la fiabilidad,
+							innovación y soporte técnico excepcional que ofrecemos. Son profesionales que valoran la eficiencia, la seguridad y la
+							facilidad de uso en sus soluciones de tickets y sorteos en línea. Con un enfoque en la satisfacción del cliente,
+							trabajamos incansablemente para asegurar que cada interacción y transacción en nuestra plataforma sea fluida y
+							segura, reflejando el compromiso de nuestros clientes con la excelencia en sus propios eventos y actividades. <br />
+
+						</h6>
+					</div>
+				</div>
+			</MudItem>
+			<MudItem sm="12" lg="6" xl="6">
+				<figure style="width:500px">
+					<MudImageGeneric Fluid="true" Alt="Nosotros" urlImageCupones1="img/EMPRESA/LogoNuestroClientes.png"></MudImageGeneric>
+				</figure>
+			</MudItem>
+		</MudGrid>
+	</section>
+
+	<section id="SistemaRifas">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<h3 class="gallery-title">CLIENTES SORTEOS</h3>
+					<div class="row">
+						<a class="col-lg-3 col-md-4 col-6 my-3" >
+							<img src="@RutaImagen2" class="img-fluid card">
+							<MudButton id="card" FullWidth=true Color=Color.Primary OnClick="((e) => OpneModal(RutaImagen1))">VER</MudButton>
+						</a>
+						<a data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3">
+							<img src="@RutaImagen2" class="img-fluid card">
+							<MudButton FullWidth=true Color=Color.Primary OnClick="((e) => OpneModal(RutaImagen2))">VER</MudButton>
+						</a>
+						<a data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3">
+							<img src="@RutaImagen3" class="img-fluid card">
+							<MudButton id="buttonVer" FullWidth=true Color=Color.Primary OnClick="((e) => OpneModal(RutaImagen3))">VER</MudButton>
+						</a>
+
+						<a data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3">
+							<img src="@RutaImagen3" class="img-fluid card">
+							<MudButton FullWidth=true Color=Color.Primary OnClick="((e) => OpneModal(RutaImagen3))">VER</MudButton>
+						</a>
+
+						<a data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3">
+							<img src="@RutaImagen3" class="img-fluid card">
+							<MudButton FullWidth=true Color=Color.Primary OnClick="((e) => OpneModal(RutaImagen3))">VER</MudButton>
+						</a>
+
+						<a data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3">
+							<img src="@RutaImagen3" class="img-fluid card">
+							<MudButton FullWidth=true Color=Color.Primary OnClick="((e) => OpneModal(RutaImagen3))">VER</MudButton>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section id="SistemaTicket">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<h3 class="gallery-title">CLIENTES SORTEOS</h3>
+					<div class="row">
+						<a class="col-lg-3 col-md-4 col-6 my-3">
+							<img src="@RutaImagen1" class="img-fluid card">
+							<MudButton id="card" FullWidth=true Color=Color.Primary OnClick="((e) => OpneModal(RutaImagen1))">VER</MudButton>
+						</a>
+						<a data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3">
+							<img src="@RutaImagen2" class="img-fluid card">
+							<MudButton FullWidth=true Color=Color.Primary OnClick="((e) => OpneModal(RutaImagen2))">VER</MudButton>
+						</a>
+						<a data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3">
+							<img src="@RutaImagen3" class="img-fluid card">
+							<MudButton id="buttonVer" FullWidth=true Color=Color.Primary OnClick="((e) => OpneModal(RutaImagen3))">VER</MudButton>
+						</a>
+
+						<a data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3">
+							<img src="@RutaImagen3" class="img-fluid card">
+							<MudButton FullWidth=true Color=Color.Primary OnClick="((e) => OpneModal(RutaImagen3))">VER</MudButton>
+						</a>
+
+						<a data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3">
+							<img src="@RutaImagen3" class="img-fluid card">
+							<MudButton FullWidth=true Color=Color.Primary OnClick="((e) => OpneModal(RutaImagen3))">VER</MudButton>
+						</a>
+
+						<a data-toggle="lightbox" data-gallery="example-gallery" class="col-lg-3 col-md-4 col-6 my-3">
+							<img src="@RutaImagen3" class="img-fluid card">
+							<MudButton FullWidth=true Color=Color.Primary OnClick="((e) => OpneModal(RutaImagen3))">VER</MudButton>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+	<section>
+	</section>
+
+</body>
+</html>
+
+@code {
+
+	@inject MenuState MenuState;
+
+
+	public string RutaImagen1 = "/img/empresa/logonuestroclientes.png";
+	public string RutaImagen2 = "/img/empresa/logonuestroclientes.png";
+	public string RutaImagen3 = "/img/empresa/logonuestroclientes.png";
+
+	protected override void OnInitialized()
+	{
+		MenuState.SetMenuVisibility(true);
+	}
+
+	public async Task OpneModal(string rutaUrl)
+	{
+		var parameters = new DialogParameters<MudDialogImage>();
+		parameters.Add(x => x.Alt, "imagen de prueba");
+		parameters.Add(x => x.urlImageCupones1, rutaUrl);
+		parameters.Add(x => x.Fluid, true);
+
+		DialogOptions dialogOptions = new DialogOptions()
+			{
+				DisableBackdropClick = true,
+				CloseButton = true
+			};
+
+		Dialog.Show<MudDialogImage>(string.Empty, parameters, dialogOptions);
+	}
+}
