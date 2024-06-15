@@ -7,81 +7,238 @@
 
 
 <html>
-	<head>
-		<style>
+<head>
+	<style>
+		.card {
+			border-radius: 5px;
+			box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.12);
+			border: none;
+			margin-bottom: 30px;
+		}
 
-		
+		.profile-card {
+			position: relative;
+		}
 
-		</style>
-	</head>
+			.profile-card .card-block {
+				text-align: center;
+				color: #fff;
+				position: absolute;
+				bottom: 0;
+				text-align: center;
+				width: 100%;
+				background: linear-gradient(transparent, rgba(0,0,0,0.72));
+			}
+
+		.card-block {
+			padding: 1.25rem;
+		}
+
+		.card .card-block p {
+			line-height: 25px;
+		}
+
+		@@media only screen and (min-width: 1400px) {
+			p {
+				font-size: 14px;
+			}
+		}
+
+		p {
+			font-size: 13px;
+		}
+
+		.btn-info {
+			background-color: #62d1f3;
+			border-color: #62d1f3;
+			color: #fff;
+			cursor: pointer;
+			transition: all ease-in 0.3s;
+		}
+
+		.btn {
+			border-radius: 10px;
+			text-transform: capitalize;
+			font-size: 15px;
+			padding: 10px 19px;
+			cursor: pointer;
+		}
+
+			.btn:hover {
+				border-radius: 10px;
+				text-transform: capitalize;
+				font-size: 15px;
+				padding: 10px 19px;
+				cursor: pointer;
+				color: white;
+				background-color: #4BA2BC;
+				border-color: #4BA2BC;
+			}
+
+		.card .card-footer {
+			background-color: #fff;
+			border-top: none;
+		}
+
+		.profile-card ~ .card-footer {
+			padding: 0;
+		}
+
+		.bg-inverse {
+			background-color: #1a1b1d !important;
+			color: #fff;
+		}
+
+	</style>
+</head>
 <body>
-	
+
 	<HeaderTexto Texto="Nuestros sorteos"></HeaderTexto>
 
-<section class="container-fluid">
-		<MudStack Row="true" Wrap="Wrap.Wrap" Spacing="5">
-			<MudCard>
-				<MudCardMedia Image="img/SOAT.png" />
-				<MudCardContent>
-					<MudText Typo="Typo.h5">Sorteo de cupones</MudText>
-					<MudText Typo="Typo.body2">Compra cupones con descuento Por los numeros de</MudText>
-					<MudText Typo="Typo.body2">cupones comprados regalaremos un premio mayor</MudText>
-					<MudText Typo="Typo.body2"></MudText>
-				</MudCardContent>
-				<MudCardActions>
-					<MudButton Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas01" Color="Color.Primary">Ver demo</MudButton>
-				</MudCardActions>
-			</MudCard>
+	<section class="container">
+		<div class="row">
+			<div class="col-md-6 col-xl-4">
+				<div class="card borderless-card">
+					<div class="profile-card">
+						<img class="img-fluid" src="img/SOAT.png" alt="">
+						<div class="card-block">
+							<h3>Diseño</h3>
+							<p>pagina de rifas</p>
+							<MudButton class="btn btn-info" Variant="Variant.Filled" StartIcon="@Icons.Material.Rounded.Pageview" Href="/Empresa/Sorteos/Rifas01">Ver demo</MudButton>
+						</div>
+					</div>
+					<div class="card-footer bg-inverse">
+						<div class="row text-center">
+							<div class="col-sm-4">
+								<h4>
+									<MudIcon Icon="@Icons.Material.Outlined.Security" Size="Size.Small" Title="Seguridad" />
+								</h4>
+								<span>Seguridad</span>
+							</div>
+							<div class="col-sm-4">
+								<h4>
+									<MudIcon Icon="@Icons.Material.Outlined.Payment" Size="Size.Small" Title="Pagos online" />
+								</h4>
+								<span>Pagos online</span>
+							</div>
+							<div class="col-sm-4">
+								<h4>
+									<MudIcon Icon="@Icons.Material.Outlined.MarkEmailRead" Size="Size.Small" Title="Correo" />
+								</h4>
+								<span>Correo</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-			<MudCard>
-				<MudCardMedia Image="img/TECNO.png" Height="200" />
-				<MudCardContent>
-					<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
-					<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
-					<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
-				</MudCardContent>
-				<MudCardActions>
-					<MudButton Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas02" Color="Color.Primary">Ver demo</MudButton>
-				</MudCardActions>
-			</MudCard>
-			<MudCard>
-				<MudCardMedia Image="img/TECNO.png" Height="200" />
-				<MudCardContent>
-					<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
-					<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
-					<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
-				</MudCardContent>
-				<MudCardActions>
-					<MudButton Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas03" Color="Color.Primary">Ver demo</MudButton>
-				</MudCardActions>
-			</MudCard>
+			<div class="col-md-6 col-xl-4">
+				<div class="card borderless-card">
+					<div class="profile-card">
+						<img class="img-fluid" src="img/TECNO.png" alt="">
+						<div class="card-block">
+							<h3>Diseño</h3>
+							<p>pagina de rifas</p>
+							<MudButton class="btn btn-info" Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas02">Ver demo</MudButton>
+						</div>
+					</div>
+					<div class="card-footer bg-inverse">
+						<div class="row text-center">
+							<div class="col-sm-4">
+								<h4>
+									<MudIcon Icon="@Icons.Material.Outlined.Security" Size="Size.Small" Title="Seguridad" />
+								</h4>
+								<span>Seguridad</span>
+							</div>
+							<div class="col-sm-4">
+								<h4>
+									<MudIcon Icon="@Icons.Material.Outlined.Payment" Size="Size.Small" Title="Pagos online" />
+								</h4>
+								<span>Pagos online</span>
+							</div>
+							<div class="col-sm-4">
+								<h4>
+									<MudIcon Icon="@Icons.Material.Outlined.MarkEmailRead" Size="Size.Small" Title="Correo" />
+								</h4>
+								<span>Correo</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-			<MudCard>
-				<MudCardMedia Image="img/tiporifas/rifa04_imagen.png" Height="200" />
-				<MudCardContent>
-					<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
-					<MudText Typo="Typo.body2">Tienes la oportunidad de escoger tus numeros</MudText>
-					<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
-				</MudCardContent>
-				<MudCardActions>
-					<MudButton Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas04" Color="Color.Primary">Ver demo</MudButton>
-				</MudCardActions>
-			</MudCard>
+			<div class="col-md-6 col-xl-4">
+				<div class="card borderless-card">
+					<div class="profile-card">
+						<img class="img-fluid" src="img/TECNO.png" alt="">
+						<div class="card-block">
+							<h3>Diseño</h3>
+							<p>pagina de rifas</p>
+							<MudButton class="btn btn-info" Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas03">Ver demo</MudButton>
+						</div>
+					</div>
+					<div class="card-footer bg-inverse">
+						<div class="row text-center">
+							<div class="col-sm-4">
+								<h4>
+									<MudIcon Icon="@Icons.Material.Outlined.Security" Size="Size.Small" Title="Seguridad" />
+								</h4>
+								<span>Seguridad</span>
+							</div>
+							<div class="col-sm-4">
+								<h4>
+									<MudIcon Icon="@Icons.Material.Outlined.Payment" Size="Size.Small" Title="Pagos online" />
+								</h4>
+								<span>Pagos online</span>
+							</div>
+							<div class="col-sm-4">
+								<h4>
+									<MudIcon Icon="@Icons.Material.Outlined.MarkEmailRead" Size="Size.Small" Title="Correo" />
+								</h4>
+								<span>Correo</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-			<MudCard>
-				<MudCardMedia Image="img/TECNO.png" Height="200" />
-				<MudCardContent>
-					<MudText Typo="Typo.h5">SORTEO Escoje numero</MudText>
-					<MudText Typo="Typo.body2">Puedes escoger un numero de 3 crifras</MudText>
-					<MudText Typo="Typo.body2">Para mas informacion y ver funcionamiento dar click en View</MudText>
-				</MudCardContent>
-				<MudCardActions>
-					<MudButton Variant="Variant.Filled" Href="" Color="Color.Primary">Ver demo</MudButton>
-				</MudCardActions>
-			</MudCard>
-		</MudStack>
-</section>
-	</body>
+			<div class="col-md-6 col-xl-4">
+				<div class="card borderless-card">
+					<div class="profile-card">
+						<img class="img-fluid" src="img/rifa04_imagen.png" alt="">
+						<div class="card-block">
+							<h3>Diseño</h3>
+							<p>pagina de rifas</p>
+							<MudButton class="btn btn-info" Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas04">Ver demo</MudButton>
+						</div>
+					</div>
+					<div class="card-footer bg-inverse">
+						<div class="row text-center">
+							<div class="col-sm-4">
+								<h4>
+									<MudIcon Icon="@Icons.Material.Outlined.Security" Size="Size.Small" Title="Seguridad" />
+								</h4>
+								<span>Seguridad</span>
+							</div>
+							<div class="col-sm-4">
+								<h4>
+									<MudIcon Icon="@Icons.Material.Outlined.Payment" Size="Size.Small" Title="Pagos online" />
+								</h4>
+								<span>Pagos online</span>
+							</div>
+							<div class="col-sm-4">
+								<h4>
+									<MudIcon Icon="@Icons.Material.Outlined.MarkEmailRead" Size="Size.Small" Title="Correo" />
+								</h4>
+								<span>Correo</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
 </html>
 
 @code
@@ -92,5 +249,5 @@
 	{
 		MenuState.SetMenuVisibility(true);
 	}
-	
+
 }

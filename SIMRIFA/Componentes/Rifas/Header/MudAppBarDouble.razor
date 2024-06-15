@@ -1,17 +1,33 @@
 ﻿@using MudBlazor;
 
+
+<style>
+
+	.navbar-brand > .navbar-brand-logo > #clientLogo {
+		margin-top: 50px;
+		width: 110px;
+		height: 110px;
+	}
+
+</style>
+
 <MudLayout>
 	<MudAppBar Elevation="1" Dense="@dense" Color="Color.Dark">
 		<MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
 		<MudSpacer />
-		<MudImage Fluid="true" Width="100" Height="100" Src="img/LOGO.png" Alt="Mony the dog" Elevation="25" Class="rounded-lg" />
+
+		<div class="navbar-brand">
+			<a class="navbar-brand-logo" href="#">
+				<img id="clientLogo" src="/Img/Empresa/tuLogoAqui.png" alt="Logo">
+			</a>
+		</div>
 	</MudAppBar>
 	<MudDrawer @bind-Open="@open" Color="Color.Dark" ClipMode="DrawerClipMode.Docked" Breakpoint="Breakpoint.Xl" Elevation="1" Variant="@DrawerVariant.Temporary">
 		@*<MudDrawer @bind-Open="@open" Color="Color.Dark" Elevation="1" Variant="@DrawerVariant.Temporary">*@
 		
 		<MudDrawerHeader>
 			<MudText Typo="Typo.h1">
-				<MudImage Fluid="true" Src="img/SOAT.png" Alt="Mony the dog" Elevation="25" Class="rounded-lg" />
+				<MudImage Fluid="true" Src="/Img/Empresa/tuLogoAqui.png" Alt="Mony the dog" Elevation="0" Class="rounded-lg" />
 			</MudText>
 		</MudDrawerHeader>
 		<MudNavMenu>
@@ -29,9 +45,6 @@
 </MudLayout>
 @code {
 
-
-	[Parameter]
-	public string Nombre { get; set; } = "APROVECHA!";
 
 	bool open = false;
 	bool dense = false;
