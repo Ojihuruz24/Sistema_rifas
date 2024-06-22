@@ -16,7 +16,15 @@ namespace SIMRIFA.DataAccess.Db_Context.Builders
         public static void Builder(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<Cliente>(E =>
+
+			modelBuilder.Entity<TipoIdentificacion>(E =>
+			{
+				E.ToTable("TIPO_IDENTIFICACION", "core");
+				E.HasKey(c => c.ID_TipoIdentificacion);
+			});
+
+
+			modelBuilder.Entity<Cliente>(E =>
             {
                 E.ToTable("CLIENTE", "core");
                 E.HasKey(c => c.IdCliente);

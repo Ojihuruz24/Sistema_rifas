@@ -18,7 +18,7 @@ namespace SIMRIFA.Api.Controllers
 			_configuration = configuration;
 		}
 
-		[HttpPost("login")]
+		[HttpPost()]
 		public IActionResult Login([FromBody] LoginModel loginModel)
 		{
 
@@ -41,7 +41,9 @@ namespace SIMRIFA.Api.Controllers
 				{
 					new Claim(ClaimTypes.Name, username)
 				}),
-				Expires = DateTime.UtcNow.AddHours(1),
+				Expires = DateTime.UtcNow.AddHours(int.Parse(_configuration["Jwt:ExpireHours"])),
+				Issuer = _configuration["Jwt:Issuer"],
+				Audience = _configuration["Jwt:Audience"],
 				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
 			};
 

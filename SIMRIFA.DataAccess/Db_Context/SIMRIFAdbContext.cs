@@ -32,6 +32,8 @@ namespace SIMRIFA.DataAccess.Db_Context
 		public virtual DbSet<InfoTransaccionDto>  InfoTransaccionDtos { get; set; }
 		public virtual DbSet<CorreoConfig>  CorreConfig { get; set; }
 
+		public virtual DbSet<TipoIdentificacion>  TipoIdentificacion { get; set; }
+
 
 		//public virtual DbSet<Boleta> Boleta { get; set; }
 		//public virtual DbSet<Comprador> Comprador { get; set; }

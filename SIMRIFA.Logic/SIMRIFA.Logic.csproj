@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SIMRIFA.DataAccess\SIMRIFA.DataAccess.csproj" />
     <ProjectReference Include="..\SIMRIFA.Service\SIMRIFA.Service.csproj" />
   </ItemGroup>
 
