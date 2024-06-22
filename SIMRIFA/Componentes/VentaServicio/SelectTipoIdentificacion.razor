@@ -1,0 +1,51 @@
+﻿@using MudBlazor
+
+<MudSelect T="string" Value="@TipoDocumentSelect" ValueChanged="@OnChangeTipoIdentificacion" Label="Pais" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Filled" Clearable Required="@Requerido" RequiredError="@MensajeError">
+
+	@if (Documentos != null && Documentos.Count > 0)
+	{
+		@foreach (var item in Documentos)
+		{
+			<MudSelectItem T="string" Value="item">@item</MudSelectItem>
+		}
+	}
+
+</MudSelect>
+
+
+<MudTextField @bind-Value="HelperText" Label="Documento de Identidad*" HelperText="Foto de su DNI / INE / CC / CI / Cédula..." Variant="Variant.Filled" Required />
+
+
+
+@code {
+
+	public string HelperText { get; set; }
+
+	[Parameter]
+	public bool Requerido { get; set; }
+
+	[Parameter]
+	public string MensajeError { get; set; } = "Campo requerido";
+
+	private string TipoDocumentSelect;
+	private List<string> Documentos = new List<string>();
+
+	[Parameter]
+	public EventCallback<string> OnChange { get; set; }
+
+
+	protected override async Task OnInitializedAsync()
+	{
+
+		Documentos.Add("CC");
+	}
+
+
+
+	private void OnChangeTipoIdentificacion(string resp)
+	{
+		TipoDocumentSelect = resp;
+		OnChange.InvokeAsync(resp);
+	}
+
+}

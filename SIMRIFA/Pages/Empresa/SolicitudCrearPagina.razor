@@ -1,0 +1,637 @@
+﻿@page "/Empresa/SolicitudCrearPagina"
+@using MudBlazor;
+@using SIMRIFA.Componentes.Genericos
+@using SIMRIFA.Componentes.Rifas.Header
+@using SIMRIFA.Componentes.Rifas.MercadoPago
+@using SIMRIFA.Componentes.VentaServicio
+@using SIMRIFA.Data;
+@inject ISnackbar Snackbar;
+@inject MenuState MenuState;
+@inject IJSRuntime js;
+
+<html>
+<head>
+	<link rel="stylesheet" href="/css/Empresa/StyleEmpresa.css">
+	<style>
+		.timeline {
+			position: relative;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			padding: 5rem;
+			margin: 0 auto 1rem auto;
+			overflow: hidden;
+		}
+
+			.timeline:after {
+				content: "";
+				position: absolute;
+				top: 0;
+				left: 50%;
+				margin-left: -2px;
+				border-right: 2px dashed #4b546f;
+				height: 100%;
+				display: block;
+			}
+
+		.timeline-row {
+			padding-left: 50%;
+			position: relative;
+			margin-bottom: 30px;
+		}
+
+			.timeline-row .timeline-time {
+				position: absolute;
+				right: 50%;
+				top: 15px;
+				text-align: right;
+				margin-right: 20px;
+				color: #1C51DF;
+				font-size: 2rem;
+			}
+
+				.timeline-row .timeline-time small {
+					display: block;
+					font-size: 1rem;
+				}
+
+			.timeline-row .timeline-content {
+				position: relative;
+				padding: 20px 30px;
+				/*background: grey;*/
+				background: linear-gradient(120deg, #8FD8EF 0%, #578492 100%);
+				-webkit-border-radius: 4px;
+				-moz-border-radius: 4px;
+				border-radius: 10px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+				text-align: center;
+				color: white;
+			}
+
+				.timeline-row .timeline-content:after {
+					content: "";
+					position: absolute;
+					top: 20px;
+					height: 16px;
+					width: 16px;
+					background: #1a233a;
+				}
+
+				.timeline-row .timeline-content:before {
+					content: "";
+					position: absolute;
+					top: 20px;
+					right: -49px;
+					width: 20px;
+					height: 20px;
+					-webkit-border-radius: 100px;
+					-moz-border-radius: 100px;
+					border-radius: 100px;
+					z-index: 10;
+					background: #272e48;
+					border: 2px dashed #4b546f;
+				}
+
+				.timeline-row .timeline-content h4 {
+					margin: 0 0 20px 0;
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					line-height: 150%;
+				}
+
+				.timeline-row .timeline-content p {
+					margin-bottom: 30px;
+					line-height: 150%;
+				}
+
+				.timeline-row .timeline-content i {
+					font-size: 1.2rem;
+					line-height: 100%;
+					padding: 15px;
+					-webkit-border-radius: 100px;
+					-moz-border-radius: 100px;
+					border-radius: 100px;
+					background: #272e48;
+					margin-bottom: 10px;
+					display: inline-block;
+				}
+
+				.timeline-row .timeline-content .thumbs {
+					margin-bottom: 20px;
+					display: flex;
+				}
+
+					.timeline-row .timeline-content .thumbs img {
+						margin: 5px;
+						max-width: 60px;
+					}
+
+				.timeline-row .timeline-content .badge {
+					color: #ffffff;
+					background: linear-gradient(120deg, #00b5fd 0%, #0047b1 100%);
+				}
+
+			.timeline-row:nth-child(even) .timeline-content {
+				margin-left: 40px;
+				text-align: left;
+			}
+
+				.timeline-row:nth-child(even) .timeline-content:after {
+					left: -8px;
+					right: initial;
+					border-bottom: 0;
+					border-left: 0;
+					transform: rotate(-135deg);
+				}
+
+				.timeline-row:nth-child(even) .timeline-content:before {
+					left: -52px;
+					right: initial;
+				}
+
+			.timeline-row:nth-child(odd) {
+				padding-left: 0;
+				padding-right: 50%;
+			}
+
+				.timeline-row:nth-child(odd) .timeline-time {
+					right: auto;
+					left: 50%;
+					text-align: left;
+					margin-right: 0;
+					margin-left: 20px;
+				}
+
+				.timeline-row:nth-child(odd) .timeline-content {
+					margin-right: 40px;
+				}
+
+					.timeline-row:nth-child(odd) .timeline-content:after {
+						right: -8px;
+						border-left: 0;
+						border-bottom: 0;
+						transform: rotate(45deg);
+					}
+
+		@@media (max-width: 992px) {
+			.timeline {
+				padding: 15px;
+			}
+
+				.timeline:after {
+					border: 0;
+				}
+
+				.timeline .timeline-row:nth-child(odd) {
+					padding: 0;
+				}
+
+					.timeline .timeline-row:nth-child(odd) .timeline-time {
+						position: relative;
+						top: 0;
+						left: 0;
+						margin: 0 0 10px 0;
+					}
+
+					.timeline .timeline-row:nth-child(odd) .timeline-content {
+						margin: 0;
+					}
+
+						.timeline .timeline-row:nth-child(odd) .timeline-content:before {
+							display: none;
+						}
+
+						.timeline .timeline-row:nth-child(odd) .timeline-content:after {
+							display: none;
+						}
+
+				.timeline .timeline-row:nth-child(even) {
+					padding: 0;
+				}
+
+					.timeline .timeline-row:nth-child(even) .timeline-time {
+						position: relative;
+						top: 0;
+						left: 0;
+						margin: 0 0 10px 0;
+						text-align: left;
+					}
+
+					.timeline .timeline-row:nth-child(even) .timeline-content {
+						margin: 0;
+					}
+
+						.timeline .timeline-row:nth-child(even) .timeline-content:before {
+							display: none;
+						}
+
+						.timeline .timeline-row:nth-child(even) .timeline-content:after {
+							display: none;
+						}
+		}
+	</style>
+</head>
+
+<body>
+
+	<HeaderTexto Texto="Solicitud para crear tu pagina"></HeaderTexto>
+
+	<section class="container">
+		<MudGrid Justify="Justify.Center">
+
+			<MudItem sm="12" lg="12" xl="12">
+				<h3>Tipo de cuenta</h3>
+			</MudItem>
+
+			<MudItem sm="12" lg="12" xl="12">
+				<MudForm>
+					<MudRadioGroup @bind-Value="@SelectedOption">
+						<MudRadio T="string" Value="@("Pago")" Color="Color.Default">Cliente</MudRadio>
+						<MudRadio T="string" Value="@("Alvergue")" Color="Color.Default">Socio</MudRadio>
+					</MudRadioGroup>
+				</MudForm>
+			</MudItem>
+
+			@if (SelectedOption == "Alvergue")
+			{
+				<MudItem sm="12" lg="6" xl="6">
+					<MudTextField @bind-Value="HelperText" Label="Motivo de la Rifa*" HelperText="Some helping Text" Variant="Variant.Filled" Lines="5" Required />
+				</MudItem>
+
+				<MudItem sm="12" lg="6" xl="6">
+					<MudFileUpload T="IBrowserFile" FilesChanged="SubirDocumentoEvidencia" AppendMultipleFiles="false" Accept=".pdf">
+						<ButtonTemplate>
+							<MudButton HtmlTag="label"
+								   Variant="Variant.Filled"
+								   Color="Color.Primary"
+								   Disabled="@(_files.Any(x => x.Key == "Evidencia"))"
+								   StartIcon="@Icons.Material.Filled.CloudUpload" for="@context.Id">
+								Subir evidencia*
+							</MudButton>
+						</ButtonTemplate>
+					</MudFileUpload>
+
+					@if (_files != null && _files.Count > 0)
+					{
+						<MudList>
+							@foreach (var file in _files)
+							{
+								if (file.Key == "Evidencia")
+								{
+									<MudChip Color="Color.Default" OnClose="() => EliminarEvidencia(file.Value)">
+										@file.Value.Name <code>@file.Value.Size bytes</code>
+									</MudChip>
+								}
+							}
+						</MudList>
+					}
+					else
+					{
+						<MudText>Subir evidencia (.pdf)</MudText>
+					}
+
+				</MudItem>
+			}
+
+			<MudItem sm="12" lg="12" xl="12">
+				<h3>Datos del Organizador</h3>
+			</MudItem>
+
+			<MudItem sm="12" lg="12" xl="12">
+				<MudFileUpload T="IBrowserFile" FilesChanged="SubirLogo" Accept=".png, .jpg">
+					<ButtonTemplate>
+						<MudButton HtmlTag="label"
+								   Variant="Variant.Filled"
+								   Color="Color.Primary"
+								   Disabled="@(_files.Any(x => x.Key == "Logo"))"
+								   StartIcon="@Icons.Material.Filled.CloudUpload" for="@context.Id">
+							Subir logo
+						</MudButton>
+					</ButtonTemplate>
+				</MudFileUpload>
+
+				@if (_files != null && _files.Count > 0)
+				{
+					<MudList>
+						@foreach (var file in _files)
+						{
+							if (file.Key == "Logo")
+							{
+								<MudChip Color="Color.Default" OnClose="() => EliminarLogo(file.Value)">
+									@file.Value.Name <code>@file.Value.Size bytes</code>
+								</MudChip>
+							}
+						}
+					</MudList>
+				}
+				else
+				{
+					<MudText>Subir Logo (.png, jpg)</MudText>
+				}
+
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="HelperText" Label="Organizador*" HelperText="Persona, Marca, Empresa..." Variant="Variant.Filled" Required />
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="HelperText" Label="Nombre del Responsable*" HelperText="Nombre completo" Variant="Variant.Filled" Required />
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<SelectPais OnChange="ObtenerPais" Requerido="true" MensajeError="Campo requerido"></SelectPais>
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="HelperText" Label="Ubicación*" HelperText="Departamento., Estado, Provincia..." Variant="Variant.Filled" Required />
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="HelperText" Label="Email*" HelperText="Correo del responsable" Variant="Variant.Filled" Required />
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="HelperText" Label="Celular*" HelperText="Celular del responsable" Variant="Variant.Filled" Required />
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<SelectTipoIdentificacion OnChange="ObtenerTipoCedula" Requerido=true MensajeError="Campo requerido"></SelectTipoIdentificacion>
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="HelperText" Label="Redes Sociales y Sitio Web*" HelperText="URLs de Facebook, Instagram..." Variant="Variant.Filled" Required />
+			</MudItem>
+
+			<MudItem sm="12" lg="12" xl="12">
+				<h3>Datos de la RIFA</h3>
+			</MudItem>
+
+			<MudItem sm="12" lg="12" xl="12">
+				<MudFileUpload T="IBrowserFile" FilesChanged="SubirBanner" Accept=".png, .jpg" MaximumFileCount="3">
+					<ButtonTemplate>
+						<MudButton HtmlTag="label"
+								   Variant="Variant.Filled"
+								   Color="Color.Primary"
+								   Disabled="@DeshabilitarBottonHeader"
+								   StartIcon="@Icons.Material.Filled.CloudUpload" for="@context.Id">
+							Subir Banners
+						</MudButton>
+					</ButtonTemplate>
+				</MudFileUpload>
+
+				@if (_files != null && _files.Count > 0)
+				{
+					<MudList>
+						@foreach (var file in _files)
+						{
+							if (file.Key.StartsWith("Banner"))
+							{
+								<MudChip Color="Color.Default" OnClose="() => EliminarBanner(file.Value)">
+									@file.Value.Name <code>@file.Value.Size bytes</code>
+								</MudChip>
+							}
+						}
+					</MudList>
+				}
+				else
+				{
+					<MudText>Subir Banners (.png, jpg) maximo 3</MudText>
+				}
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="HelperText" Label="Descripción*" HelperText="Dinámica, detalles, datos..." Variant="Variant.Filled" Required />
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<MudSlider @bind-Value="@CantidadNumeros" Color="Color.Dark" TickMarks="true" Min="500" Step="500" Max="10000" Size="Size.Large" ValueLabel="true" Variant="Variant.Filled" />
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="HelperText" Label="Precio Ticket*" HelperText="URLs de Facebook, Instagram..." Variant="Variant.Filled" Required />
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="HelperText" Label="Moneda*" HelperText="URLs de Facebook, Instagram..." Variant="Variant.Filled" Required />
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="HelperText" Label="Fecha del Sorteo*" HelperText="Fecha de cuando empieza" Variant="Variant.Filled" Required />
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="HelperText" Label="Hora*" HelperText="Hora cuando empieza el sorteo" Variant="Variant.Filled" Required />
+
+				<MudTimePicker Label="Hora cuando empieza el sorteo" AmPm="true" TimeFormat="h:mm tt" @bind-Time="@time" />
+			</MudItem>
+
+
+			<MudItem sm="12" lg="12" xl="12">
+				<h3>Pasarela de pago</h3>
+			</MudItem>
+
+			<MudItem sm="12" lg="12" xl="12">
+				<MudForm>
+					<MudRadioGroup @bind-Value="@SelectTipoPago">
+						<MudRadio T="string" Value="@("WOMPI")" Color="Color.Default">Wompi</MudRadio>
+						<MudRadio T="string" Value="@("MercadoPago")" Color="Color.Default">Mercado Pago</MudRadio>
+					</MudRadioGroup>
+				</MudForm>
+			</MudItem>
+
+			@if (SelectTipoPago == "WOMPI")
+			{
+				<MudItem sm="12" lg="6" xl="6">
+					<MudTextField @bind-Value="HelperText" Label="Llave pública" HelperText="ejemplo: pub_test_doVyFchiwa...." Variant="Variant.Filled" Required />
+				</MudItem>
+
+				<MudItem sm="12" lg="6" xl="6">
+					<MudTextField @bind-Value="HelperText" Label="Llave privada" HelperText="ejemplo: prv_test_Q60Z7vszzFZ..." Variant="Variant.Filled" Required />
+				</MudItem>
+
+				<MudItem sm="12" lg="6" xl="6">
+					<MudTextField @bind-Value="HelperText" Label="Eventos" HelperText="ejemplo: test_events_hB8PmEEREd88sDF..." Variant="Variant.Filled" Required />
+				</MudItem>
+
+				<MudItem sm="12" lg="6" xl="6">
+					<MudTextField @bind-Value="HelperText" Label="Integridad" HelperText="ejemplo: test_integrity_c01VK9kpTNo3w18dsf..." Variant="Variant.Filled" Required />
+				</MudItem>
+			}
+
+			@if (SelectTipoPago == "MercadoPago")
+			{
+				<MudItem sm="12" lg="6" xl="6">
+					<MudTextField @bind-Value="HelperText" Label="Medios de Pago*" HelperText="URLs de Facebook, Instagram..." Variant="Variant.Filled" Required />
+				</MudItem>
+
+				<MudItem sm="12" lg="6" xl="6">
+					<MudTextField @bind-Value="HelperText" Label="Medios de Pago*" HelperText="URLs de Facebook, Instagram..." Variant="Variant.Filled" Required />
+				</MudItem>
+
+				<MudItem sm="12" lg="6" xl="6">
+					<MudTextField @bind-Value="HelperText" Label="Medios de Pago*" HelperText="URLs de Facebook, Instagram..." Variant="Variant.Filled" Required />
+				</MudItem>
+			}
+			<MudItem sm="12" lg="12" xl="12">
+				<MudTextField T="string" Label="Notas" Variant="Variant.Filled" Text="@HelperText" AutoGrow HelperText="Notas que creas que son importantes para crear tu servicio de sorteo" />
+				</MudItem>
+
+				<MudItem sm="12" lg="12" xl="12">
+				<MudFab StartIcon="@Icons.Material.Filled.ShoppingCart" Label="Comprar" Color="Color.Tertiary" Size="Size.Large" />
+				</MudItem>
+				</MudGrid>
+			</section>
+		</body>
+		</html>
+
+		@code {
+
+	public string HelperText { get; set; }
+
+	TimeSpan? time = new TimeSpan(00, 45, 00);
+
+	public int CantidadNumeros { get; set; }
+	public bool DeshabilitarBottonHeader { get; set; } = false;
+
+
+	protected override void OnInitialized()
+	{
+		MenuState.SetMenuVisibility(true);
+	}
+
+	public string SelectedOption { get; set; }
+
+	public string SelectTipoPago { get; set; }
+
+	Dictionary<string, IBrowserFile> _files = new Dictionary<string, IBrowserFile>();
+
+	private void SubirDocumentoEvidencia(IBrowserFile file)
+	{
+		if (!file.ContentType.EndsWith("pdf"))
+		{
+			Snackbar.Clear();
+			Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
+			Snackbar.Add($"{file.Name} Con Extension no permitida", Severity.Error);
+			return;
+		}
+
+		if (file.Size > 1048576)
+		{
+			Snackbar.Clear();
+			Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
+			Snackbar.Add($"Tamaño maximo es 1MB", Severity.Warning);
+			Snackbar.Add($"{file.Name} con {file.Size} byte", Severity.Warning);
+			return;
+		}
+
+
+		_files.Add("Evidencia", file);
+
+		Snackbar.Clear();
+		Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
+		Snackbar.Add($"{file.Name} Cargado correctamente", Severity.Success);
+
+	}
+
+	private void EliminarEvidencia(IBrowserFile file)
+	{
+		_files.Remove("Evidencia");
+	}
+
+	private void SubirLogo(IBrowserFile file)
+	{
+		if (!file.ContentType.EndsWith("jpeg") && !file.ContentType.EndsWith("jpg") && !file.ContentType.EndsWith("png"))
+		{
+			Snackbar.Clear();
+			Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
+			Snackbar.Add($"{file.Name} ConExtension no permitida", Severity.Error);
+			return;
+		}
+
+		if (file.Size > 512000)
+		{
+			Snackbar.Clear();
+			Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
+			Snackbar.Add($"Tamaño maximo es 500KB", Severity.Warning);
+			Snackbar.Add($"{file.Name} con {file.Size} byte", Severity.Warning);
+			return;
+		}
+
+		_files.Add("Logo", file);
+
+		Snackbar.Clear();
+		Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
+		Snackbar.Add($"{file.Name} Cargado correctamente", Severity.Success);
+	}
+
+	private void EliminarLogo(IBrowserFile file)
+	{
+		_files.Remove("Logo");
+	}
+
+	private void SubirBanner(IBrowserFile file)
+	{
+		if (_files.Where(x => x.Key.StartsWith("Banner")).Count() >= 3)
+		{
+			Snackbar.Clear();
+			Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
+			Snackbar.Add($"Cantidad de imagenes permitidad 3", Severity.Warning);
+			DeshabilitarBottonHeader = true;
+			return;
+		}
+
+		DeshabilitarBottonHeader = false;
+
+		if (!file.ContentType.EndsWith("jpeg") && !file.ContentType.EndsWith("jpg") && !file.ContentType.EndsWith("png"))
+		{
+			Snackbar.Clear();
+			Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
+			Snackbar.Add($"{file.Name} Con extension no permitida", Severity.Error);
+			return;
+		}
+
+		if (file.Size > 512000)
+		{
+			Snackbar.Clear();
+			Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
+			Snackbar.Add($"Tamaño maximo es 500KB", Severity.Warning);
+
+			var convert = file.Size / 1024;
+
+			Snackbar.Add($"{file.Name} con {convert} KB", Severity.Warning);
+			return;
+		}
+
+		if (_files.ContainsKey($"Banner_{file.Name}"))
+		{
+			return;
+		}
+
+		_files.Add($"Banner_{file.Name}", file);
+
+		Snackbar.Clear();
+		Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
+		Snackbar.Add($"{file.Name} Cargado correctamente", Severity.Success);
+	}
+
+	private void EliminarBanner(IBrowserFile file)
+	{
+		_files.Remove($"Banner_{file.Name}");
+		DeshabilitarBottonHeader = false;
+	}
+
+	private void ObtenerPais(string pais)
+	{
+		var _pais = pais;
+	}
+
+	private void ObtenerTipoCedula(string cedula)
+	{
+		var _cedula = cedula;
+	}
+}

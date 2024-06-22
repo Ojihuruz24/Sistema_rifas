@@ -1,8 +1,10 @@
 ﻿
-
+* {
+    font-family: Cambria, sans-serif;
+}
 
 body {
-    font-family: 'Source Sans Pro', sans-serif;
+    /*font-family: Georgia, "Times New Roman", Times, serif;*/
     /*background: #8ff1ff36;*/
     background-image: linear-gradient(to left,#729CCC,#8ff1ff36);
     /*background-image: url("../Img/EMPRESA/background.png");*/

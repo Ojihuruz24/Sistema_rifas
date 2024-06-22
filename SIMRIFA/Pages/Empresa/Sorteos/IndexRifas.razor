@@ -1,7 +1,9 @@
 ﻿@page "/Empresa/Sorteos/IndexRifas"
 @using MudBlazor;
+@using SIMRIFA.Componentes.Genericos
 @using SIMRIFA.Componentes.Rifas.Header
 @using SIMRIFA.Data;
+@using System.Globalization;
 
 <PageTitle>Tipo de rifas</PageTitle>
 
@@ -89,11 +91,191 @@
 			color: #fff;
 		}
 
+
+		/*ACA ESTOY PRBANDO*/
+
+
+		.cards-container {
+			display: flex;
+			justify-content: space-around;
+			padding: 20px;
+			margin-top: -81px;
+		}
+
+		#card {
+			width: 200px;
+			padding: 10px;
+			text-align: center;
+			background-color: #e0f7fa;
+			border-radius: 50px;
+			box-shadow: 0 4px 50px rgba(0, 0, 0, 0.1);
+			margin-bottom: 8px;
+		}
+
+
+			#card img {
+				width: 150px;
+				height: auto;
+				margin-bottom: 10px;
+			}
+
+			#card h3 {
+				margin: 10px 0;
+				color: #00796b;
+				font-size: 2em;
+			}
+
+			#card p {
+				color: #555;
+				font-size: 1.3em;
+			}
+
+		@@media (max-width: 641px) {
+
+			#card img {
+				width: 70px;
+				height: auto;
+				margin-bottom: 10px;
+			}
+		}
+
+
+
+		/************************/
+
+		.card_pago {
+			min-width: 0;
+			word-wrap: break-word;
+			background-color: #fff;
+			background-clip: border-box;
+			border: 0 solid rgba(0,0,0,.125);
+			border-radius: 1rem;
+		}
+
 	</style>
 </head>
 <body>
 
 	<HeaderTexto Texto="Nuestros sorteos"></HeaderTexto>
+
+
+	<section class="container">
+		<div class="cards-container flex-wrap">
+			<div id="card">
+				<img src="/Img/EMPRESA/cohete.png" alt="Optimizar">
+				<h3>Optimizar</h3>
+				<p>Optimice sus ganancias con nuestro sistema intuitivo y confiable, diseñado para maximizar su rentabilidad de manera eficiente y segura</p>
+			</div>
+			<div id="card">
+				<img src="/Img/EMPRESA/icono-www.png" alt="Expansion">
+				<h3>Expansion</h3>
+				<p>Expanda su presencia en el mercado y capte la atención de un mayor número de participantes con nuestra plataforma avanzada y accesible.</p>
+			</div>
+			<div id="card">
+				<img src="/Img/EMPRESA/simplifique.png" alt="Agilidad">
+				<h3>Agilidad</h3>
+				<p>Agilice la gestión de su evento de rifas con nuestra solución integral, diseñada para una administración sencilla y eficaz.</p>
+			</div>
+			<div id="card">
+				<img src="/Img/EMPRESA/GaneTiempo.png" alt="Crecimiento">
+				<h3>Crecimiento</h3>
+				<p>Obtenga una mayor economía de tiempo y recursos con nuestro sistema optimizado, diseñado para incrementar su eficiencia operativa..</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="container">
+
+		<div class="container">
+			<div class="row justify-content-center">
+				<!-- section title -->
+				<div class="col-xl-6 col-lg-8">
+					<div class="title text-center">
+						<h2>Sorteo automatico</h2>
+						<div class="border"></div>
+					</div>
+				</div>
+				<!-- /section title -->
+			</div>
+		</div>
+
+		<MudGrid Spacing="3" Justify="Justify.SpaceAround" Style="align-items:center">
+			<MudItem sm="12" lg="6" xl="6">
+				<div class="icono">
+					<MudImageGeneric Fluid="true" Alt="Compra" urlImageCupones1="img/EMPRESA/leadingpageCompra.png"></MudImageGeneric>
+				</div>
+			</MudItem>
+			<MudItem sm="12" lg="6" xl="6">
+				<div class="contenido">
+					<ul class="caracteristicas">
+						<h5 class="elementor-text-editor elementor-clearfix">Sorteos Automaticos</h5>
+						<h2 class="elementor-heading-title elementor-size-default">CARACTERÍSTICAS EXCLUSIVAS</h2>
+						<li>Landing Page Personalizada</li>
+						<li>Logo y Redes sociales Personalizadas</li>
+						<li>Carrusel de imganen del sorteo</li>
+						<li>Datos Estadísticos</li>
+						<li>Imagen del ganador de la rifa</li>
+						<li>Envio de correo automatico</li>
+						<li>Pagos directamente a su cuenta</li>
+						<li>Barra progresiva (plus)</li>
+						<li>Validador de numeros unicos de compra (plus)</li>
+						<li>Tarjetas de Crédito o Débito (plus)</li>
+						<li>NEQUI (plus)</li>
+						<li>PSE (plus)</li>
+					</ul>
+				</div>
+			</MudItem>
+
+		</MudGrid>
+	</section>
+
+	<div class="spacer-line-fw border-secondary opc-25 mt-30 mb-30">&nbsp;</div>
+
+	<section class="container">
+
+		<div class="container">
+			<div class="row justify-content-center">
+				<!-- section title -->
+				<div class="col-xl-6 col-lg-8">
+					<div class="title text-center">
+						<h2>Sorteo escoge tu numero</h2>
+						<div class="border"></div>
+					</div>
+				</div>
+				<!-- /section title -->
+			</div>
+		</div>
+
+		<MudGrid Spacing="3" Justify="Justify.SpaceAround" Style="align-items:center">
+			<MudItem sm="12" lg="6" xl="6">
+				<div class="contenido">
+					<ul class="caracteristicas">
+						<h5 class="elementor-text-editor elementor-clearfix">Sorteos Escoge tu numero</h5>
+						<h2 class="elementor-heading-title elementor-size-default">CARACTERÍSTICAS EXCLUSIVAS</h2>
+						<li>Landing Page Personalizada</li>
+						<li>Logo y Redes sociales Personalizadas</li>
+						<li>Imganen del sorteo</li>
+						<li>Datos Estadísticos</li>
+						<li>Validador de numero</li>
+						<li>Escoge tu numero</li>
+						<li>Imagen del ganador de la rifa</li>
+						<li>Envio de correo</li>
+						<li>Pagos directamente a su cuenta</li>
+						<li>PSE (plus)</li>
+						<li>NEQUI (plus)</li>
+						<li>Tarjetas de Crédito o Débito (plus)</li>
+					</ul>
+				</div>
+			</MudItem>
+			<MudItem sm="12" lg="6" xl="6">
+				<div class="icono">
+					<MudImageGeneric Fluid="true" Alt="Compra" urlImageCupones1="img/EMPRESA/paginaescogetunumero.png"></MudImageGeneric>
+				</div>
+			</MudItem>
+		</MudGrid>
+	</section>
+
+	<div class="spacer-line-fw border-secondary opc-25 mt-30 mb-30">&nbsp;</div>
 
 	<section class="container">
 		<div class="row">
@@ -102,7 +284,7 @@
 					<div class="profile-card">
 						<img class="img-fluid" src="img/SOAT.png" alt="">
 						<div class="card-block">
-							<h3>Diseño</h3>
+							<h3>Sorteo automatico</h3>
 							<p>pagina de rifas</p>
 							<MudButton class="btn btn-info" Variant="Variant.Filled" StartIcon="@Icons.Material.Rounded.Pageview" Href="/Empresa/Sorteos/Rifas01">Ver demo</MudButton>
 						</div>
@@ -137,7 +319,7 @@
 					<div class="profile-card">
 						<img class="img-fluid" src="img/TECNO.png" alt="">
 						<div class="card-block">
-							<h3>Diseño</h3>
+							<h3>Sorteo automatico</h3>
 							<p>pagina de rifas</p>
 							<MudButton class="btn btn-info" Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas02">Ver demo</MudButton>
 						</div>
@@ -172,7 +354,7 @@
 					<div class="profile-card">
 						<img class="img-fluid" src="img/TECNO.png" alt="">
 						<div class="card-block">
-							<h3>Diseño</h3>
+							<h3>Sorteo automatico</h3>
 							<p>pagina de rifas</p>
 							<MudButton class="btn btn-info" Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas03">Ver demo</MudButton>
 						</div>
@@ -207,7 +389,7 @@
 					<div class="profile-card">
 						<img class="img-fluid" src="img/rifa04_imagen.png" alt="">
 						<div class="card-block">
-							<h3>Diseño</h3>
+							<h3>escoge tu numero</h3>
 							<p>pagina de rifas</p>
 							<MudButton class="btn btn-info" Variant="Variant.Filled" Href="/Empresa/Sorteos/Rifas04">Ver demo</MudButton>
 						</div>
@@ -238,6 +420,84 @@
 			</div>
 		</div>
 	</section>
+
+	<section class="container section-4 py-5">
+
+		<div>
+			<div class="row justify-content-center">
+				<!-- section title -->
+				<div class="col-xl-6 col-lg-6 Agency-Social">
+					<div class="title text-center">
+						<h2>Calculadora</h2>
+						<div class="border"></div>
+					</div>
+				</div>
+				<!-- /section title -->
+			</div>
+		</div>
+		<br />
+
+		<MudGrid Justify="Justify.SpaceAround">
+			<MudItem xs="12" sm="12" md="8" lg="8" xl="8" xxl="8" Class="justify-start">
+				<MudCard Class="card_pago">
+					<MudCardContent>
+						<div class="d-flex justify-content-between mb-1 text-lg">
+							<span>Costo por Rifa</span>
+						</div>
+						<div class="text-lg-left" style="margin-top: -0.5em;">
+							<h3 class="mb-3">@total.ToString("C0", new CultureInfo("es-CO"))</h3>
+							<span class="d-flex justify-content-between mb-1 small" style="margin-top: -1.2em;">
+								*El pago se realiza en pesos colombianos.
+							</span>
+						</div>
+
+						<hr>
+
+						<div class="text-center">
+							<span class="small">
+
+								<p>
+									<h3>@Value.ToString("N0") Números</h3>
+								</p>
+
+								<p style="margin-top: -1.2em;">
+									Total de numeros por rifa
+								</p>
+							</span>
+						</div>
+						<MudSlider @bind-Value="@Value" Color="Color.Dark" TickMarks="true" Min="100" Step="100" Max="10000" Size="Size.Large" ValueLabel="true" />
+					</MudCardContent>
+				</MudCard>
+			</MudItem>
+			<MudItem xs="12" sm="12" md="4" lg="4" xl="4" xxl="4" Class="d-flex justify-end">
+				<div class="card_pago" style="width: 100%">
+					<div class="p-3 bg-opacity-10">
+						<div class="text-center card-title">
+							<span class="small">
+								<h6 class="mb-3">precio detallado</h6>
+							</span>
+						</div>
+						<div class="d-flex justify-content-between mb-1 small">
+							<span>Sistema</span> <span>@CobroServicio.ToString("C0", new CultureInfo("es-CO"))</span>
+						</div>
+						<div class="d-flex justify-content-between mb-1 small">
+							<span>Cobro transaccion</span> <span> @CobroTransacion.ToString("C0", new CultureInfo("es-CO"))</span>
+						</div>
+						<div class="d-flex justify-content-between mb-1 small">
+							<span>Cantidad</span> <span> @Value.ToString("N0")</span>
+						</div>
+						<hr>
+						<div class="d-flex justify-content-between mb-4 medium">
+							<span>TOTAL</span> <strong class="text-dark"> @total.ToString("C0", new CultureInfo("es-CO"))</strong>
+						</div>
+						<div class="text-center">
+							<MudButton Href="/Empresa/SolicitudCrearPagina" Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.BackHand" Color="Color.Info" Size="Size.Large">COMENZAR</MudButton>
+						</div>
+					</div>
+				</div>
+			</MudItem>
+		</MudGrid>
+	</section>
 </body>
 </html>
 
@@ -248,6 +508,44 @@
 	protected override void OnInitialized()
 	{
 		MenuState.SetMenuVisibility(true);
+		CobroServicio = 200000;
+		CobroTransacion = 100;
 	}
 
+
+
+	decimal CobroServicio { get; set; }
+	private decimal total { get; set; }
+	private decimal _cobrotransaccion;
+	decimal CobroTransacion
+	{
+		get
+		{
+			if (_value <= 1000)
+			{
+				return _cobrotransaccion = 200;
+			}
+			return _cobrotransaccion = 100;
+		}
+		set
+		{
+			_value = value;
+		}
+	}
+
+
+	private decimal _value;
+	public decimal Value
+	{
+		get
+		{
+			total = CobroServicio + (CobroTransacion * _value);
+			return _value;
+		}
+		set
+		{
+			total = CobroServicio + (CobroTransacion * value);
+			_value = value;
+		}
+	}
 }

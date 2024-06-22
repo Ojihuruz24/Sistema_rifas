@@ -1,4 +1,5 @@
-﻿
+﻿@using MudBlazor;
+@inject IDialogService DialogService;
 
 
 <html>
@@ -21,10 +22,15 @@
 				transform: translateY(-7px);
 			}
 
-		.pulse > #LoQuiero {
+		#mudfab {
+			border-radius: 50%;
 			height: 80px;
 			width: 80px;
-			/*border-radius: 50%;*/
+		}
+
+		#LoQuiero {
+			height: 80px;
+			width: 80px;
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -34,9 +40,11 @@
 </head>
 
 <body>
-	<div class="btn-flotante">
-		<a class="pulse" href="#">
-			<img id="LoQuiero" src="@RutaImagen" alt="Logo">
+	<div class="btn-flotante" hidden="@HideLabel">
+		<a class="pulse">
+			<MudButton id="mudfab" Variant="Variant.Text" OnClick="@OpenDialog">
+				<img id="LoQuiero" src="/Img/Empresa/BtnComprar.png" alt="Logo">
+			</MudButton>
 		</a>
 	</div>
 </body>
@@ -45,9 +53,8 @@
 
 @code {
 
-	[Parameter]
-	public string RutaImagen { get; set; }
 
+	private bool HideLabel { get; set; } = false;
 
 	[Parameter]
 	public string TipoPagina { get; set; }
@@ -58,7 +65,35 @@
 
 	protected override void OnInitialized()
 	{
-		
+
 	}
+
+
+	private async Task OpenDialog()
+	{
+		HideLabel = !HideLabel;
+		var parameters = new DialogParameters<MudDialogComprarPagina>();
+		parameters.Add(x => x.TipoPagina, TipoPagina);
+		parameters.Add(x => x.Pagina, Pagina);
+
+		var options = new DialogOptions
+			{
+				CloseOnEscapeKey = true,
+				MaxWidth = MaxWidth.ExtraExtraLarge,
+				FullWidth = true
+			};
+		var dialog = await DialogService.ShowAsync<MudDialogComprarPagina>($"Tipo pagina {Pagina}", parameters, options);
+
+		var result = await dialog.Result;
+
+		if (!result.Canceled)
+		{
+			
+		}
+
+		HideLabel = !HideLabel;
+	}
+
+
 
 }
