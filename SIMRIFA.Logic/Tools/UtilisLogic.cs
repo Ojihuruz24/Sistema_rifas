@@ -1,7 +1,11 @@
-﻿using SIMRIFA.Service.Transaccion;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using SIMRIFA.Service.Transaccion;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -12,10 +16,12 @@ namespace SIMRIFA.Logic.Tools
 	public class UtilisLogic : IUtilisLogic
 	{
 		private ITransaccionService _transaccionService;
+		private readonly IConfiguration _configuration;
 
-		public UtilisLogic(ITransaccionService transaccionService)
+		public UtilisLogic(ITransaccionService transaccionService, IConfiguration configuration)
 		{
 			_transaccionService = transaccionService;
+			_configuration = configuration;
 		}
 
 		public decimal Calcular(decimal valor, decimal cantidad)
@@ -152,6 +158,28 @@ namespace SIMRIFA.Logic.Tools
 			return result;
 
 			//return number.ToString().PadRight(number.ToString().Length + minZeros, '0');
+		}
+
+
+		public async Task<string> GenerateJwtToken(string username)
+		{
+			var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]); // Asegúrate de definir la clave en appsettings.json
+			var tokenHandler = new JwtSecurityTokenHandler();
+			var tokenDescriptor = new SecurityTokenDescriptor
+			{
+				Subject = new ClaimsIdentity(new Claim[]
+				{
+					new Claim(ClaimTypes.Name, username)
+				}),
+				Expires = DateTime.UtcNow.AddHours(int.Parse(_configuration["Jwt:ExpireHours"])),
+				Issuer = _configuration["Jwt:Issuer"],
+				Audience = _configuration["Jwt:Audience"],
+				SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+			};
+
+			var token = tokenHandler.CreateToken(tokenDescriptor);
+
+			return tokenHandler.WriteToken(token); 
 		}
 	}
 }

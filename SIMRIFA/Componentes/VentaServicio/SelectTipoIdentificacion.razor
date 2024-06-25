@@ -1,51 +1,84 @@
 ﻿@using MudBlazor
+@using SIMRIFA.Model.core;
+@using SIMRIFA.Tools.ConexionFrontBackend;
 
-<MudSelect T="string" Value="@TipoDocumentSelect" ValueChanged="@OnChangeTipoIdentificacion" Label="Pais" AnchorOrigin="Origin.BottomCenter" Variant="Variant.Filled" Clearable Required="@Requerido" RequiredError="@MensajeError">
 
-	@if (Documentos != null && Documentos.Count > 0)
+
+<MudSelect Label="@Title"
+		   Value="seleccionado"
+		   ValueChanged="OnSelectedValues"
+		   T="TipoIdentificacion"
+		   Variant="Variant.Filled"
+		   AdornmentColor="Color.Secondary"
+		   Required="@Requerido"
+		   RequiredError="@MensajeError">
+	@if (listaTipoIdentificacion != null)
 	{
-		@foreach (var item in Documentos)
+		@if (listaTipoIdentificacion.Count() > 0)
 		{
-			<MudSelectItem T="string" Value="item">@item</MudSelectItem>
+			@foreach (var item in listaTipoIdentificacion)
+			{
+				<MudSelectItem T="TipoIdentificacion" Value="@item">@item.COD_OPERATIVO - @item.DESCRIPCION</MudSelectItem>
+			}
 		}
 	}
-
 </MudSelect>
-
-
-<MudTextField @bind-Value="HelperText" Label="Documento de Identidad*" HelperText="Foto de su DNI / INE / CC / CI / Cédula..." Variant="Variant.Filled" Required />
-
-
 
 @code {
 
-	public string HelperText { get; set; }
+	TipoIdentificacion seleccionado = new();
+
+	[Parameter]
+	public EventCallback<TipoIdentificacion> TipoIdentificacionEvent { get; set; }
+
+	private IEnumerable<TipoIdentificacion> listaTipoIdentificacion { get; set; } = new List<TipoIdentificacion>();
+
+	[Inject]
+	private IConexionApi<TipoIdentificacion, TipoIdentificacion> ApiTipoIdentificacion { get; set; }
+
+
+	[Parameter]
+	public string? Preselecionado { get; set; }
 
 	[Parameter]
 	public bool Requerido { get; set; }
 
 	[Parameter]
-	public string MensajeError { get; set; } = "Campo requerido";
-
-	private string TipoDocumentSelect;
-	private List<string> Documentos = new List<string>();
+	public string Title { get; set; } = "";
 
 	[Parameter]
-	public EventCallback<string> OnChange { get; set; }
+	public string MensajeError { get; set; } = "Campo requerido";
 
 
 	protected override async Task OnInitializedAsync()
 	{
+		listaTipoIdentificacion = await ApiTipoIdentificacion.GetAll("TipoIdentificacion");
 
-		Documentos.Add("CC");
+		seleccionado = listaTipoIdentificacion.FirstOrDefault(x => x.COD_OPERATIVO == Preselecionado);
+		await OnSelectedValues(seleccionado);
 	}
 
+	//protected override async Task OnAfterRenderAsync(bool firstRender)
+	//{
+	//	if (firstRender)
+	//	{
+	//		listaTipoIdentificacion = await ApiTipoIdentificacion.GetAll("TipoIdentificacion");
+
+	//		seleccionado = listaTipoIdentificacion.FirstOrDefault(x => x.COD_OPERATIVO == Preselecionado);
+	//		await OnSelectedValues(seleccionado);
+	//	}
+
+	//	await base.OnAfterRenderAsync(firstRender);
+	//}
 
 
-	private void OnChangeTipoIdentificacion(string resp)
+	public async Task OnSelectedValues(TipoIdentificacion values)
 	{
-		TipoDocumentSelect = resp;
-		OnChange.InvokeAsync(resp);
+		if (values != null)
+		{
+			seleccionado = values;
+			await TipoIdentificacionEvent.InvokeAsync(seleccionado);
+		}
 	}
 
 }

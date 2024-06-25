@@ -9,6 +9,7 @@ namespace SIMRIFA.Api.Controllers
 
 	[Route("api/[controller]")]
 	[ApiController]
+	[Microsoft.AspNetCore.Authorization.Authorize]
 	public class TipoIdentificacionController : ControllerBase
 	{
 		private readonly ITipoIdentificacionService _service;
@@ -24,7 +25,9 @@ namespace SIMRIFA.Api.Controllers
 		{
 			try
 			{
-				return Ok(await _service.ObtenerAsync());
+				IEnumerable<TipoIdentificacion> slit = await _service.ObtenerAsync(x => x.ESTADO == true);
+
+				return Ok(slit);
 			}
 			catch (Exception ex)
 			{

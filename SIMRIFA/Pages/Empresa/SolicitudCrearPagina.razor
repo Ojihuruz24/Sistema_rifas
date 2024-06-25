@@ -1,9 +1,13 @@
 ﻿@page "/Empresa/SolicitudCrearPagina"
 @using MudBlazor;
+@using SIMRIFA.Api.Controllers;
 @using SIMRIFA.Componentes.Genericos
 @using SIMRIFA.Componentes.Rifas.Header
 @using SIMRIFA.Componentes.VentaServicio
 @using SIMRIFA.Data;
+@using SIMRIFA.Logic.Tools;
+@using SIMRIFA.Model.core;
+@using SIMRIFA.Tools.ConexionFrontBackend;
 @inject ISnackbar Snackbar;
 @inject MenuState MenuState;
 @inject IJSRuntime js;
@@ -359,7 +363,7 @@
 			</MudItem>
 
 			<MudItem sm="12" lg="6" xl="6">
-				<SelectTipoIdentificacion OnChange="ObtenerTipoCedula" Requerido=true MensajeError="Campo requerido"></SelectTipoIdentificacion>
+				<SelectTipoIdentificacion TipoIdentificacionEvent="@ObtenerIdentificacion" Preselecionado="CC" Requerido=true MensajeError="Campo requerido"></SelectTipoIdentificacion>
 			</MudItem>
 
 			<MudItem sm="12" lg="6" xl="6">
@@ -484,29 +488,43 @@
 				</MudItem>
 				</MudGrid>
 			</section>
-		</body>
-		</html>
+
+</body>
+</html>
+
 
 		@code {
 
+	TipoIdentificacion seleccionado = new();
+
+	[Parameter]
+	public EventCallback<TipoIdentificacion> TipoIdentificacionEvent { get; set; }
+
+	public async Task ObtenerIdentificacion(TipoIdentificacion values)
+	{
+		if (values != null)
+		{
+			var sdsd = values.COD_OPERATIVO;
+		}
+	}
+
+
 	public string HelperText { get; set; }
-
 	TimeSpan? time = new TimeSpan(00, 45, 00);
-
+	Dictionary<string, IBrowserFile> _files = new Dictionary<string, IBrowserFile>();
 	public int CantidadNumeros { get; set; }
 	public bool DeshabilitarBottonHeader { get; set; } = false;
 
-
-	protected override void OnInitialized()
+	protected override async Task OnInitializedAsync()
 	{
 		MenuState.SetMenuVisibility(true);
 	}
+	
 
 	public string SelectedOption { get; set; }
 
 	public string SelectTipoPago { get; set; }
 
-	Dictionary<string, IBrowserFile> _files = new Dictionary<string, IBrowserFile>();
 
 	private void SubirDocumentoEvidencia(IBrowserFile file)
 	{

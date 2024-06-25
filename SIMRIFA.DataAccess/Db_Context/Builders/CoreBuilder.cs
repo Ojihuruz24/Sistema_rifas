@@ -20,7 +20,7 @@ namespace SIMRIFA.DataAccess.Db_Context.Builders
 			modelBuilder.Entity<TipoIdentificacion>(E =>
 			{
 				E.ToTable("TIPO_IDENTIFICACION", "core");
-				E.HasKey(c => c.ID_TipoIdentificacion);
+				E.HasKey(c => c.ID_TIPO_IDENTIFICACION);
 			});
 
 

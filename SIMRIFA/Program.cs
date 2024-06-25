@@ -1,16 +1,13 @@
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using MudBlazor.Services;
 using SIMRIFA.Data;
-using SIMRIFA.DataAccess.Repository;
-using SIMRIFA.Service.Tools;
 using SIMRIFA.DataAccess.ConfiguracionRepositorio;
 using SIMRIFA.Service.ConfiguracionServicio;
 using SIMRIFA.DataAccess.Db_Context;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer;
 using SIMRIFA.Logic.ConfiguracionLogica;
+using SIMRIFA.Tools.ConexionFrontBackend;
+using Blazored.LocalStorage;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
@@ -31,6 +28,8 @@ builder.Services.AddDbContext<SIMRIFAdbContext>(options =>
 
 builder.Services.AddScoped<MenuState>();
 
+builder.Services.AddBlazoredLocalStorage();
+
 #region Logica servicio
 
 builder.Services.AddLogica();
@@ -38,11 +37,14 @@ builder.Services.AddLogica();
 
 #region "Patron Repositorio" 
 builder.Services.AddRepositorios(configuration);
-#endregion	   
 
+#endregion     
 #region "Servicios" 
 builder.Services.AddService();
+
 #endregion
+
+builder.Services.AddScoped(typeof(IConexionApi<,>), typeof(ConexionApi<,>));
 
 
 var app = builder.Build();

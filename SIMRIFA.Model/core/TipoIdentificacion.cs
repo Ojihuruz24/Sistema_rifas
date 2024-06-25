@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SIMRIFA.Model.core
 {
@@ -13,19 +8,17 @@ namespace SIMRIFA.Model.core
 	public class TipoIdentificacion : Auditoria
 	{
 		[Key]
+		[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 		[Column("ID_TIPO_IDENTIFICACION")]
-		[Required]
-		public int ID_TipoIdentificacion { get; set; }
+		public int ID_TIPO_IDENTIFICACION { get; set; }
 
-		[Key]
+		[Required]
 		[Column("DESCRIPCION")]
-		[Required]
-		public string Descripcion { get; set; }
+		public string DESCRIPCION { get; set; }
 
-		[Key]
-		[Column("COD_OPERATIVO")]
 		[Required]
-		public string CodOperativo { get; set; }
+		[Column("COD_OPERATIVO")]
+		public string COD_OPERATIVO { get; set; }
 
 	}
 }

@@ -10,17 +10,12 @@ namespace SIMRIFA.Model
 {
 	public class Auditoria
 	{
-		[Column("FECHA_CREACION")]
 		[Required]
-		public DateTime FechaCreacion { get; set; }
+		public DateTime FECHA_CREACION { get; set; }
 
+		public DateTime? FECHA_MODIFICACION { get; set;}
 
-		[Column("FECHA_MODIFICACION")]
-		public DateTime? FechaModificacion { get; set;}
-
-
-		[Column("ESTADO")]
 		[Required]
-		public bool Estado { get; set; }
+		public bool ESTADO { get; set; }
 	}
 }

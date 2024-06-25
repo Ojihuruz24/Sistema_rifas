@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using MudBlazor;
 @using SIMRIFA.Data;
+@using SIMRIFA.Logic.Tools;
 
 <httml>
 
@@ -501,8 +502,21 @@
 @code {
 	@inject MenuState MenuState;
 
-	protected override void OnInitialized()
+	[Inject] private IUtilisLogic utilis { get; set; }
+
+	protected override async void OnInitialized()
 	{
 		MenuState.SetMenuVisibility(true);
+	}
+
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			var token = await utilis.GenerateJwtToken("test");
+
+			await localStorage.SetItemAsync("jwtToken", token);
+		}
 	}
 }

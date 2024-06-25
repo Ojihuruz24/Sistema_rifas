@@ -19,7 +19,7 @@ namespace SIMRIFA.Api.Controllers
 		}
 
 		[HttpPost()]
-		public IActionResult Login([FromBody] LoginModel loginModel)
+		public async Task<IActionResult> Login([FromBody] LoginModel loginModel)
 		{
 
 			if (loginModel.Username == "test" && loginModel.Password == "test")

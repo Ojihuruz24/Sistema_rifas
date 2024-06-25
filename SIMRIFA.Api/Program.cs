@@ -11,14 +11,19 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using SIMRIFA.Logic.ConfiguracionLogica;
+using Microsoft.Extensions.Caching.Distributed;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
 
-builder.Services.AddTransient<EventApiWompiController>();
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddHttpClient();
+builder.Services.AddSignalR(e =>
+{
+	e.MaximumReceiveMessageSize = 102400000;
+	e.EnableDetailedErrors = true;
+});
+
 builder.Services.AddSwaggerGen(options =>
 {
 	options.SwaggerDoc("v1", new OpenApiInfo
@@ -28,7 +33,7 @@ builder.Services.AddSwaggerGen(options =>
 		Description = "Servicios para uso exclusivo de OsdagupO.",
 
 	});
-
+	options.CustomSchemaIds(type => type.ToString());
 	options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
 	{
 		Scheme = "Bearer",
@@ -39,33 +44,67 @@ builder.Services.AddSwaggerGen(options =>
 		Type = SecuritySchemeType.Http
 	});
 
+	options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+		{
+			{
+				new OpenApiSecurityScheme
+				{
+					Reference = new OpenApiReference
+					{
+						Id = "Bearer",
+						Type = ReferenceType.SecurityScheme
+					},
+				},
+				new List<string>()
+			}
+		});
+
 });
 
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
-	options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+	options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+	options.JsonSerializerOptions.PropertyNameCaseInsensitive = false;
+	options.JsonSerializerOptions.PropertyNamingPolicy = null;
 });
 
 
-var key = Encoding.ASCII.GetBytes(configuration["Jwt:Key"]);
+builder.Services.AddCors(options =>
+{
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-	   .AddJwtBearer(x =>
+	options.AddPolicy("https://localhost:7297/", builder =>
+	{
+		builder.AllowAnyOrigin()
+			   .AllowAnyMethod()
+			   .AllowAnyHeader();
+	});
+	options.AddPolicy("AllowOrigin", option => option.AllowAnyOrigin());
+});
+
+builder.Services.AddMemoryCache();
+
+
+#region Auten
+
+builder.Services.AddHttpContextAccessor().AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+	.AddJwtBearer(x =>
 	   {
-		   x.RequireHttpsMetadata = false;
-		   x.SaveToken = true;
-		   x.TokenValidationParameters = new TokenValidationParameters
+		   x.TokenValidationParameters = new TokenValidationParameters()
 		   {
-			   ValidateIssuer = true,
+			   ValidateActor = true,
 			   ValidateAudience = true,
 			   ValidateLifetime = true,
 			   ValidateIssuerSigningKey = true,
 			   ValidIssuer = configuration["Jwt:Issuer"],
 			   ValidAudience = configuration["Jwt:Audience"],
-			   IssuerSigningKey = new SymmetricSecurityKey(key),
+			   IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(configuration["Jwt:Key"])),
 		   };
 	   });
+
+
+builder.Services.AddHttpClient();
+#endregion
 
 #region DbContext SQL Server
 builder.Services.AddDbContext<SIMRIFAdbContext>(options =>
@@ -73,6 +112,7 @@ builder.Services.AddDbContext<SIMRIFAdbContext>(options =>
 	options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"), sqlOptions =>
 	{
 	});
+
 });
 
 #endregion
@@ -91,46 +131,30 @@ builder.Services.AddRepositorios(configuration);
 builder.Services.AddService();
 #endregion
 
-builder.Services.AddSignalR(e =>
-{
-	e.MaximumReceiveMessageSize = 102400000;
-	e.EnableDetailedErrors = true;
-});
-
-
-builder.Services.AddCors(options =>
-{
-	options.AddPolicy("AllowAll", builder =>
-	{
-		builder.AllowAnyOrigin()
-			   .AllowAnyMethod()
-			   .AllowAnyHeader();
-	});
-});
-
-
 
 
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-	app.UseDeveloperExceptionPage();
-}
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.MapControllers();
+
 
 app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseCors();
 app.UseCors("AllowOrigin");
+app.MapControllers();
+app.UseStaticFiles();
+
+
+
+
+
+
+
 
 
 await app.RunAsync();
