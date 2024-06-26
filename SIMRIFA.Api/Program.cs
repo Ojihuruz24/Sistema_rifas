@@ -18,11 +18,7 @@ ConfigurationManager configuration = builder.Configuration;
 
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSignalR(e =>
-{
-	e.MaximumReceiveMessageSize = 102400000;
-	e.EnableDetailedErrors = true;
-});
+
 
 builder.Services.AddSwaggerGen(options =>
 {
@@ -58,7 +54,6 @@ builder.Services.AddSwaggerGen(options =>
 				new List<string>()
 			}
 		});
-
 });
 
 
@@ -72,18 +67,14 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 builder.Services.AddCors(options =>
 {
-
-	options.AddPolicy("https://localhost:7297/", builder =>
+	options.AddPolicy("MyAllowSpecificOrigins", builder =>
 	{
-		builder.AllowAnyOrigin()
-			   .AllowAnyMethod()
-			   .AllowAnyHeader();
+		builder.WithOrigins("https://localhost:7297/").AllowAnyHeader()
+													  .AllowAnyMethod();
 	});
-	options.AddPolicy("AllowOrigin", option => option.AllowAnyOrigin());
 });
 
 builder.Services.AddMemoryCache();
-
 
 #region Auten
 
@@ -136,21 +127,25 @@ builder.Services.AddService();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
-
+app.UseRouting();
 
 
 app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseCors();
-app.UseCors("AllowOrigin");
-app.MapControllers();
+//app.MapControllers();
+
+app.UseEndpoints(endpoints =>
+{
+	endpoints.MapControllers();
+});
+
 app.UseStaticFiles();
 
+app.UseSwagger();
+app.UseSwaggerUI();
 
-
+app.UseCors("MyAllowSpecificOrigins");
 
 
 

@@ -9,6 +9,6 @@ namespace SIMRIFA.Logic.Tools
 		Task<(string referencia, string has)> has(int amount, int cantidad, string fechaExpiracion);
 		Task<bool> ValidacionInfo(string TransaccionID, string TransaccionStatus, string TransaccionAmount, string TransaccionChecksum, string timestamp = null);
 
-		Task<string> GenerateJwtToken(string username);
+		Task<string> GenerateJwtToken();
 	}
 }

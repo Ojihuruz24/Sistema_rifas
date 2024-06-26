@@ -1,19 +1,20 @@
 ﻿using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Text;
-using Blazored.LocalStorage;
 using NuGet.Protocol;
+using SIMRIFA.Tools.Autenticacion;
+using Newtonsoft.Json.Linq;
 
 namespace SIMRIFA.Tools.ConexionFrontBackend
 {
 	public class ConexionApi<TEntity, TObject> : IConexionApi<TEntity, TObject> where TEntity : class where TObject : class
 	{
 
-		private readonly ILocalStorageService _localStorage;
+		private readonly ILocalStorage _localStorage;
 		private readonly HttpClient _httpClient;
 		private readonly IConfiguration _configuration;
 
-		public ConexionApi(HttpClient httpClient, IConfiguration configuration, ILocalStorageService localStorage)
+		public ConexionApi(HttpClient httpClient, IConfiguration configuration, ILocalStorage localStorage)
 		{
 			_httpClient = httpClient;
 			_configuration = configuration;
@@ -26,7 +27,9 @@ namespace SIMRIFA.Tools.ConexionFrontBackend
 			{
 				TEntity Resultado;
 
-				string token = await _localStorage.GetItemAsync<string>("jwtToken");
+				//string token = await _localStorage.GetItemAsync<string>("jwtToken");
+
+				string token = await _localStorage.GetValue<string>(Enum.ValuesKeys.Session);
 
 				var httpContent = new HttpRequestMessage(
 				 HttpMethod.Delete, $"{GetUrl()}{url}");
@@ -59,14 +62,13 @@ namespace SIMRIFA.Tools.ConexionFrontBackend
 			{
 				IEnumerable<TEntity> Resultado;
 
-				string token = await _localStorage.GetItemAsync<string>("jwtToken");
+				string token = await _localStorage.GetValue<string>(Enum.ValuesKeys.Session);
 
 				var httpContent = new HttpRequestMessage(
 				 HttpMethod.Get, $"{GetUrl()}{url}");
 				_httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
 				//_httpClient.Timeout = TimeSpan.FromMinutes(1);
 				HttpResponseMessage response = await _httpClient.SendAsync(httpContent);
-
 
 				var contenido = response.Content.ReadAsStringAsync();
 
@@ -98,7 +100,7 @@ namespace SIMRIFA.Tools.ConexionFrontBackend
 			try
 			{
 				TEntity Resultado;
-				string token = await _localStorage.GetItemAsync<string>("jwtToken");
+				string token = await _localStorage.GetValue<string>(Enum.ValuesKeys.Session);
 				var httpContent = new HttpRequestMessage(
 				 HttpMethod.Get, $"{GetUrl()}{url}");
 				_httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
@@ -138,7 +140,7 @@ namespace SIMRIFA.Tools.ConexionFrontBackend
 			try
 			{
 				TEntity Resultado;
-				string token = await _localStorage.GetItemAsync<string>("jwtToken");
+				string token = await _localStorage.GetValue<string>(Enum.ValuesKeys.Session);
 				var httpContent = new HttpRequestMessage(
 				 HttpMethod.Post, $"{GetUrl()}{url}");
 				_httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
@@ -202,7 +204,7 @@ namespace SIMRIFA.Tools.ConexionFrontBackend
 		{
 			try
 			{
-				string token = await _localStorage.GetItemAsync<string>("jwtToken");
+				string token = await _localStorage.GetValue<string>(Enum.ValuesKeys.Session);
 				var httpContent = new HttpRequestMessage(
 				 HttpMethod.Post, $"{GetUrl()}{url}");
 				_httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
@@ -245,7 +247,7 @@ namespace SIMRIFA.Tools.ConexionFrontBackend
 			try
 			{
 				IEnumerable<TEntity> Resultado;
-				string token = await _localStorage.GetItemAsync<string>("jwtToken");
+				string token = await _localStorage.GetValue<string>(Enum.ValuesKeys.Session);
 				var httpContent = new HttpRequestMessage(
 				 HttpMethod.Post, $"{GetUrl()}{url}");
 				_httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
@@ -302,7 +304,7 @@ namespace SIMRIFA.Tools.ConexionFrontBackend
 			try
 			{
 				TEntity Resultado;
-				string token = await _localStorage.GetItemAsync<string>("jwtToken");
+				string token = await _localStorage.GetValue<string>(Enum.ValuesKeys.Session);
 				var httpContent = new HttpRequestMessage(
 				 HttpMethod.Put, $"{GetUrl()}{url}");
 				_httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
@@ -366,7 +368,7 @@ namespace SIMRIFA.Tools.ConexionFrontBackend
 			try
 			{
 
-				string token = await _localStorage.GetItemAsync<string>("jwtToken");
+				string token = await _localStorage.GetValue<string>(Enum.ValuesKeys.Session);
 				var httpContent = new HttpRequestMessage(
 				 HttpMethod.Get, $"{GetUrl()}{url}");
 				_httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);

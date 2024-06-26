@@ -2,6 +2,7 @@
 @using MudBlazor;
 @using SIMRIFA.Data;
 @using SIMRIFA.Logic.Tools;
+@using SIMRIFA.Tools.Autenticacion;
 
 <httml>
 
@@ -104,9 +105,9 @@
 			</div>
 		</section>
 
-		<br/>
-		<br/>
-		<br/>
+		<br />
+		<br />
+		<br />
 
 		<section>
 			<div class="container">
@@ -140,17 +141,19 @@
 		<section>
 			<div class="choose">
 				<div class="container">
-					
+
 					<div class="row">
 						<div class="col-md-5">
 							<div class="choose_box">
 								<i><img src="img/index/why1.png" alt="#" /></i>
 								<h3>Nuestra vision</h3>
-								<p>En <b>OsdagupO</b>, nuestra visión es ser líderes en la transformación digital, creando páginas web que no solo 
-									conecten con las necesidades actuales de nuestros clientes, sino que también anticipen las tendencias futuras. 
-									Nos esforzamos por ser sinónimo de innovación, calidad y servicio excepcional en el desarrollo web, empoderando a las empresas 
-									para que alcancen su máximo potencial en el ámbito digital. Nuestro compromiso es con el progreso tecnológico y 
-									la excelencia en cada proyecto, asegurando que cada solución web que entregamos sea un paso adelante hacia el futuro de nuestros clientes.</p>
+								<p>
+									En <b>OsdagupO</b>, nuestra visión es ser líderes en la transformación digital, creando páginas web que no solo
+									conecten con las necesidades actuales de nuestros clientes, sino que también anticipen las tendencias futuras.
+									Nos esforzamos por ser sinónimo de innovación, calidad y servicio excepcional en el desarrollo web, empoderando a las empresas
+									para que alcancen su máximo potencial en el ámbito digital. Nuestro compromiso es con el progreso tecnológico y
+									la excelencia en cada proyecto, asegurando que cada solución web que entregamos sea un paso adelante hacia el futuro de nuestros clientes.
+								</p>
 								<a class="read_more" href="#">Leer mas</a>
 							</div>
 						</div>
@@ -161,10 +164,11 @@
 								<p>
 									Nuestra meta en <b>OsdagupO</b> es establecer un estándar de excelencia en el desarrollo web, proporcionando soluciones
 									innovadoras que impulsen el crecimiento y el éxito de nuestros clientes. Nos comprometemos a superar las expectativas con cada
-									proyecto, manteniendo un enfoque en la calidad, la usabilidad y la seguridad. Aspiramos a ser una fuerza impulsora en la 
-									industria, expandiendo nuestro alcance y fortaleciendo nuestra comunidad de clientes satisfechos. A través de la colaboración 
-									continua, la adaptabilidad y la mejora constante, trabajamos para alcanzar resultados sobresalientes que reflejen nuestra 
-									pasión por la tecnología y nuestro compromiso con la innovación.</p>
+									proyecto, manteniendo un enfoque en la calidad, la usabilidad y la seguridad. Aspiramos a ser una fuerza impulsora en la
+									industria, expandiendo nuestro alcance y fortaleciendo nuestra comunidad de clientes satisfechos. A través de la colaboración
+									continua, la adaptabilidad y la mejora constante, trabajamos para alcanzar resultados sobresalientes que reflejen nuestra
+									pasión por la tecnología y nuestro compromiso con la innovación.
+								</p>
 								<a class="read_more" href="#">Leer mas</a>
 							</div>
 						</div>
@@ -489,7 +493,7 @@
 			</div>
 		</section>
 
-		
+
 
 		<div class="btn-flotante">
 			<div class="pulse">
@@ -502,21 +506,8 @@
 @code {
 	@inject MenuState MenuState;
 
-	[Inject] private IUtilisLogic utilis { get; set; }
-
 	protected override async void OnInitialized()
 	{
 		MenuState.SetMenuVisibility(true);
-	}
-
-
-	protected override async Task OnAfterRenderAsync(bool firstRender)
-	{
-		if (firstRender)
-		{
-			var token = await utilis.GenerateJwtToken("test");
-
-			await localStorage.SetItemAsync("jwtToken", token);
-		}
 	}
 }

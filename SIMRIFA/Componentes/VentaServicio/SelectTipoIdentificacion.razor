@@ -1,8 +1,7 @@
 ﻿@using MudBlazor
 @using SIMRIFA.Model.core;
+@using SIMRIFA.Tools.Autenticacion;
 @using SIMRIFA.Tools.ConexionFrontBackend;
-
-
 
 <MudSelect Label="@Title"
 		   Value="seleccionado"
@@ -10,10 +9,13 @@
 		   T="TipoIdentificacion"
 		   Variant="Variant.Filled"
 		   AdornmentColor="Color.Secondary"
+		   ToStringFunc="@convertFunc"
 		   Required="@Requerido"
 		   RequiredError="@MensajeError">
+
 	@if (listaTipoIdentificacion != null)
 	{
+
 		@if (listaTipoIdentificacion.Count() > 0)
 		{
 			@foreach (var item in listaTipoIdentificacion)
@@ -49,27 +51,23 @@
 	[Parameter]
 	public string MensajeError { get; set; } = "Campo requerido";
 
+	private Func<TipoIdentificacion, string> convertFunc = ci => $"{ci?.COD_OPERATIVO} - {ci?.DESCRIPCION}";
 
 	protected override async Task OnInitializedAsync()
 	{
-		listaTipoIdentificacion = await ApiTipoIdentificacion.GetAll("TipoIdentificacion");
 
-		seleccionado = listaTipoIdentificacion.FirstOrDefault(x => x.COD_OPERATIVO == Preselecionado);
-		await OnSelectedValues(seleccionado);
 	}
 
-	//protected override async Task OnAfterRenderAsync(bool firstRender)
-	//{
-	//	if (firstRender)
-	//	{
-	//		listaTipoIdentificacion = await ApiTipoIdentificacion.GetAll("TipoIdentificacion");
-
-	//		seleccionado = listaTipoIdentificacion.FirstOrDefault(x => x.COD_OPERATIVO == Preselecionado);
-	//		await OnSelectedValues(seleccionado);
-	//	}
-
-	//	await base.OnAfterRenderAsync(firstRender);
-	//}
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			listaTipoIdentificacion = await ApiTipoIdentificacion.GetAll("TipoIdentificacion");
+			seleccionado = listaTipoIdentificacion.FirstOrDefault(x => x.COD_OPERATIVO == Preselecionado);
+			await OnSelectedValues(seleccionado);
+			await base.OnAfterRenderAsync(firstRender);
+		}
+	}
 
 
 	public async Task OnSelectedValues(TipoIdentificacion values)

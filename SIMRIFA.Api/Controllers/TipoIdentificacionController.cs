@@ -9,7 +9,7 @@ namespace SIMRIFA.Api.Controllers
 
 	[Route("api/[controller]")]
 	[ApiController]
-	[Microsoft.AspNetCore.Authorization.Authorize]
+	[Authorize]
 	public class TipoIdentificacionController : ControllerBase
 	{
 		private readonly ITipoIdentificacionService _service;

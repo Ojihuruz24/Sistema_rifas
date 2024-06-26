@@ -161,7 +161,7 @@ namespace SIMRIFA.Logic.Tools
 		}
 
 
-		public async Task<string> GenerateJwtToken(string username)
+		public async Task<string> GenerateJwtToken()
 		{
 			var key = Encoding.ASCII.GetBytes(_configuration["Jwt:Key"]); // Asegúrate de definir la clave en appsettings.json
 			var tokenHandler = new JwtSecurityTokenHandler();
@@ -169,7 +169,7 @@ namespace SIMRIFA.Logic.Tools
 			{
 				Subject = new ClaimsIdentity(new Claim[]
 				{
-					new Claim(ClaimTypes.Name, username)
+					new Claim(ClaimTypes.Name, "UsuarioGener05*34/24")
 				}),
 				Expires = DateTime.UtcNow.AddHours(int.Parse(_configuration["Jwt:ExpireHours"])),
 				Issuer = _configuration["Jwt:Issuer"],
@@ -181,5 +181,58 @@ namespace SIMRIFA.Logic.Tools
 
 			return tokenHandler.WriteToken(token); 
 		}
+
+		public async Task<string> EncryptString(string key)
+		{
+			var plainText = "Enctrupo*/242_@";
+
+			using (Aes aesAlg = Aes.Create())
+			{
+				aesAlg.Key = Encoding.UTF8.GetBytes(key);
+				aesAlg.IV = new byte[16];
+
+				var encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+				using (var msEncrypt = new MemoryStream())
+				{
+					using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+					{
+						using (var swEncrypt = new StreamWriter(csEncrypt))
+						{
+							swEncrypt.Write(plainText);
+						}
+
+
+
+						return Convert.ToBase64String(msEncrypt.ToArray());
+					}
+				}
+			}
+		}
+
+		public string DecryptString(string key)
+		{
+			var cipherText = "Enctrupo*/242_@";
+
+			using (Aes aesAlg = Aes.Create())
+			{
+				aesAlg.Key = Encoding.UTF8.GetBytes(key);
+				aesAlg.IV = new byte[16]; // Inicializa el vector de inicialización a ceros.
+
+				var decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+				using (var msDecrypt = new MemoryStream(Convert.FromBase64String(cipherText)))
+				{
+					using (var csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+					{
+						using (var srDecrypt = new StreamReader(csDecrypt))
+						{
+							return srDecrypt.ReadToEnd();
+						}
+					}
+				}
+			}
+		}
+
 	}
 }

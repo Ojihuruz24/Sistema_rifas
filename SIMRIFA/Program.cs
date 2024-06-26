@@ -1,4 +1,3 @@
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using MudBlazor.Services;
 using SIMRIFA.Data;
 using SIMRIFA.DataAccess.ConfiguracionRepositorio;
@@ -7,7 +6,7 @@ using SIMRIFA.DataAccess.Db_Context;
 using Microsoft.EntityFrameworkCore;
 using SIMRIFA.Logic.ConfiguracionLogica;
 using SIMRIFA.Tools.ConexionFrontBackend;
-using Blazored.LocalStorage;
+using SIMRIFA.Tools.Autenticacion;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
@@ -16,8 +15,13 @@ ConfigurationManager configuration = builder.Configuration;
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddSingleton<ProteccionDato>();
 builder.Services.AddMudServices();
 builder.Services.AddHttpClient();
+
+// esta es la interfaz de localStorage
+builder.Services.AddTransient<ILocalStorage,  LocalStorage>();
+
 
 builder.Services.AddDbContext<SIMRIFAdbContext>(options =>
 {
@@ -28,7 +32,6 @@ builder.Services.AddDbContext<SIMRIFAdbContext>(options =>
 
 builder.Services.AddScoped<MenuState>();
 
-builder.Services.AddBlazoredLocalStorage();
 
 #region Logica servicio
 

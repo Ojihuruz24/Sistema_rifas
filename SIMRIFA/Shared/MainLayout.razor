@@ -1,6 +1,9 @@
 ﻿@using MudBlazor
 @using SIMRIFA.Componentes.Rifas.Footer
 @using SIMRIFA.Data;
+@using SIMRIFA.Enum;
+@using SIMRIFA.Logic.Tools;
+@using SIMRIFA.Tools.Autenticacion;
 @inherits LayoutComponentBase;
 @inject IJSRuntime JSRuntime;
 @inject MenuState MenuState;
@@ -110,11 +113,19 @@
 		collapseNavMenu = !collapseNavMenu;
 	}
 
+	[Inject]
+	ILocalStorage localStorage { get; set; }
+
+	[Inject]
+	private IUtilisLogic utilis { get; set; }
+
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
-			//_isDarkMode = await _mudThemeProvider.GetSystemPreference();
+			var token = await utilis.GenerateJwtToken();
+			await localStorage.SetValue<string>(SIMRIFA.Enum.ValuesKeys.Session, token);
+
 			await JSRuntime.InvokeVoidAsync("disableContextMenu");
 			StateHasChanged();
 		}
