@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using SIMRIFA.DataAccess.Repository.MunicipioRepo;
 using SIMRIFA.Logic.ClienteLogic;
 using SIMRIFA.Logic.CorreoLogic;
+using SIMRIFA.Logic.Municipio;
 using SIMRIFA.Logic.NumeroAleatorioLogic;
 using SIMRIFA.Logic.SerieLogic;
 using SIMRIFA.Logic.TipoIdentificacion;
@@ -21,7 +23,9 @@ namespace SIMRIFA.Logic.ConfiguracionLogica
 			services.TryAddScoped<ITransaccionLogicService, TransaccionLogicService>();
 			services.TryAddScoped<IUtilisLogic, UtilisLogic>();
 			services.TryAddScoped<ITipoIdentificacionService, TipoIdentificacionService>();
-			return services;
+			services.TryAddScoped<IMunicipioService, MunicipioService>();
+            
+            return services;
 		}
 	}
 }

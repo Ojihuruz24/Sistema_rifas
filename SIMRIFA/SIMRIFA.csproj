@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Componentes\VentaServicio\" />
     <Folder Include="Events\" />
     <Folder Include="Pages\Empresa\Servicios\" />
     <Folder Include="Pages\Service\DesarrolloWeb\" />
@@ -20,6 +21,7 @@
     <Folder Include="Pages\Service\TramitesTransito\" />
     <Folder Include="wwwroot\fonts\" />
     <Folder Include="wwwroot\bost\" />
+    <Folder Include="wwwroot\CompraPagina\" />
   </ItemGroup>
 
   <ItemGroup>

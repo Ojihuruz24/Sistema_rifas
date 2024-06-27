@@ -74,7 +74,25 @@ namespace SIMRIFA.DataAccess.Db_Context.Builders
                .HasForeignKey(t => t.idCliente)
                .OnDelete(DeleteBehavior.Restrict);
             });
-           
+
+            modelBuilder.Entity<Municipio>(E =>
+            {
+                E.ToTable("MUNICIPIO", "core");
+                E.HasKey(c => c.ID_MUNICIPIO);
+
+                E.HasOne(m => m.Departamento)
+               .WithMany()
+               .HasForeignKey(t => t.COD_DEPARTAMENTO);
+            });
+
+            modelBuilder.Entity<Departamento>(E =>
+            {
+                E.ToTable("DEPARTAMENTO", "core");
+                E.HasKey(c => c.COD_DEPARTAMENTO);
+
+            
+            });
+
         }
     }
 }

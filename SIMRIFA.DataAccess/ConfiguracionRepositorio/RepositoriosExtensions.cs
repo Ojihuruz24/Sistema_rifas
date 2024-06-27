@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SIMRIFA.DataAccess.Repository;
+using SIMRIFA.DataAccess.Repository.MunicipioRepo;
 using SIMRIFA.DataAccess.UnitOfWork;
 using System;
 using System.Collections.Generic;
@@ -16,8 +17,8 @@ namespace SIMRIFA.DataAccess.ConfiguracionRepositorio
 		{
 			services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 			services.AddScoped<IUnitOfWork, UnitOfWork.UnitOfWork>();
-
-			return services;
+            services.AddScoped<IMunicipioRepositorio, MunicipioRepositorio>();
+            return services;
 		}
 	}
 }

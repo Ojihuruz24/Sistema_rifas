@@ -2,8 +2,9 @@
 @using MudBlazor;
 @using SIMRIFA.Api.Controllers;
 @using SIMRIFA.Componentes.Genericos
+@using SIMRIFA.Componentes.Municipio
 @using SIMRIFA.Componentes.Rifas.Header
-@using SIMRIFA.Componentes.VentaServicio
+@using SIMRIFA.Componentes.TipoIdentificacion
 @using SIMRIFA.Data;
 @using SIMRIFA.Logic.Tools;
 @using SIMRIFA.Model.core;
@@ -347,12 +348,10 @@
 			</MudItem>
 
 			<MudItem sm="12" lg="6" xl="6">
-				<SelectPais OnChange="ObtenerPais" Requerido="true" MensajeError="Campo requerido"></SelectPais>
-			</MudItem>
-
-			<MudItem sm="12" lg="6" xl="6">
-				<MudTextField @bind-Value="HelperText" Label="Ubicación*" HelperText="Departamento., Estado, Provincia..." Variant="Variant.Filled" Required />
-			</MudItem>
+			<MudAutoCompleteMunicipio MunicipioEvent="@ObtenerMunicipio"
+				label="Ubicacion" HelperText="Municipio y departamento" Variant="Variant.Filled"
+				Required=true RequiredError="Campo requerido"  ></MudAutoCompleteMunicipio>
+			</MudItem> 
 
 			<MudItem sm="12" lg="6" xl="6">
 				<MudTextField @bind-Value="HelperText" Label="Email*" HelperText="Correo del responsable" Variant="Variant.Filled" Required />
@@ -497,14 +496,20 @@
 
 	TipoIdentificacion seleccionado = new();
 
-	[Parameter]
-	public EventCallback<TipoIdentificacion> TipoIdentificacionEvent { get; set; }
-
 	public async Task ObtenerIdentificacion(TipoIdentificacion values)
 	{
 		if (values != null)
 		{
 			var sdsd = values.COD_OPERATIVO;
+		}
+	}
+
+	public async Task ObtenerMunicipio(Municipio values)
+	{
+		if (values != null)
+		{
+			var sdsd = values.COD_DEPARTAMENTO;
+			var sdsdsd = values.NOMBRE_MUNICIPIO;
 		}
 	}
 

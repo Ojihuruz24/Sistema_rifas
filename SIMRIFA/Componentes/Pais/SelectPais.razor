@@ -1,0 +1,75 @@
+﻿@using MudBlazor
+@using SIMRIFA.Model.core;
+@using SIMRIFA.Tools.ConexionFrontBackend;
+
+
+
+
+<MudItem xs="12">
+	<MudAutocomplete T="Municipio"
+					 Label="@label"
+					 Value="value"
+                     ValueChanged="OnSelectedMunicipio"
+					 SearchFunc="@Search"
+					 ToStringFunc="@(e=> (e==null)?null : $"{e.NOMBRE_MUNICIPIO}")"
+					 ResetValueOnEmptyText="@resetValueOnEmptyText"
+					 AdornmentIcon="@Icons.Material.Filled.Search"
+					 AdornmentColor="Color.Primary"
+					 MinCharacters="3"
+					 Variant="Variant.Outlined" />
+</MudItem>
+
+@code {
+
+
+    [Parameter]
+    public string? label { get; set; }
+
+    [Parameter]
+    public Municipio? value { get; set; }
+
+    private bool resetValueOnEmptyText = true;
+    private bool coerceText = true;
+    private bool coerceValue = true;
+    private IEnumerable<Municipio> lista;
+
+    [Inject] private IConexionApi<Municipio, Municipio> conexionApi { get; set; }
+
+    [Parameter] public EventCallback<Municipio> MunicipioEvent { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        lista = await conexionApi.GetAll("Ciudad");
+    }
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            lista = await conexionApi.GetAll("Ciudad");
+            await base.OnAfterRenderAsync(firstRender);
+        }
+    }
+
+    private async Task<IEnumerable<Municipio>> Search(string value)
+    {
+        await Task.Delay(5);
+
+        if (string.IsNullOrEmpty(value))
+        {
+            return default;
+        }
+        return lista = lista.Where(x => x.NOMBRE_MUNICIPIO == value);
+    }
+
+    public async Task OnSelectedMunicipio(Municipio values)
+    {
+        if (values != null)
+        {
+            value = values;
+            await MunicipioEvent.InvokeAsync(value);
+        }
+    }
+
+}

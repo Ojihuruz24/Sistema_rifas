@@ -34,6 +34,11 @@ namespace SIMRIFA.DataAccess.Db_Context
 
 		public virtual DbSet<TipoIdentificacion>  TipoIdentificacion { get; set; }
 
+		public virtual DbSet<Municipio>  Municipio { get; set; }
+		public virtual DbSet<Departamento>  Departamento { get; set; }
+
+
+
 
 		//public virtual DbSet<Boleta> Boleta { get; set; }
 		//public virtual DbSet<Comprador> Comprador { get; set; }

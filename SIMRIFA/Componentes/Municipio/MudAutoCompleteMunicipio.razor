@@ -1,0 +1,88 @@
+﻿@using MudBlazor
+@using SIMRIFA.Model.core;
+@using SIMRIFA.Tools.ConexionFrontBackend;
+
+
+
+
+<MudAutocomplete T="Municipio"
+				 HelperText="@HelperText"
+				 Label="@label"
+				 Value="value"
+				 ValueChanged="OnSelectedMunicipio"
+				 SearchFunc="@Search"
+				 ToStringFunc="@(e=> (e==null)?null : $"{e.NOMBRE_MUNICIPIO} - {e.Departamento.NOMBRE_DEPARTAMENTO}")"
+				 ResetValueOnEmptyText="@resetValueOnEmptyText"
+				 AdornmentIcon="@Icons.Material.Filled.Search"
+				 AdornmentColor="Color.Primary"
+				 MinCharacters="3"
+				 Variant="@Variant" 
+				 RequiredError="@RequiredError"
+				 Required="@Required" />
+
+@code {
+
+	[Parameter]
+	public string HelperText { get; set; } = string.Empty;
+
+	[Parameter]
+	public Variant Variant { get; set; } = Variant.Outlined;
+
+	[Parameter]
+	public string RequiredError { get; set; } = "Campo requerido";
+
+	[Parameter]
+	public bool Required { get; set; } = false;
+
+
+	[Parameter]
+	public string? label { get; set; }
+
+	[Parameter]
+	public Municipio? value { get; set; }
+
+	private bool resetValueOnEmptyText = true;
+	private bool coerceText = true;
+	private bool coerceValue = true;
+	private IEnumerable<Municipio> lista;
+
+	[Inject] private IConexionApi<Municipio, Municipio> conexionApi { get; set; }
+
+	[Parameter] public EventCallback<Municipio> MunicipioEvent { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+
+	}
+
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			lista = await conexionApi.GetAll("Municipio");
+			await base.OnAfterRenderAsync(firstRender);
+		}
+	}
+
+	private async Task<IEnumerable<Municipio>> Search(string value)
+	{
+		await Task.Delay(5);
+
+		if (string.IsNullOrEmpty(value))
+		{
+			return default;
+		}
+		return lista = await conexionApi.GetAll($"Municipio/{value}");
+	}
+
+	public async Task OnSelectedMunicipio(Municipio values)
+	{
+		if (values != null)
+		{
+			value = values;
+			await MunicipioEvent.InvokeAsync(value);
+		}
+	}
+
+}
