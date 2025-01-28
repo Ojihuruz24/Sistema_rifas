@@ -6,6 +6,7 @@ using SIMRIFA.Logic.CorreoLogic;
 using SIMRIFA.Logic.Municipio;
 using SIMRIFA.Logic.NumeroAleatorioLogic;
 using SIMRIFA.Logic.SerieLogic;
+using SIMRIFA.Logic.TipoCliente;
 using SIMRIFA.Logic.TipoIdentificacion;
 using SIMRIFA.Logic.Tools;
 using SIMRIFA.Logic.Transaccion;
@@ -24,6 +25,7 @@ namespace SIMRIFA.Logic.ConfiguracionLogica
 			services.TryAddScoped<IUtilisLogic, UtilisLogic>();
 			services.TryAddScoped<ITipoIdentificacionService, TipoIdentificacionService>();
 			services.TryAddScoped<IMunicipioService, MunicipioService>();
+			services.TryAddScoped<ITipoClienteService, TipoClienteService>();
             
             return services;
 		}
