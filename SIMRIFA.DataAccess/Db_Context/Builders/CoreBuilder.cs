@@ -89,8 +89,13 @@ namespace SIMRIFA.DataAccess.Db_Context.Builders
             {
                 E.ToTable("DEPARTAMENTO", "core");
                 E.HasKey(c => c.COD_DEPARTAMENTO);
+            });
 
-            
+
+             modelBuilder.Entity<TipoCliente>(E =>
+            {
+                E.ToTable("TIPO_CLIENTE", "core");
+                E.HasKey(c => c.ID_TIPO_CLIENTE);
             });
 
         }

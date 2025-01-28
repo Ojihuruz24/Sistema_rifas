@@ -5,6 +5,7 @@ using SIMRIFA.Model.Models.Wompi;
 using SIMRIFA.Model.ventas;
 using SIMRIFA.DataAccess.Db_Context.Builders;
 using SIMRIFA.Model.Config;
+using SIMRIFA.Model.Models;
 
 namespace SIMRIFA.DataAccess.Db_Context
 {
@@ -36,8 +37,12 @@ namespace SIMRIFA.DataAccess.Db_Context
 
 		public virtual DbSet<Municipio>  Municipio { get; set; }
 		public virtual DbSet<Departamento>  Departamento { get; set; }
+		public virtual DbSet<TipoCliente> TipoCliente { get; set; }
 
 
+		public virtual DbSet<CompraPagina> CompradorPagina { get; set; }
+		public virtual DbSet<CompraPagInfoCliente> CompraPagInfoCliente { get; set; }
+		public virtual DbSet<CompraPagInfoPagina> CompraPagInfoPagina { get; set; }
 
 
 		//public virtual DbSet<Boleta> Boleta { get; set; }
