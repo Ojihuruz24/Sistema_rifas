@@ -1,9 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using System.Text.Json;
 using System.Text;
-using NuGet.Protocol;
 using SIMRIFA.Tools.Autenticacion;
-using Newtonsoft.Json.Linq;
 
 namespace SIMRIFA.Tools.ConexionFrontBackend
 {
@@ -71,9 +69,6 @@ namespace SIMRIFA.Tools.ConexionFrontBackend
 				HttpResponseMessage response = await _httpClient.SendAsync(httpContent);
 
 				var contenido = response.Content.ReadAsStringAsync();
-
-				var contenido2 = response.Content.ToJson();
-
 
 				if (response.IsSuccessStatusCode)
 				{

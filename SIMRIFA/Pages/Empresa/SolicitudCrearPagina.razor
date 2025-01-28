@@ -8,6 +8,7 @@
 @using SIMRIFA.Data;
 @using SIMRIFA.Logic.Tools;
 @using SIMRIFA.Model.core;
+@using SIMRIFA.Model.ventas;
 @using SIMRIFA.Tools.ConexionFrontBackend;
 @inject ISnackbar Snackbar;
 @inject MenuState MenuState;
@@ -254,8 +255,10 @@
 			<MudItem sm="12" lg="12" xl="12">
 				<MudForm>
 					<MudRadioGroup @bind-Value="@SelectedOption">
-						<MudRadio T="string" Value="@("Pago")" Color="Color.Default">Cliente</MudRadio>
-						<MudRadio T="string" Value="@("Alvergue")" Color="Color.Default">Socio</MudRadio>
+						@foreach (var item in tipoClientes)
+						{
+							<MudRadio T="string" Value="item.NOMBRE" Color="Color.Default">@item.DESCRIPCION</MudRadio>
+						}
 					</MudRadioGroup>
 				</MudForm>
 			</MudItem>
@@ -340,25 +343,26 @@
 			</MudItem>
 
 			<MudItem sm="12" lg="6" xl="6">
-				<MudTextField @bind-Value="HelperText" Label="Organizador*" HelperText="Persona, Marca, Empresa..." Variant="Variant.Filled" Required />
+				<MudTextField @bind-Value="@compraPagina.CompraPagInfoCliente.Organizador" Label="Organizador" 
+				HelperText="Persona, Marca, Empresa..." Variant="Variant.Filled" Required RequiredError="Persona, Marca, Empresa Requerido" />
 			</MudItem>
 
 			<MudItem sm="12" lg="6" xl="6">
-				<MudTextField @bind-Value="HelperText" Label="Nombre del Responsable*" HelperText="Nombre completo" Variant="Variant.Filled" Required />
+				<MudTextField @bind-Value="@compraPagina.CompraPagInfoCliente.NombreResponsable" Label="Nombre del Responsable" HelperText="Nombre completo" Variant="Variant.Filled" Required RequiredError="Nombre Requerido" />
 			</MudItem>
 
 			<MudItem sm="12" lg="6" xl="6">
-			<MudAutoCompleteMunicipio MunicipioEvent="@ObtenerMunicipio"
-				label="Ubicacion" HelperText="Municipio y departamento" Variant="Variant.Filled"
-				Required=true RequiredError="Campo requerido"  ></MudAutoCompleteMunicipio>
-			</MudItem> 
-
-			<MudItem sm="12" lg="6" xl="6">
-				<MudTextField @bind-Value="HelperText" Label="Email*" HelperText="Correo del responsable" Variant="Variant.Filled" Required />
+				<MudAutoCompleteMunicipio MunicipioEvent="@ObtenerMunicipio"
+										  label="Ubicacion" HelperText="Municipio y departamento" Variant="Variant.Filled"
+										  Required=true RequiredError="Campo requerido"></MudAutoCompleteMunicipio>
 			</MudItem>
 
 			<MudItem sm="12" lg="6" xl="6">
-				<MudTextField @bind-Value="HelperText" Label="Celular*" HelperText="Celular del responsable" Variant="Variant.Filled" Required />
+				<MudTextField @bind-Value="@compraPagina.CompraPagInfoCliente.Correo" Label="Email" HelperText="Correo del responsable" Variant="Variant.Filled" Required RequiredError="Email Requerido" />
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="@compraPagina.CompraPagInfoCliente.Celular" Label="Celular" HelperText="Celular del responsable" Variant="Variant.Filled" Required RequiredError="Celular Requerido" />
 			</MudItem>
 
 			<MudItem sm="12" lg="6" xl="6">
@@ -366,7 +370,21 @@
 			</MudItem>
 
 			<MudItem sm="12" lg="6" xl="6">
-				<MudTextField @bind-Value="HelperText" Label="Redes Sociales y Sitio Web*" HelperText="URLs de Facebook, Instagram..." Variant="Variant.Filled" Required />
+				<MudTextField @bind-Value="@compraPagina.CompraPagInfoCliente.NumeroIdentificacion" Label="Numero de identificacion" HelperText="sin puntos ni comas" Variant="Variant.Filled" Required />
+			</MudItem>
+
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="@compraPagina.CompraPagInfoCliente.Facebook" Label="Facebook" HelperText="URL de Facebook" Variant="Variant.Filled"  />
+			</MudItem>
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="@compraPagina.CompraPagInfoCliente.Intagram" Label="Instagram" 
+				HelperText="URL de Instagram..." Variant="Variant.Filled" Required RequiredError="Instagram Requerido" />
+			</MudItem>
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="@compraPagina.CompraPagInfoCliente.Telegram" Label="Telegram" HelperText="URL de telegram" Variant="Variant.Filled"  />
+			</MudItem>
+			<MudItem sm="12" lg="6" xl="6">
+				<MudTextField @bind-Value="@compraPagina.CompraPagInfoCliente.Tiktok" Label="TikTok" HelperText="URL de tiktok" Variant="Variant.Filled"  />
 			</MudItem>
 
 			<MudItem sm="12" lg="12" xl="12">
@@ -379,7 +397,7 @@
 						<MudButton HtmlTag="label"
 								   Variant="Variant.Filled"
 								   Color="Color.Primary"
-								   Disabled="@DeshabilitarBottonHeader"
+								   Disabled="@DeshabilitarBottonBanner"
 								   StartIcon="@Icons.Material.Filled.CloudUpload" for="@context.Id">
 							Subir Banners
 						</MudButton>
@@ -407,29 +425,32 @@
 			</MudItem>
 
 			<MudItem sm="12" lg="6" xl="6">
-				<MudTextField @bind-Value="HelperText" Label="Descripción*" HelperText="Dinámica, detalles, datos..." Variant="Variant.Filled" Required />
+				<MudSlider @bind-Value="@compraPagina.CompraPagInfoPagina.CantidadNumerosMaximo"
+				Color="Color.Dark" TickMarks="true" Min="500" Step="500" Max="10000" Size="Size.Large" ValueLabel="true" Variant="Variant.Filled" />
 			</MudItem>
 
 			<MudItem sm="12" lg="6" xl="6">
-				<MudSlider @bind-Value="@CantidadNumeros" Color="Color.Dark" TickMarks="true" Min="500" Step="500" Max="10000" Size="Size.Large" ValueLabel="true" Variant="Variant.Filled" />
+				<MudTextField @bind-Value="@compraPagina.CompraPagInfoPagina.PrecioTicket" Label="Precio Ticket"
+							  HelperText="Valor del ticket" Variant="Variant.Filled" Required RequiredError="Precio Ticket Requerido" />
+
 			</MudItem>
 
 			<MudItem sm="12" lg="6" xl="6">
-				<MudTextField @bind-Value="HelperText" Label="Precio Ticket*" HelperText="URLs de Facebook, Instagram..." Variant="Variant.Filled" Required />
+				<MudTextField @bind-Value="@compraPagina.CompraPagInfoPagina.Moneda" Label="Tipo moneda" 
+				HelperText="Tipo de moneda" Variant="Variant.Filled" Disabled />
 			</MudItem>
 
 			<MudItem sm="12" lg="6" xl="6">
-				<MudTextField @bind-Value="HelperText" Label="Moneda*" HelperText="URLs de Facebook, Instagram..." Variant="Variant.Filled" Required />
+				<MudDatePicker Label="yyyy-MM-dd" Editable="true"
+							   ImmediateText="true" @bind-Date="@compraPagina.CompraPagInfoPagina.FechaSorteo" 
+							   Mask="@(new DateMask("0000-00-00"))" DateFormat="yyyy-MM-dd" 
+				Placeholder="Fecha sorteo" Clearable="true" />
 			</MudItem>
 
 			<MudItem sm="12" lg="6" xl="6">
-				<MudTextField @bind-Value="HelperText" Label="Fecha del Sorteo*" HelperText="Fecha de cuando empieza" Variant="Variant.Filled" Required />
-			</MudItem>
-
-			<MudItem sm="12" lg="6" xl="6">
-				<MudTextField @bind-Value="HelperText" Label="Hora*" HelperText="Hora cuando empieza el sorteo" Variant="Variant.Filled" Required />
-
-				<MudTimePicker Label="Hora cuando empieza el sorteo" AmPm="true" TimeFormat="h:mm tt" @bind-Time="@time" />
+				<MudTimePicker Label="Hora apertura del sorteo" AmPm="true" 
+					TimeFormat="h:mm tt" Clearable="true"
+							   @bind-Time="@compraPagina.CompraPagInfoPagina.HoraEvento" Required RequiredError="Hora Apertura Requerido" />
 			</MudItem>
 
 			<MudItem sm="12" lg="12" xl="12">
@@ -488,19 +509,48 @@
 				</MudGrid>
 			</section>
 
-</body>
-</html>
-
-
+		</body>
+		</html>
 		@code {
+	[Inject]
+	private IConexionApi<TipoCliente, TipoCliente> TipoClienteApi { get; set; }
+	private TipoIdentificacion seleccionado = new();
+	private string SelectedOption { get; set; }
+	private string SelectTipoPago { get; set; }
+	private string HelperText { get; set; }
+	Dictionary<string, IBrowserFile> _files = new Dictionary<string, IBrowserFile>();
+	private bool DeshabilitarBottonBanner { get; set; } = false;
 
-	TipoIdentificacion seleccionado = new();
+	private List<TipoCliente> tipoClientes = new List<TipoCliente>();
+
+
+	private CompraPagina compraPagina { get; set; }
+
+	protected override async Task OnInitializedAsync()
+	{
+		compraPagina = new CompraPagina();
+		compraPagina.CompraPagInfoCliente = new CompraPagInfoCliente();
+		compraPagina.CompraPagInfoPagina = new CompraPagInfoPagina();
+		MenuState.SetMenuVisibility(true);
+	}
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			tipoClientes = (await TipoClienteApi.GetAll("TipoCliente")).ToList();
+			await base.OnAfterRenderAsync(firstRender);
+		}
+	}
+
+
 
 	public async Task ObtenerIdentificacion(TipoIdentificacion values)
 	{
 		if (values != null)
 		{
-			var sdsd = values.COD_OPERATIVO;
+			compraPagina.CompraPagInfoCliente.IdTipoIdentificacion = values.ID_TIPO_IDENTIFICACION;
+
 		}
 	}
 
@@ -508,28 +558,18 @@
 	{
 		if (values != null)
 		{
-			var sdsd = values.COD_DEPARTAMENTO;
-			var sdsdsd = values.NOMBRE_MUNICIPIO;
+			compraPagina.CompraPagInfoCliente.Pais = "CO";
+			compraPagina.CompraPagInfoCliente.Municipio = values.COD_MUNICIPIO;
 		}
 	}
 
-
-	public string HelperText { get; set; }
-	TimeSpan? time = new TimeSpan(00, 45, 00);
-	Dictionary<string, IBrowserFile> _files = new Dictionary<string, IBrowserFile>();
-	public int CantidadNumeros { get; set; }
-	public bool DeshabilitarBottonHeader { get; set; } = false;
-
-	protected override async Task OnInitializedAsync()
+	public async Task FechaSorteoChanged(DateTime values)
 	{
-		MenuState.SetMenuVisibility(true);
+		if (values != null)
+		{
+			compraPagina.CompraPagInfoPagina.FechaSorteo = values;
+		}
 	}
-	
-
-	public string SelectedOption { get; set; }
-
-	public string SelectTipoPago { get; set; }
-
 
 	private void SubirDocumentoEvidencia(IBrowserFile file)
 	{
@@ -602,11 +642,11 @@
 			Snackbar.Clear();
 			Snackbar.Configuration.PositionClass = Defaults.Classes.Position.BottomEnd;
 			Snackbar.Add($"Cantidad de imagenes permitidad 3", Severity.Warning);
-			DeshabilitarBottonHeader = true;
+			DeshabilitarBottonBanner = true;
 			return;
 		}
 
-		DeshabilitarBottonHeader = false;
+		DeshabilitarBottonBanner = false;
 
 		if (!file.ContentType.EndsWith("jpeg") && !file.ContentType.EndsWith("jpg") && !file.ContentType.EndsWith("png"))
 		{
@@ -643,7 +683,7 @@
 	private void EliminarBanner(IBrowserFile file)
 	{
 		_files.Remove($"Banner_{file.Name}");
-		DeshabilitarBottonHeader = false;
+		DeshabilitarBottonBanner = false;
 	}
 
 	private void ObtenerPais(string pais)
