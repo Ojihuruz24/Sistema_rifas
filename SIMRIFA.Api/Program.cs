@@ -123,8 +123,6 @@ builder.Services.AddService();
 #endregion
 
 
-
-
 var app = builder.Build();
 
 app.UseRouting();
